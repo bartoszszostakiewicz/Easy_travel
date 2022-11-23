@@ -1,5 +1,6 @@
 package com.example.easy_travel
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
             if(username.text.toString().equals("admin") && password.text.toString().equals("admin")){
                 var mes1 =Toast.makeText(applicationContext, "LOGIN SUCCESFUL", Toast.LENGTH_LONG)
                 mes1.show()
+
+                var nowaAktywnosc: Intent = Intent(applicationContext, ListaWycieczek::class.java)
+                startActivity(nowaAktywnosc)
             }
             else{
                 var mes2 =Toast.makeText(applicationContext, "LOGIN FAILED", Toast.LENGTH_LONG)
