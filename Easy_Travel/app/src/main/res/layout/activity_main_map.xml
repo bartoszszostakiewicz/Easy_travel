@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#340093"
     tools:context=".MainActivity">
 
-    <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:id="@+id/map_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        map:mapId="YOUR_MAP_ID" />
 
-</FrameLayout>
+    <fragment
+        android:id="@+id/map_fragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="346dp"
+        android:layout_height="240dp"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.492"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintVertical_bias="0.45"
+        map:mapId="17ff8d31f209ff59" />
+
+    <Button
+        android:id="@+id/chat"
+        android:layout_width="168dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="32dp"
+        android:text="Czat"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="168dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="32dp"
+        android:text="x"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+
+    <Button
+        android:id="@+id/information"
+        android:layout_width="168dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="216dp"
+        android:text="Informacje"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+
+    <Button
+        android:id="@+id/help"
+        android:layout_width="168dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="216dp"
+        android:text="Pomoc"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="168dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="524dp"
+        android:layout_marginEnd="200dp"
+        android:text="Button"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+
+    <Button
+        android:id="@+id/trip_plan"
+        android:layout_width="249dp"
+        android:layout_height="62dp"
+        android:text="Plan wycieczki"
+        map:layout_constraintBottom_toTopOf="@+id/map_fragment"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.498"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintVertical_bias="0.768" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

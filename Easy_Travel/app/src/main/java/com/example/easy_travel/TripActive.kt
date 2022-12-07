@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.trip_plan.*
-import kotlinx.android.synthetic.main.trip_plan_element.view.*
+
 
 class TripActive (
     private val tripCells: MutableList<TripCell>
@@ -45,11 +43,11 @@ class TripActive (
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val curTrip = tripCells[position]
         holder.itemView.apply {
-            tripTitle.text = curTrip.name
-            toggleStrikeThrough(tripTitle, curTrip.isOver)
-            detailButton.setOnClickListener {
+            //tripTitle.text = curTrip.name
+           // toggleStrikeThrough(tripTitle, curTrip.isOver)
+           // detailButton.setOnClickListener {
                 // Page to describe
-            }
+            //}
         }
     }
 

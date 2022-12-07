@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 var mes1 = Toast.makeText(applicationContext, "LOGIN SUCCESFUL", Toast.LENGTH_LONG)
                 mes1.show()
 
-                var nowaAktywnosc: Intent = Intent(applicationContext, Menu::class.java)
+                var nowaAktywnosc: Intent = Intent(applicationContext, MenuActivity::class.java)
                 startActivity(nowaAktywnosc)
             } else {
                 var mes2 = Toast.makeText(applicationContext, "LOGIN FAILED", Toast.LENGTH_LONG)
