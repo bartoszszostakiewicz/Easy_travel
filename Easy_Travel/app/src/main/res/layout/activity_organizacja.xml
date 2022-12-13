@@ -7,67 +7,82 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Nowa_wycieczka"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:padding="24dp"
-        android:text="Zaloguj sie"
+        android:text="Nowa wycieczka"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/nazwa_wycieczki"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/Nowa_wycieczka"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawableLeft="@drawable/ic_baseline_sd_24"
         android:drawablePadding="10dp"
-        android:hint="login"
+        android:hint="nazwa wycieczki"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF" />
+
+
+    <EditText
+        android:id="@+id/przewodnik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nazwa_wycieczki"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_sd_24"
+        android:drawablePadding="10dp"
+        android:hint="id przewodnika"
         android:inputType="text"
         android:padding="20dp"
         android:textColor="@color/cardview_dark_background"
         android:textColorHighlight="#FFFFFF" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/opis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:layout_margin="10dp"
+        android:layout_below="@+id/przewodnik"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_password_24"
+        android:drawableLeft="@drawable/ic_baseline_sd_24"
         android:drawablePadding="10dp"
-        android:hint="password"
+        android:hint="krótki opis wycieczki"
+        android:inputType="text"
         android:padding="20dp"
         android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF"
-        android:inputType="textPassword"/>
+        android:textColorHighlight="#FFFFFF" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login_button"
+        android:id="@+id/stworz_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
+        android:layout_below="@+id/opis"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/design_default_color_secondary"
-        android:text="login"></com.google.android.material.button.MaterialButton>
+        android:text="stwórz"></com.google.android.material.button.MaterialButton>
 
-    <TextView
-        android:id="@+id/forgotpass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:text="Forget password"
-        android:textColor="@color/white" />
+
+
 
 </RelativeLayout>
