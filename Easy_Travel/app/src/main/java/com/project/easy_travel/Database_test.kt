@@ -1,10 +1,7 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
-import androidx.constraintlayout.widget.Constraints.TAG
 import com.google.firebase.database.*
 
 

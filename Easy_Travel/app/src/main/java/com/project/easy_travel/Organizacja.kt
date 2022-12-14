@@ -1,9 +1,8 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton

@@ -1,6 +1,5 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity

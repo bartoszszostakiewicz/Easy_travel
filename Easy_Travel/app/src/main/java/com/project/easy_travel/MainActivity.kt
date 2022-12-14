@@ -1,15 +1,11 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 //import kotlinx.android.synthetic.main.trip_plan.*
 

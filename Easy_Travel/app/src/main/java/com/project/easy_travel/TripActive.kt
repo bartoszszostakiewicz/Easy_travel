@@ -1,6 +1,5 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
-import android.content.Intent
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
