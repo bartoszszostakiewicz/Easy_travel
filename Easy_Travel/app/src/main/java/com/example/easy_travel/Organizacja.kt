@@ -3,10 +3,10 @@ package com.example.easy_travel
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton
+//import kotlinx.android.synthetic.main.activity_organizacja.*
 
 //import kotlinx.android.synthetic.main.activity_organizacja.*
 
@@ -20,24 +20,24 @@ class Organizacja : AppCompatActivity() {
         var przew = findViewById<TextView>(R.id.przewodnik)
         var btn = findViewById<MaterialButton>(R.id.stworz_button)
 
+        val Lista_wycieczek: MutableList<Wycieczka> = mutableListOf()
+
         btn.setOnClickListener {
 
             var pierwsza = Wycieczka(name, przew)
-            var n = pierwsza.nazwa
-            var p = pierwsza.przewonik
+            var n = pierwsza.name
+            var p = pierwsza.przewodnik
 
-            //Nowa_wycieczka.setText("g")
-            var mes1 = Toast.makeText(applicationContext, "${n} ZOSTAŁA DODANA (${p})", Toast.LENGTH_LONG)
-            mes1.show()
+            Lista_wycieczek.add(pierwsza)
+            var key =pierwsza.get_key()
+
+            //Nowa_wycieczka.text= key.toString()
         }
 
     }
 }
 
-class Wycieczka(val nazwa: TextView, val przewonik: TextView) {
-    fun id(){}
 
-}
 
 //GENEROWANY KOD WYCIECZKI
 //KLASA PRZECHOWUJACA WYCIECZKE ?

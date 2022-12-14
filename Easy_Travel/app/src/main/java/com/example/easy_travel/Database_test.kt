@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.constraintlayout.widget.Constraints.TAG
 import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 
 
 class Database_test : AppCompatActivity() {
