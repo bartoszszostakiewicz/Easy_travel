@@ -3,6 +3,7 @@ package com.project.easy_travel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 
 
 class Database_test : AppCompatActivity() {
