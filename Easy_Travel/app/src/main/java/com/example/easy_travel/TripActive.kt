@@ -5,6 +5,7 @@ import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -43,11 +44,13 @@ class TripActive (
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val curTrip = tripCells[position]
         holder.itemView.apply {
-            //tripTitle.text = curTrip.name
-           // toggleStrikeThrough(tripTitle, curTrip.isOver)
-           // detailButton.setOnClickListener {
-                // Page to describe
-            //}
+            var detailButton = findViewById<Button>(R.id.detailButton)
+            var tripTitle = findViewById<TextView>(R.id.tripTitle)
+            tripTitle.text = curTrip.name
+            toggleStrikeThrough(tripTitle, curTrip.isOver)
+            detailButton.setOnClickListener {
+                //Page to describe
+            }
         }
     }
 
