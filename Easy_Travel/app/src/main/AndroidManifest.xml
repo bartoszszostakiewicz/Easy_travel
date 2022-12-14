@@ -50,7 +50,7 @@
                 android:value="" />
         </activity>
         
-        <activity android:name=".TripListActivity"
+        <activity android:name=".TripListPointActivity"
 
             android:exported="false">
             <meta-data
