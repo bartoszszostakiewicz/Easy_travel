@@ -30,6 +30,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(nowaAktywnosc)
             }
 
+            if (username.text.toString() == "org" && password.text.toString() == "") {
+                var mes1 = Toast.makeText(applicationContext, "LOGIN SUCCESFUL", Toast.LENGTH_LONG)
+                mes1.show()
+
+                var nowaAktywnosc2: Intent = Intent(applicationContext, Organizacja::class.java)
+                startActivity(nowaAktywnosc2)
+            }
+
             else {
                 var mes2 = Toast.makeText(applicationContext, "LOGIN FAILED", Toast.LENGTH_LONG)
                 mes2.show()
