@@ -1,4 +1,4 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import android.widget.TextView
 
