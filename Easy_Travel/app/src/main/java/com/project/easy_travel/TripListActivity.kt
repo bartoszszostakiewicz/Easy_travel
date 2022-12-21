@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.project.easy_travel.Model.TripCell
 
 class TripListActivity : AppCompatActivity() {
     private lateinit var tripActive: TripActive

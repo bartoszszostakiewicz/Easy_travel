@@ -7,6 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.project.easy_travel.ViewModel.RegisterActivity
+
 //import kotlinx.android.synthetic.main.trip_plan.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +18,12 @@ class MainActivity : AppCompatActivity() {
         var username = findViewById<TextView>(R.id.username)
         var password = findViewById<TextView>(R.id.password)
         var btn = findViewById<MaterialButton>(R.id.login_button)
+
+        var forgot = findViewById<TextView>(R.id.register)
+
+        forgot.setOnClickListener {
+            startActivity(Intent(applicationContext, RegisterActivity::class.java))
+        }
 
         btn.setOnClickListener {
         Log.d("TAD", "Button clicked")

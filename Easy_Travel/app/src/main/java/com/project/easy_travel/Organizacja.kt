@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.button.MaterialButton
+import com.project.easy_travel.Model.Wycieczka
+
 //import kotlinx.android.synthetic.main.activity_organizacja.*
 
 //import kotlinx.android.synthetic.main.activity_organizacja.*
