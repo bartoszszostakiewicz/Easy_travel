@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.database.*
 import com.google.firebase.database.FirebaseDatabase
+import com.project.easy_travel.Model.User
 
 
 class Database_test : AppCompatActivity() {
@@ -18,7 +19,7 @@ class Database_test : AppCompatActivity() {
 
         user.setName("Michał")
         user.setLastname("Nowak")
-        user.setPesel("01230306072")
+        //user.setPesel("01230306072")
 
         myRef.setValue(user)
 

@@ -1,4 +1,4 @@
-package com.project.easy_travel
+package com.project.easy_travel.Model
 
 class TripCell (
     val name: String,
