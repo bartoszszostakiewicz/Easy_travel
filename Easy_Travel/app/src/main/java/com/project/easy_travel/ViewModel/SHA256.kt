@@ -1,4 +1,4 @@
-package com.project.easy_travel.Model
+package com.project.easy_travel.ViewModel
 
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest

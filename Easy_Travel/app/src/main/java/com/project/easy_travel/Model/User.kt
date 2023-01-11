@@ -1,13 +1,16 @@
 package com.project.easy_travel.Model
 
+import com.project.easy_travel.ViewModel.SHA256
 
 
+data class User(val name: String? = null,val lastname:String?=null, val email: String?=null, val password: String?=null )
+{
 
-class User {
 
+/**
     private lateinit var name:String
     private lateinit var lastname:String
-    //private lateinit var pesel:String
+    private lateinit var pesel:String
     private var phoneNumber:Int=0
     private lateinit var password:String
     private lateinit var email:String
@@ -85,7 +88,7 @@ class User {
 
         return true
     }
-
+**/
 }
 
 

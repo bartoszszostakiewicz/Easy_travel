@@ -18,12 +18,11 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
-        findViewById<Button>(R.id.registerButton).setOnClickListener{
-            val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef: DatabaseReference = db.getReference("users").push()
+        findViewById<Button>(R.id.registerButton).setOnClickListener {
 
             var user = User()
 
+            /**
             user.setName(findViewById<TextView>(R.id.firstName).text.toString())
             user.setLastname(findViewById<TextView>(R.id.lastName).text.toString())
             user.setEmail(findViewById<TextView>(R.id.email).text.toString())
@@ -34,23 +33,34 @@ class RegisterActivity : AppCompatActivity() {
             user.setPassword(findViewById<TextView>(R.id.password).text.toString())
             //user.setPhoneNumber(findViewById<TextView>(R.id.phone_number).toString().toInt())
             myRef.setValue(user)
+            }
+             **/
+
+
+            //read data from database
+            val db: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val myRef: DatabaseReference = db.getReference("users")
+
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    val value = dataSnapshot.getValue<java.util.ArrayList<User>>()
+
+                    for(i in 1 until value!!.size)
+                        Log.d("TAD", value?.get(i).toString())
+
+
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
         }
-
-        val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef: DatabaseReference = db.getReference("users").push()
-
-        myRef.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = snapshot.getValue<String>()
-                Log.d(TAG, "Value is: " + value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
     }
-
 }
+
+
