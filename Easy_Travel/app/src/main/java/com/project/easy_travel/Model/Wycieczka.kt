@@ -1,15 +1,11 @@
 package com.project.easy_travel.Model
 
-import android.widget.TextView
 
-class Wycieczka(
-    val name: TextView,
-    val przewodnik: TextView,
-    )
-{
-    fun get_key(): Int {
-        val rand = (0..10).random()
-        return rand
+data class Wycieczka(val name: String? = null, val przewodnik:String?=null, val opis: String?=null, var key: String?="0" ) {
+
+    fun genKey() {
+        key= (0..99999999).random().toString()
     }
 
 }
+
