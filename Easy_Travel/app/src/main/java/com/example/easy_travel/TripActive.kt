@@ -1,5 +1,6 @@
 package com.example.easy_travel
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
@@ -7,19 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 
 class TripActive (
-    private val tripCells: MutableList<TripCell>
-) : RecyclerView.Adapter<TripActive.TripViewHolder>()
+    private val tripCells: MutableList<TripCell>,
+    private var context: Context,
+    private val intent: Intent,
+    private val xmlFile: Int
+) : RecyclerView.Adapter<TripActive.TripViewHolder>()//AppCompatActivity()
 {
     class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): TripViewHolder {
         return TripViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.trip_plan_element,
+                xmlFile,
                 parent,
                 false
             )
@@ -49,7 +54,7 @@ class TripActive (
             tripTitle.text = curTrip.name
             toggleStrikeThrough(tripTitle, curTrip.isOver)
             detailButton.setOnClickListener {
-                //Page to describe
+                context.startActivity(intent)
             }
         }
     }

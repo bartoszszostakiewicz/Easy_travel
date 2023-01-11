@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
-//import kotlinx.android.synthetic.main.trip_plan.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 var mes1 = Toast.makeText(applicationContext, "LOGIN SUCCESFUL", Toast.LENGTH_LONG)
                 mes1.show()
 
-                var nowaAktywnosc: Intent = Intent(applicationContext, MenuActivity::class.java)
+                var nowaAktywnosc: Intent = Intent(applicationContext, TripListActivity::class.java)
                 startActivity(nowaAktywnosc)
             }
 
