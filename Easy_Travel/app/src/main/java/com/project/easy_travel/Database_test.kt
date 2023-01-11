@@ -1,11 +1,13 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import androidx.constraintlayout.widget.Constraints.TAG
 import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
+import com.project.easy_travel.Model.User
+import com.project.easy_travel.ViewModel.SHA256
+import com.project.easy_travel.ViewModel.writeNewUser
 
 
 class Database_test : AppCompatActivity() {
@@ -13,16 +15,23 @@ class Database_test : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_database_test)
 
+        Log.d("TAD", "test przed zapisem")
+
         val db:FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef: DatabaseReference = db.getReference("users").push()
 
-        var user = User()
 
-        user.setName("Michał")
-        user.setLastname("Nowak")
-        user.setPesel("01230306072")
 
-        myRef.setValue(user)
+
+        val sha = SHA256()
+
+        val haslo = sha.SHA256("haslo")
+
+        writeNewUser("3","Aleksander","Sochacki","alek64377@gmail.com",haslo)
+
+        Log.d("TAD",haslo)
+
+        //myRef.setValue(user)
 
 
         /**

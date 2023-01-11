@@ -1,5 +1,6 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
+import com.example.easy_travel.R
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.project.easy_travel.Model.TripCell
 
 
 class TripActive (

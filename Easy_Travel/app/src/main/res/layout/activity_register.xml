@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#340093"
+    app:layoutDescription="@xml/activity_register_scene"
+    tools:context=".ViewModel.RegisterActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="404dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="68dp"
+        android:text="Utwórz konto Easytravel"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="257dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj imię"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/phone_number"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj numer telefonu"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+
+    <!-- add the ability to add date of birth with scroll-->
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj hasło"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj email"
+        android:inputType="textEmailAddress"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Powtórz hasło"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj nazwisko"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="121dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="28dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        android:padding="7dp"
+        android:text="Zarejestruj się"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password2" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

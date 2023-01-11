@@ -1,4 +1,4 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,11 +7,14 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.easy_travel.R
 import com.google.android.material.button.MaterialButton
+import com.project.easy_travel.Model.TripCell
 
 data class TripListItem (
     val name: String
 )
+
 
 class TripListActivity : AppCompatActivity() {
     private lateinit var tripActive: TripActive

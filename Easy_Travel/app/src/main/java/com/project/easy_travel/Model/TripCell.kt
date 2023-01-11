@@ -1,6 +1,6 @@
-package com.example.easy_travel
+package com.project.easy_travel.Model
 
-data class TripCell (
+class TripCell (
     val name: String,
     val isOver: Boolean,
     val describe: String,

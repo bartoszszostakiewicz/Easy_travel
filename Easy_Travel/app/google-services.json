@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:232318455192:android:b67941fb865718cfdfafed",
         "android_client_info": {
-          "package_name": "com.example.easy_travel"
+          "package_name": "com.project.easy_travel"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "232318455192-aj1j97s2i7832mptcet48vgud156as3p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.easy_travel",
+            "package_name": "com.project.easy_travel",
             "certificate_hash": "c595518e550a8858509ceb86a1722ecb6c45a1d3"
           }
         },

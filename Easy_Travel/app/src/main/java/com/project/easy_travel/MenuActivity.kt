@@ -1,10 +1,11 @@
-package com.example.easy_travel
+package com.project.easy_travel
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-
+import com.example.easy_travel.R
+import com.example.easy_travel.TripListPointActivity
 
 class MenuActivity : AppCompatActivity() {
 
