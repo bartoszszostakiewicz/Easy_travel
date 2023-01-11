@@ -26,7 +26,7 @@ class MenuActivity : AppCompatActivity() {
         val tripBtn = findViewById<Button>(R.id.trip_button)
 
         tripBtn.setOnClickListener {
-            var newActivity: Intent = Intent(applicationContext, TripListActivity::class.java)
+            var newActivity: Intent = Intent(applicationContext, TripListPointActivity::class.java)
             startActivity(newActivity)
         }
 
