@@ -27,7 +27,7 @@ class Database_test : AppCompatActivity() {
 
         val haslo = sha.SHA256("haslo")
 
-        writeNewUser("3","Aleksander","Sochacki","alek64377@gmail.com",haslo)
+        writeNewUser("4","Aleksander","Sochacki","alek64377@gmail.com",haslo)
 
         Log.d("TAD",haslo)
 

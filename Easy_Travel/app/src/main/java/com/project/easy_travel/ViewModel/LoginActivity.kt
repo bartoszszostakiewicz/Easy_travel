@@ -1,27 +1,31 @@
-package com.project.easy_travel
+package com.project.easy_travel.ViewModel
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import com.project.easy_travel.ViewModel.RegisterActivity
+import com.project.easy_travel.MenuActivity
+import com.project.easy_travel.Organizacja
+
 
 //import kotlinx.android.synthetic.main.trip_plan.*
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var username = findViewById<TextView>(R.id.username)
         var password = findViewById<TextView>(R.id.password)
+
         var btn = findViewById<MaterialButton>(R.id.login_button)
+        var register = findViewById<TextView>(R.id.register)
 
-        var forgot = findViewById<TextView>(R.id.register)
-
-        forgot.setOnClickListener {
+        register.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
         }
 

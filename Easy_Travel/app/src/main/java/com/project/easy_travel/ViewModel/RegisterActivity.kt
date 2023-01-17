@@ -1,5 +1,6 @@
 package com.project.easy_travel.ViewModel
 
+import android.os.Build.VERSION_CODES.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +11,7 @@ import androidx.constraintlayout.widget.Constraints.TAG
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.project.easy_travel.Model.User
-import com.project.easy_travel.R
+
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
                     // whenever data at this location is updated.
                     val value = dataSnapshot.getValue<java.util.ArrayList<User>>()
 
-                    for(i in 1 until value!!.size)
+                    for(i in 0.. value!!.size)
                         Log.d("TAD", value?.get(i).toString())
 
 
