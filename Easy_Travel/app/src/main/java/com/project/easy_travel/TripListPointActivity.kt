@@ -1,5 +1,6 @@
 package com.project.easy_travel
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.Model.TripCell
 
-class TripListActivity : AppCompatActivity() {
+class TripListPointActivity : AppCompatActivity() {
     private lateinit var tripActive: TripActive
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class TripListActivity : AppCompatActivity() {
         tripItems.add(TripCell("Wiskord", true, "..."))
         tripItems.add(TripCell("Wały Chrobrego", true, "..."))
 
-        tripActive = TripActive(tripItems)
+        tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_plan_element)
 
 
         tripList.adapter = tripActive
