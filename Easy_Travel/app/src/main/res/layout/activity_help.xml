@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4511A4">
+
+    <Button
+        android:id="@+id/map_navigation_button"
+        android:layout_width="266dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:text="Mapa z nawigacją"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theme_textView" />
+
+    <Button
+        android:id="@+id/organizer_chat_button"
+        android:layout_width="266dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:text="Czat z organizatorem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_navigation_button" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="266dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="16dp"
+        android:text="Wstecz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/theme_textView"
+        android:layout_width="209dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
+        android:text="Zgubiłeś się?"
+        android:textColor="#DD8348"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/information_textView"
+        android:layout_width="354dp"
+        android:layout_height="360dp"
+        android:text="W razie zagrożenia życia lub zdrowia, należy natychmiast skontaktować się z odpowiednimi służbami, takimi jak policją lub pogotowiem ratunkowym (nr. 112).\n\nKolejnym krokiem jest zachowanie spokoju i zastosowanie się do instrukcji służb, które mogą obejmować ucieczkę, ukrycie się w bezpiecznym miejscu lub pozostanie w miejscu i czekanie na pomoc.\n\nW każdym przypadku, ważne jest, aby pamiętać o swoim bezpieczeństwie i działać szybko i skutecznie, by zminimalizować ryzyko.\n\nJeśli masz jakiekolwiek wątpliwości co do tego, jak postępować, skontaktuj się z odpowiednimi służbami, które pomogą ci zachować bezpieczeństwo."
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/organizer_chat_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
