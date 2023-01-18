@@ -29,6 +29,7 @@ class Database_test : AppCompatActivity() {
 
         writeNewUser("4","Aleksander","Sochacki","alek64377@gmail.com",haslo)
 
+
         Log.d("TAD",haslo)
 
         //myRef.setValue(user)
