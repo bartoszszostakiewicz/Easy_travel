@@ -1,10 +1,92 @@
 package com.project.easy_travel.Model
 
-import com.project.easy_travel.ViewModel.SHA256
+
+import com.google.firebase.database.*
 
 
-data class User(val name: String? = null,val lastname:String?=null, val email: String?=null, val password: String?=null )
-{
+data class User(
+    var name: String?=null,
+    var surname:String?=null,
+    var email: String?=null,
+    var password: String?=null,
+    var tripsID: List<String>?=null,
+    var ID: String?=null
+
+) {
+
+    // Metoda sprawdza czy Firebase Realtime Database posiada tablice o nazwie <databaseTableName>. Jeżeli nie to wtedy zostaje ona stworzona.
+    fun creatingTable(databaseTableName: String = "users", create: Boolean = false) {
+        val db: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val usersRef: DatabaseReference = db.getReference(databaseTableName)
+        usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    usersRef.setValue("");
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun addToDatabase(databaseTableName: String = "users") {
+        creatingTable()
+        val db: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val usersRef: DatabaseReference = db.getReference(databaseTableName)
+        val newUserRef = usersRef.push()
+        newUserRef.child("name").setValue(name)
+        newUserRef.child("surname").setValue(surname)
+        newUserRef.child("email").setValue(email)
+        newUserRef.child("password").setValue(password)
+        newUserRef.child("tripsID").setValue(tripsID)
+        newUserRef.child("ID").setValue(newUserRef.key)
+        this.ID = newUserRef.key
+    }
+
+    // Aktualizuje dane na podstawie instancji klasy
+    fun updateUserByID(ID: String? = this.ID, databaseTableName: String = "users") {
+        val database = FirebaseDatabase.getInstance()
+        val usersRef = database.getReference(databaseTableName)
+        val userRef = usersRef.child(ID.toString())
+        val updates = HashMap<String, Any>()
+
+        updates["name"] = this.name.toString()
+        updates["surname"] = this.surname.toString()
+        updates["email"] = this.email.toString()
+        updates["password"] = this.password.toString()
+        updates["tripsID"] = this.tripsID.toString()
+        userRef.updateChildren(updates)  // <-- dodaje aktualizacje do bazy danych (JEST ASYNCHRONICZNĄ!!!)
+    }
+
+    // FUNKCJA ASYNCHRONICZNA (Wyszukuje po ID użytkownika i przepisuje te wartości do tej instancji)
+    fun findUserById(Id: String, databaseTableName: String = "users") {
+        val database = FirebaseDatabase.getInstance()
+        val usersRef = database.getReference(databaseTableName)
+        val userRef = usersRef.child(Id)
+
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(User::class.java)
+                if (user != null) {
+                    name = user.name.toString()
+                    surname = user.surname.toString()
+                    email = user.email.toString()
+                    password = user.password.toString()
+                    //tripsID = user.tripsID
+                    ID = Id
+                }
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
+    }
+}
+
 
 
 /**
@@ -89,6 +171,6 @@ data class User(val name: String? = null,val lastname:String?=null, val email: S
         return true
     }
 **/
-}
+//}
 
 

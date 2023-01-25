@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.FirebaseDatabase
-import com.project.easy_travel.Model.User
 import com.project.easy_travel.ViewModel.SHA256
 import com.project.easy_travel.ViewModel.writeNewUser
 
@@ -19,7 +18,6 @@ class Database_test : AppCompatActivity() {
 
         val db:FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef: DatabaseReference = db.getReference("users").push()
-
 
 
 
