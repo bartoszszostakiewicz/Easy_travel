@@ -1,6 +1,7 @@
 package com.project.easy_travel.Model
 
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 data class Comment(
@@ -33,6 +34,7 @@ data class Comment(
         val newCommentRef = commentsRef.push()
         newCommentRef.child("userID").setValue(userID)
         newCommentRef.child("text").setValue(text)
+
         newCommentRef.child("postDate").setValue(postDate)
         newCommentRef.child("ID").setValue(newCommentRef.key)
         this.ID = newCommentRef.key
@@ -63,7 +65,9 @@ data class Comment(
                 if (comment != null) {
                     userID = comment.userID
                     text = comment.text
-                    postDate = comment.postDate
+                    postDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).parse(
+                        comment.postDate.toString()
+                    )
                     ID = Id
                 }
             }
