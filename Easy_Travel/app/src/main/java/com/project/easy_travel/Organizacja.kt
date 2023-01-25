@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.project.easy_travel.Model.User
 import com.project.easy_travel.Model.Wycieczka
 import com.project.easy_travel.ViewModel.writeNewTrip
 
