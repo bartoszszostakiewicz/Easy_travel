@@ -23,27 +23,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val user1 = User("Jakub", "Kowalski", "adamkowalski@email.com", "pingwin")
-//        val user2 = User("Szymon", "Kowalski", "adamkowalski@email.com", "pingwin")
-//        val user3 = User("Michał", "Kowalski", "adamkowalski@email.com", "pingwin")
-//        val user4 = User("Adam", "Kowalski", "adamkowalski@email.com", "pingwin")
-////        user1.addToDatabase()
-////        user2.addToDatabase()
-////        user3.addToDatabase()
-////        user4.addToDatabase()
-//
-//        val userID = user1.ID
-//        Log.e("userBEFORE", user1.name.toString())
-//
-//        val userById: User = User()
-//        userById.findUserById("-NMaDIXh5j-zmEZVzUB1")
-//        Log.e("userById", userById.name.toString())
-
-        val user1 = User("Jan", "Kowalski", "jankowalski@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15", listOf("trip1", "trip2"))
-        val user2 = User("Anna", "Nowak", "annanowak@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15", listOf("trip3"))
-        user1.addToDatabase()
-        user2.addToDatabase()
-
         val administrator1 = Administrator("Tomasz", "Wiśniewski", "tomaszwisniewski@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
         val administrator2 = Administrator("Katarzyna", "Kowalska", "katarzynakowalska@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
         administrator1.addToDatabase()
@@ -55,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
         trip1.addToDatabase()
         trip2.addToDatabase()
         trip3.addToDatabase()
+
+        val user1 = User("Jan", "Kowalski", "jankowalski@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15", listOf(trip1.ID, trip2.ID))
+        val user2 = User("Anna", "Nowak", "annanowak@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15", listOf(trip3.ID))
+        user1.addToDatabase()
+        user2.addToDatabase()
 
         val tripPoint1 = TripPoint(trip1.ID, "Wizyta w Paryżu", "Zwiedzanie Paryża, m.in. Wieży Eiffla", isDone = true)
         val tripPoint2 = TripPoint(trip1.ID, "Wizyta w Londynie", "Zwiedzanie Londynu, m.in. Big Bena", isDone = false)
@@ -99,6 +83,9 @@ class LoginActivity : AppCompatActivity() {
         val privateChat2 = PrivateChat(trip2.ID, user2.ID, listOf(comment12.ID))
         privateChat1.addToDatabase()
         privateChat2.addToDatabase()
+//
+//        val user = User()
+//        user.findUserById("-NMa_nE5dhu3vco2Lr5Q");
 
 
 

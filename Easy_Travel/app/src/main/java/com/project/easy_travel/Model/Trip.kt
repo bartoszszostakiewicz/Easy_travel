@@ -60,9 +60,9 @@ data class Trip(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val trip = dataSnapshot.getValue(Trip::class.java)
                 if (trip != null) {
-                    title = trip.title.toString()
-                    describe = trip.describe.toString()
-                    administratorID = trip.administratorID.toString()
+                    title = trip.title
+                    describe = trip.describe
+                    administratorID = trip.administratorID
                     ID = Id
                 }
             }

@@ -60,9 +60,9 @@ data class PrivateChat(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val privateChat = dataSnapshot.getValue(PrivateChat::class.java)
                 if (privateChat != null) {
-                    tripID = privateChat.tripID.toString()
-                    userID = privateChat.userID.toString()
-                    //commentsID = privateChat.commentsID.toString()
+                    tripID = privateChat.tripID
+                    userID = privateChat.userID
+                    commentsID = privateChat.commentsID
                     ID = Id
                 }
             }

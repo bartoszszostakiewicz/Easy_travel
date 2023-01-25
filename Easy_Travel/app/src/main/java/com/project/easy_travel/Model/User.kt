@@ -1,6 +1,7 @@
 package com.project.easy_travel.Model
 
 
+import android.util.Log
 import com.google.firebase.database.*
 
 
@@ -9,7 +10,7 @@ data class User(
     var surname:String?=null,
     var email: String?=null,
     var password: String?=null,
-    var tripsID: List<String>?=null,
+    var tripsID: List<String?>?=null,
     var ID: String?=null
 
 ) {
@@ -70,13 +71,15 @@ data class User(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java)
                 if (user != null) {
-                    name = user.name.toString()
-                    surname = user.surname.toString()
-                    email = user.email.toString()
-                    password = user.password.toString()
-                    //tripsID = user.tripsID
+                    name = user.name
+                    surname = user.surname
+                    email = user.email
+                    password = user.password
+                    tripsID = user.tripsID
                     ID = Id
                 }
+
+                Log.e("LIST_TRIPS_ID", tripsID?.get(0) ?: "Nothing")
             }
 
 
@@ -84,6 +87,8 @@ data class User(
                 // Handle error
             }
         })
+
+
     }
 }
 

@@ -61,9 +61,9 @@ data class Comment(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val comment = dataSnapshot.getValue(Comment::class.java)
                 if (comment != null) {
-                    userID = comment.userID.toString()
-                    text = comment.text.toString()
-                    //postDate = comment.postDate.toString()
+                    userID = comment.userID
+                    text = comment.text
+                    postDate = comment.postDate
                     ID = Id
                 }
             }

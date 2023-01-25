@@ -58,8 +58,8 @@ data class Chat(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val chat = dataSnapshot.getValue(Chat::class.java)
                 if (chat != null) {
-                    tripID = chat.tripID.toString()
-                    //commentsID = chat.commentsID.toString()
+                    tripID = chat.tripID
+                    commentsID = chat.commentsID
                     ID = Id
                 }
             }

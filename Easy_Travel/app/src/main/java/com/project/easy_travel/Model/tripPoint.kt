@@ -70,12 +70,12 @@ data class TripPoint(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val tripPoint = dataSnapshot.getValue(TripPoint::class.java)
                 if (tripPoint != null) {
-                    tripID = tripPoint.tripID.toString()
-                    title = tripPoint.title.toString()
-                    describe = tripPoint.describe.toString()
-                    //dateStart = tripPoint.dateStart
-                    //dateFinish = tripPoint.dateFinish
-                    //isDone = tripPoint.isDone
+                    tripID = tripPoint.tripID
+                    title = tripPoint.title
+                    describe = tripPoint.describe
+                    dateStart = tripPoint.dateStart
+                    dateFinish = tripPoint.dateFinish
+                    isDone = tripPoint.isDone
                     ID = Id
                 }
             }

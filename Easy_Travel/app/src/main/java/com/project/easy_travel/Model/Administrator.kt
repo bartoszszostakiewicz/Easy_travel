@@ -65,10 +65,10 @@ data class Administrator(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val administrator = dataSnapshot.getValue(Administrator::class.java)
                 if (administrator != null) {
-                    name = administrator.name.toString()
-                    surname = administrator.surname.toString()
-                    email = administrator.email.toString()
-                    password = administrator.password.toString()
+                    name = administrator.name
+                    surname = administrator.surname
+                    email = administrator.email
+                    password = administrator.password
                     ID = Id
                 }
             }
