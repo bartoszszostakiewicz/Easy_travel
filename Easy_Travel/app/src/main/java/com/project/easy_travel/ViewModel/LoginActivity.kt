@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        /*
         val administrator1 = Administrator("Tomasz", "Wiśniewski", "tomaszwisniewski@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
         val administrator2 = Administrator("Katarzyna", "Kowalska", "katarzynakowalska@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
         administrator1.addToDatabase()
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
         val privateChat1 = PrivateChat(trip1.ID, user1.ID, listOf(comment10.ID, comment11.ID))
         val privateChat2 = PrivateChat(trip2.ID, user2.ID, listOf(comment12.ID))
         privateChat1.addToDatabase()
-        privateChat2.addToDatabase()
+        privateChat2.addToDatabase()*/
 //
 //        val user = User()
 //        user.findUserById("-NMa_nE5dhu3vco2Lr5Q");
