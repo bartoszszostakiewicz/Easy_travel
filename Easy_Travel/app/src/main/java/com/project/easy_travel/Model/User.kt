@@ -9,7 +9,7 @@ data class User(
     var name: String?=null,
     var surname:String?=null,
     var email: String?=null,
-    var password: String?=null,
+   // var password: String?=null,
     var tripsID: List<String?>?=null,
     var ID: String?=null
 
@@ -40,7 +40,7 @@ data class User(
         newUserRef.child("name").setValue(name)
         newUserRef.child("surname").setValue(surname)
         newUserRef.child("email").setValue(email)
-        newUserRef.child("password").setValue(password)
+        //newUserRef.child("password").setValue(password)
         newUserRef.child("tripsID").setValue(tripsID)
         newUserRef.child("ID").setValue(newUserRef.key)
         this.ID = newUserRef.key
@@ -56,7 +56,7 @@ data class User(
         updates["name"] = this.name.toString()
         updates["surname"] = this.surname.toString()
         updates["email"] = this.email.toString()
-        updates["password"] = this.password.toString()
+        //updates["password"] = this.password.toString()
         updates["tripsID"] = this.tripsID.toString()
         userRef.updateChildren(updates)  // <-- dodaje aktualizacje do bazy danych (JEST ASYNCHRONICZNĄ!!!)
     }
@@ -74,7 +74,7 @@ data class User(
                     name = user.name
                     surname = user.surname
                     email = user.email
-                    password = user.password
+                    //password = user.password
                     tripsID = user.tripsID
                     ID = Id
                 }

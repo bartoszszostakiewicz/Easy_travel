@@ -7,11 +7,7 @@ import com.project.easy_travel.Model.Wycieczka
 
 fun writeNewUser(userId: String, name:String,lastname:String, email:String, password:String){
 
-    val database = Firebase.database.reference
 
-    val user = User(name,lastname,email,password)
-
-    database.child("users").child(userId).setValue(user)
 
 
 }
@@ -26,3 +22,5 @@ fun writeNewTrip(name:String,przewodnik:String, opis:String, key:String){
 
 
 }
+
+

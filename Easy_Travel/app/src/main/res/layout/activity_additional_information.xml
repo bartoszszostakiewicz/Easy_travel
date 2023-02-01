@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#340093"
+    app:layoutDescription="@xml/activity_register_scene"
+    tools:context=".ViewModel.RegisterActivity">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="404dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="68dp"
+        android:text="Wprowadź \ndodatkowe informacje"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- add the ability to add date of birth with scroll-->
+
+
+    <EditText
+        android:id="@+id/surname_input"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="128dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj nazwisko"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="358dp" />
+
+    <EditText
+        android:id="@+id/name_input"
+        android:layout_width="258dp"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="Podaj imię"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="248dp" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="121dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="36dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10dp"
+        android:padding="7dp"
+        android:text="Zapisz"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="613dp" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
