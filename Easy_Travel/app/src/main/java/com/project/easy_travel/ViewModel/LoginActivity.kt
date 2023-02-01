@@ -117,9 +117,14 @@ class LoginActivity : AppCompatActivity() {
 
                 if(email == "organizator123456@gmail.com"){
                     startActivity(Intent(applicationContext, Organizacja::class.java))
-                }else{
+                }
+                if(email == "sochacki.alek@gmail.com"){
+                    startActivity(Intent(applicationContext, Organizacja::class.java))
+                }
+                else{
                     startActivity(Intent(applicationContext, TripListActivity::class.java))
                 }
+
 
             }else{
                 Toast.makeText(this,"Log In failed ", Toast.LENGTH_SHORT).show()

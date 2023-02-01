@@ -13,40 +13,47 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:layout_height="60dp"
+            android:layout_height="59dp"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="258dp"
+            android:layout_width="335dp"
             android:id="@+id/email"
             motion:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:layout_marginTop="88dp" />
+            android:layout_marginTop="40dp"
+            motion:layout_constraintHorizontal_bias="0.494"
+            motion:layout_editor_absoluteX="22dp"
+            motion:layout_editor_absoluteY="218dp" />
         <Constraint
-            android:layout_height="60dp"
-            android:layout_width="258dp"
+            android:layout_height="61dp"
+            android:layout_width="332dp"
             android:id="@+id/password2"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintHorizontal_bias="0.496"
+            motion:layout_constraintHorizontal_bias="0.489"
             motion:layout_constraintTop_toBottomOf="@+id/password"
-            android:layout_marginTop="28dp" />
+            android:layout_marginTop="20dp"
+            motion:layout_editor_absoluteX="0dp"
+            motion:layout_editor_absoluteY="386dp" />
         <Constraint
-            android:layout_height="60dp"
-            android:layout_width="258dp"
+            android:layout_height="61dp"
+            android:layout_width="333dp"
             android:id="@+id/password"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintHorizontal_bias="0.497"
+            motion:layout_constraintHorizontal_bias="0.483"
             motion:layout_constraintTop_toBottomOf="@+id/email"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            motion:layout_editor_absoluteX="-3dp"
+            motion:layout_editor_absoluteY="299dp" />
         <Constraint
-            android:layout_height="50dp"
-            android:layout_width="201dp"
+            android:layout_height="41dp"
+            android:layout_width="198dp"
             android:id="@+id/registerButton"
             motion:layout_constraintTop_toBottomOf="@+id/password2"
-            android:layout_marginTop="124dp"
+            android:layout_marginTop="108dp"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp" />
+            android:layout_marginEnd="104dp"
+            android:layout_marginRight="104dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">

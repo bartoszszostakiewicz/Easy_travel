@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4511A4">
+    android:background="@drawable/gradient">
 
     <Button
         android:id="@+id/map_navigation_button"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:layout_width="266dp"
         android:layout_height="49dp"
         android:layout_marginTop="40dp"
@@ -19,6 +20,7 @@
 
     <Button
         android:id="@+id/organizer_chat_button"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:layout_width="266dp"
         android:layout_height="49dp"
         android:layout_marginTop="20dp"
@@ -30,6 +32,7 @@
 
     <Button
         android:id="@+id/back_button"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:layout_width="266dp"
         android:layout_height="49dp"
         android:layout_marginBottom="16dp"
