@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
 //        val administrator1 = Administrator("Tomasz", "Wiśniewski", "tomaszwisniewski@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
 //        val administrator2 = Administrator("Katarzyna", "Kowalska", "katarzynakowalska@example.com", "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15")
 //        administrator1.addToDatabase()
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
 //        val privateChat2 = PrivateChat(trip2.ID, user2.ID, listOf(comment12.ID))
 //        privateChat1.addToDatabase()
 //        privateChat2.addToDatabase()
+
 //
 //        val user = User()
 //        user.findUserById("-NMa_nE5dhu3vco2Lr5Q");
@@ -119,9 +121,14 @@ class LoginActivity : AppCompatActivity() {
 
                 if(email == "organizator123456@gmail.com"){
                     startActivity(Intent(applicationContext, Organizacja::class.java))
-                }else{
+                }
+                if(email == "sochacki.alek@gmail.com"){
+                    startActivity(Intent(applicationContext, Organizacja::class.java))
+                }
+                else{
                     startActivity(Intent(applicationContext, TripListActivity::class.java))
                 }
+
 
             }else{
                 Toast.makeText(this,"Log In failed ", Toast.LENGTH_SHORT).show()
