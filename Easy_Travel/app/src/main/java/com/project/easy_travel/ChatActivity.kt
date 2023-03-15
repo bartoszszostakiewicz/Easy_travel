@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.Model.Chat
 import com.project.easy_travel.Model.ChatModel
-import kotlinx.android.synthetic.main.activity_chat.*
 
 
 class ChatActivity : AppCompatActivity() {

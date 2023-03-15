@@ -2,18 +2,13 @@ package com.project.easy_travel.ViewModel
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.project.easy_travel.Model.*
-import com.project.easy_travel.Organizacja
 import com.project.easy_travel.R
 import com.project.easy_travel.TripListActivity
-import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -106,7 +101,9 @@ class LoginActivity : AppCompatActivity() {
 
         btn.setOnClickListener{
             //login(username.text.toString(),password.text.toString());
-            startActivity(Intent(applicationContext, TripListActivity::class.java))
+            //startActivity(Intent(applicationContext, TripListActivity::class.java))
+            startActivity(Intent(applicationContext, Organizacja::class.java))
+
         }
 
     }
@@ -119,15 +116,7 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this,"Succesfully LoggedIn", Toast.LENGTH_SHORT).show()
 
-                if(email == "organizator123456@gmail.com"){
-                    startActivity(Intent(applicationContext, Organizacja::class.java))
-                }
-                if(email == "sochacki.alek@gmail.com"){
-                    startActivity(Intent(applicationContext, Organizacja::class.java))
-                }
-                else{
-                    startActivity(Intent(applicationContext, TripListActivity::class.java))
-                }
+                startActivity(Intent(applicationContext, TripListActivity::class.java))
 
 
             }else{
