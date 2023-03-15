@@ -101,10 +101,12 @@ class LoginActivity : AppCompatActivity() {
 
         btn.setOnClickListener{
             //login(username.text.toString(),password.text.toString());
-            //startActivity(Intent(applicationContext, TripListActivity::class.java))
-            startActivity(Intent(applicationContext, Organizacja::class.java))
+            startActivity(Intent(applicationContext, TripListActivity::class.java))
+            //startActivity(Intent(applicationContext, Organizacja::class.java))
 
         }
+
+
 
     }
 
