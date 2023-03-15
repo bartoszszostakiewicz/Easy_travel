@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.project.easy_travel.Model.TripCell
+import com.project.easy_travel.ViewModel.Organizacja
 
 data class TripListItem (
     val name: String
@@ -37,5 +38,17 @@ class TripListActivity : AppCompatActivity() {
         backBtn.setOnClickListener {
             this.finish()
         }
+
+
+        findViewById<Button>(R.id.create_trip).setOnClickListener {
+            startActivity(Intent(applicationContext, Organizacja::class.java))
+        }
+
+        findViewById<Button>(R.id.join_trip).setOnClickListener {
+
+
+
+        }
+
     }
 }
