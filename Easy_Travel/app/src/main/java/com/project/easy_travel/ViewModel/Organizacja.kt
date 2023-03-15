@@ -1,17 +1,11 @@
-package com.project.easy_travel
+package com.project.easy_travel.ViewModel
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.project.easy_travel.Model.User
-import com.project.easy_travel.Model.Wycieczka
-import com.project.easy_travel.ViewModel.writeNewTrip
-
-import kotlinx.android.synthetic.main.activity_organizacja.*
+import com.project.easy_travel.R
 
 class Organizacja : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +26,11 @@ class Organizacja : AppCompatActivity() {
             //Lista_wycieczek.add(pierwsza)
         }
 
+        findViewById<MaterialButton>(R.id.add_pin).setOnClickListener{
+
+            startActivity(Intent(applicationContext,Pins::class.java))
+
+        }
     }
 }
 
