@@ -23,7 +23,7 @@ class CreateTrip : AppCompatActivity() {
     lateinit var nameTripEdttxt: EditText
     lateinit var describeTripEdttxt: EditText
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +36,12 @@ class CreateTrip : AppCompatActivity() {
         describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt)
 
         // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val userId = "-NMdAZQvSSRvUloijgCc"
-        viewModel.loadUser(userId)
+        userViewModel.load(userId)
 
-        viewModel.user.observe(this) { user ->
+        userViewModel.user.observe(this) { user ->
             titleTxt = findViewById<TextView>(R.id.title_txt)
             titleTxt.text = user.name
         }
