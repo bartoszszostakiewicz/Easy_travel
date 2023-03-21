@@ -41,7 +41,7 @@ class TripListActivity : AppCompatActivity() {
 
 
         findViewById<Button>(R.id.create_trip).setOnClickListener {
-            startActivity(Intent(applicationContext, Organizacja::class.java))
+            startActivity(Intent(applicationContext, CreateTrip::class.java))
         }
 
         findViewById<Button>(R.id.join_trip).setOnClickListener {
