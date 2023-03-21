@@ -5,17 +5,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.project.easy_travel.ViewModel.UserViewModel
 
 class CreateTrip : AppCompatActivity() {
     lateinit var nextButton1: Button
     lateinit var nextButton2: Button
     lateinit var nextButton3: Button
 
+    lateinit var titleTxt: TextView
+
     lateinit var addTripPointBtn: Button
 
     lateinit var nameTripEdttxt: EditText
     lateinit var describeTripEdttxt: EditText
+
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +35,16 @@ class CreateTrip : AppCompatActivity() {
         nameTripEdttxt = findViewById<EditText>(R.id.nameTrip_edttxt)
         describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt)
 
+        // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
+        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        val userId = "-NMdAZQvSSRvUloijgCc"
+        viewModel.loadUser(userId)
+
+        viewModel.user.observe(this) { user ->
+            titleTxt = findViewById<TextView>(R.id.title_txt)
+            titleTxt.text = user.name
+        }
 
         nextButton1.setOnClickListener {
             setContentView(R.layout.create_trip_page2)
