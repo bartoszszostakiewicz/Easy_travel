@@ -102,12 +102,27 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CreateTrip"
+            android:exported="false">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        </activity>
+        <activity
+            android:name=".OrganizerMainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".HelpActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>

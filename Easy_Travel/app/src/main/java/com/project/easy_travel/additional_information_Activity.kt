@@ -33,9 +33,9 @@ class AdditionalInformationActivity : AppCompatActivity() {
         btn.setOnClickListener {
 
 
-            val user = User(name.text.toString(), surname.text.toString(), email)
-            textView.text = user.name + " " + user.surname
-            user.addToDatabase()
+//            val user = User(name.text.toString(), surname.text.toString(), email)
+//            textView.text = user.name + " " + user.surname
+//            user.addToDatabase()
         }
 
 

@@ -18,12 +18,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tripList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="407dp"
+        android:layout_height="638dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logOutButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/create_trip"
@@ -54,5 +54,17 @@
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/join_trip"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/hello_txt"
+        android:layout_width="414dp"
+        android:layout_height="44dp"
+        android:text="Witamy!"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
