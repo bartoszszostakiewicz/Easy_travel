@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.R
+import com.project.easy_travel.SettingsActivity
 import com.project.easy_travel.TripListActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
 
 
@@ -86,9 +89,11 @@ class LoginActivity : AppCompatActivity() {
 //        val user = User()
 //        user.findUserById("-NMa_nE5dhu3vco2Lr5Q");
 
-
+        var prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        var savedUsername = prefs.getString("remembered_login", "")
 
         var username = findViewById<TextView>(R.id.username)
+        username.text = savedUsername
         var password = findViewById<TextView>(R.id.password)
 
         var btn = findViewById<MaterialButton>(R.id.login_button)
@@ -106,7 +111,10 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-
+        //NOTE: przechodzi do ustawien
+        findViewById<MaterialButton>(R.id.create_trip_button).setOnClickListener{
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+        }
 
     }
 
