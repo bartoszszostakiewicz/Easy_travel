@@ -63,11 +63,14 @@ class TripListActivity : AppCompatActivity() {
                 val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
                 tripViewModel.load(trip)
                 tripViewModel.trip.observe(this) { trip ->
-                    tripItems.add(TripCell(trip.title, false, trip.description))
-
+                    val tripCell = TripCell(trip.title, false, trip.description)
+                    if (!tripItems.contains(tripCell)) {
+                        tripItems.add(tripCell)
+                        tripActive.notifyDataSetChanged()
+                    }
                 }
+
             }
-            tripActive.notifyDataSetChanged()
         }
     }
 }
