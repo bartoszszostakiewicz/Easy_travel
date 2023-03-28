@@ -5,6 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -30,6 +31,9 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
             val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
             mapFragment?.getMapAsync(this)
         }
+
+
+
 
     }
 
