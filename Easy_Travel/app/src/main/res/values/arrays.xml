@@ -9,4 +9,18 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="dark_mode_entries">
+        <item>Follow System</item>
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Auto Battery</item>
+    </string-array>
+
+    <string-array name="dark_mode_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

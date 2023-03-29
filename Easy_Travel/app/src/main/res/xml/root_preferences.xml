@@ -16,8 +16,14 @@
         app:title="Send feedback"
         app:summary="Report technical issues or suggest new features"/>
 
-
-
+    <ListPreference
+        app:title="Dark Mode"
+        app:key="dark_mode"
+        app:defaultValue="1"
+        app:useSimpleSummaryProvider="true"
+        android:entries="@array/dark_mode_entries"
+        android:entryValues="@array/dark_mode_values"
+        />
     <!--
     <PreferenceCategory app:title="@string/messages_header">
 

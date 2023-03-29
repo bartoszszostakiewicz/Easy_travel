@@ -1,7 +1,6 @@
 package com.project.easy_travel.ViewModel
 
 import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -17,12 +16,17 @@ import com.project.easy_travel.R
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var userViewModel: UserViewModel
+
+    var user_name: String = ""
+    var user_surname: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        registerScreen1()
+/*
         findViewById<Button>(R.id.registerButton).setOnClickListener {
 
             var name = findViewById<TextView>(R.id.name_edttxt).text.toString()
@@ -36,6 +40,47 @@ class RegisterActivity : AppCompatActivity() {
                 Log.d("TAG", "onCreate: $email $password")
                 register(name, surname, email, password)
             }
+        }
+
+ */
+
+    }
+
+    private fun registerScreen1()
+    {
+        setContentView(R.layout.activity_register_1)
+        var field_name = findViewById<TextView>(R.id.name_edttxt)
+        var field_surname = findViewById<TextView>(R.id.surname_edttxt)
+        findViewById<Button>(R.id.next_btn_reg).setOnClickListener {
+
+            user_name = field_name.text.toString()
+            user_surname = field_surname.text.toString()
+
+            registerScreen2()
+
+        }
+
+    }
+
+    private fun registerScreen2()
+    {
+        setContentView(R.layout.activity_register_2)
+
+        findViewById<Button>(R.id.finn_btn_reg).setOnClickListener{
+
+            var email = findViewById<TextView>(R.id.email).text.toString()
+            var password = findViewById<TextView>(R.id.password).text.toString()
+            var password2 = findViewById<TextView>(R.id.password2).text.toString()
+
+            Log.d("TAG", "onCreate: $password $password2")
+            if (password == password2) {
+                Log.d("TAG", "onCreate: $email $password")
+                register(user_name, user_surname, email, password)
+            }
+        }
+
+        findViewById<Button>(R.id.prev_btn_reg).setOnClickListener{
+            registerScreen1()
         }
     }
 
