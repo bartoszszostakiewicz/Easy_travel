@@ -11,54 +11,14 @@
        </KeyFrameSet>
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
-        <Constraint
-            android:layout_height="59dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="335dp"
-            android:id="@+id/email"
-            motion:layout_constraintHorizontal_bias="0.473"
-            motion:layout_constraintTop_toBottomOf="@+id/surname_edttxt"
-            android:layout_marginTop="24dp" />
-        <Constraint
-            android:layout_height="61dp"
-            android:layout_width="332dp"
-            android:id="@+id/password2"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintHorizontal_bias="0.489"
-            motion:layout_constraintTop_toBottomOf="@+id/password"
-            android:layout_marginTop="20dp"
-            motion:layout_editor_absoluteX="0dp"
-            motion:layout_editor_absoluteY="386dp" />
+    <ConstraintSet android:id="@+id/start"><![CDATA[
 
-        <Constraint
-            android:layout_height="61dp"
-            android:layout_width="333dp"
-            android:id="@+id/password"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintHorizontal_bias="0.483"
-            motion:layout_constraintTop_toBottomOf="@+id/email"
-            android:layout_marginTop="20dp"
-            motion:layout_editor_absoluteX="-3dp"
-            motion:layout_editor_absoluteY="299dp" />
-        <Constraint
-            android:layout_height="41dp"
-            android:layout_width="198dp"
-            android:id="@+id/registerButton"
-
-            motion:layout_constraintTop_toBottomOf="@+id/password2"
-            android:layout_marginTop="136dp"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="104dp"
-            android:layout_marginRight="104dp" />
-            motion:layout_constraintEnd_toEndOf="parent"
+        motion:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="48dp"
             android:layout_marginRight="48dp"
             motion:layout_constraintTop_toBottomOf="@+id/password"
             android:layout_marginTop="232dp" />
+        ]]>
         <Constraint
             android:layout_height="99dp"
             motion:layout_constraintHorizontal_bias="0.428"
@@ -121,23 +81,49 @@
             android:id="@+id/email3"
             motion:layout_constraintTop_toBottomOf="@+id/textView3"
             android:layout_marginTop="12dp" />
+        <Constraint android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_editor_absoluteY="194dp"
+            motion:layout_editor_absoluteX="-2dp" />
         <Constraint
-            android:layout_height="63dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="414dp"
-            motion:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:id="@+id/name_edttxt"
-            android:layout_marginTop="12dp" />
+            motion:layout_editor_absoluteX="3dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/linearLayout2"
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
-            android:layout_height="64dp"
-            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/registerButton3"
+            motion:layout_constraintStart_toEndOf="@+id/registerButton"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="409dp"
-            motion:layout_constraintTop_toBottomOf="@+id/name_edttxt"
-            android:id="@+id/surname_edttxt"
-            android:layout_marginTop="20dp"
-            motion:layout_constraintHorizontal_bias="0.492" />
+            motion:layout_editor_absoluteX="185dp" />
+        <Constraint
+            motion:layout_constraintStart_toEndOf="@+id/registerButton"
+            android:id="@+id/button2"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="226dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_editor_absoluteY="683dp" />
+        <Constraint
+            android:id="@+id/registerButton2"
+            android:layout_height="42dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_editor_absoluteX="323dp" />
+        <Constraint
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/button4"
+            motion:layout_editor_absoluteY="640dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_editor_absoluteX="159dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
