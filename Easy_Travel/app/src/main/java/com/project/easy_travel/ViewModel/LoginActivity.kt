@@ -22,15 +22,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> a68231d1fd3d320beec2817f7fe8d0c1b9c37928
         var prefs = PreferenceManager.getDefaultSharedPreferences(this)
         var savedUsername = prefs.getString("remembered_login", "")
 
@@ -50,11 +41,8 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
-<<<<<<< HEAD
             //startActivity(Intent(applicationContext, Pins::class.java))
-=======
-            /**
->>>>>>> a68231d1fd3d320beec2817f7fe8d0c1b9c37928
+
             userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
                 if (emailExists) {
                     userViewModel.load(replaceDotsWithEmail(username.text.toString()))
@@ -64,10 +52,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             }
-            **/
 
 
-            startActivity(Intent(applicationContext, Organizacja::class.java))
+
+            //startActivity(Intent(applicationContext, Organizacja::class.java))
 
         }
 
