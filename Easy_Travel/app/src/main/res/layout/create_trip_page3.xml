@@ -14,17 +14,16 @@
         android:text="Utwórz wycieczkę"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/addTripPoint_btn"
+        android:id="@+id/add_member_btn"
         android:layout_width="55dp"
         android:layout_height="40dp"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/create_trip_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPoint_list" />
+        app:layout_constraintTop_toBottomOf="@+id/member_list" />
 
     <TextView
         android:id="@+id/title_txt"
@@ -51,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_txt" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tripPoint_list"
+        android:id="@+id/member_list"
         android:layout_width="412dp"
         android:layout_height="435dp"
         app:layout_constraintEnd_toEndOf="parent"

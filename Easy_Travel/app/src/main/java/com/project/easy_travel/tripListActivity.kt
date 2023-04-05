@@ -52,7 +52,6 @@ class TripListActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.join_trip).setOnClickListener {
-
         }
 
         userViewModel.user.observe(this) { user ->
