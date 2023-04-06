@@ -16,6 +16,7 @@ import com.project.easy_travel.Model.InvitedUser
 import com.project.easy_travel.ViewModel.UserViewModel
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.Model.User
+import com.project.easy_travel.ViewModel.Pins
 
 class CreateTrip : AppCompatActivity() {
     lateinit var nextButton1: Button
@@ -28,6 +29,7 @@ class CreateTrip : AppCompatActivity() {
     lateinit var add_btn_tripPoint: Button
     lateinit var addMemberBtn: Button
     lateinit var cancel_btn_tripPoint: Button
+    lateinit var map_btn_tripPoint: Button
 
     lateinit var nameTripEdttxt: EditText
     lateinit var describeTripEdttxt: EditText
@@ -122,9 +124,15 @@ class CreateTrip : AppCompatActivity() {
                 val dialog = Dialog(this)
                 dialog.setContentView(R.layout.dialog_create_trip_point)
 
-
+                map_btn_tripPoint = dialog.findViewById<Button>(R.id.map_btn)
                 add_btn_tripPoint = dialog.findViewById<Button>(R.id.add_btn)
                 cancel_btn_tripPoint = dialog.findViewById<Button>(R.id.back_btn)
+
+                map_btn_tripPoint.setOnClickListener {
+                    startActivity(Intent(this, Pins::class.java))
+                }
+
+
                 add_btn_tripPoint.setOnClickListener {
                     val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
