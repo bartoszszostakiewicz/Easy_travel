@@ -1,6 +1,8 @@
 package com.project.easy_travel.ViewModel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +14,7 @@ import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.Model.User
 import java.util.*
 
-class TripPointViewModel : ViewModel() {
+class TripPointViewModel(application: Application) : AndroidViewModel(application) {
     private val _tripPoint = MutableLiveData<TripPoint>()
     val tripPoint: LiveData<TripPoint> = _tripPoint
 

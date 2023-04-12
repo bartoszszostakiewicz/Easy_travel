@@ -1,71 +1,44 @@
-package com.project.easy_travel.ViewModel
+package com.project.easy_travel.remote
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import com.project.easy_travel.Model.Trip
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.*
 import com.project.easy_travel.Model.User
-
-class UserViewModel : ViewModel() {
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+import com.project.easy_travel.repository.UserRepository
+import kotlinx.coroutines.launch
 
 
-    private val database = FirebaseDatabase.getInstance()
-    private val userReference = database.getReference("users")
+class UserViewModel(private val userRepository: UserRepository, private val userId: String) : ViewModel()
+{
+    private val _user: MutableLiveData<User> = MutableLiveData()
 
-    fun load(userId: String) {
-        userReference.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val name = snapshot.child("name").value as? String ?: ""
-                val surname = snapshot.child("surname").value as? String ?: ""
-                val email = snapshot.child("email").value as? String ?: ""
-                val tripsID = snapshot.child("tripsID").value as? List<String> ?: listOf()
-                val user = User(name, surname, email, tripsID)
-                _user.value = user
-            }
+    val user: LiveData<User>
+        get() = _user
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Load user failed", error.toException())
-            }
-        })
+    init {
+        load()
     }
 
-    fun checkId (userId: String, callback: (Boolean) -> Unit) {
-        userReference.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var userExists = false
-                for (userSnapshot in snapshot.children) {
-                    val currentUserId = userSnapshot.key
-                    if (currentUserId == userId) {
-                        userExists = true
-                        break
-                    }
-                }
-                callback.invoke(userExists)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Check user existence failed", error.toException())
-            }
-        })
+    private fun load() {
+//        viewModelScope.launch {
+//            userRepository.get(userId)
+//                .onStart { /* Komunikat o rozpoczeciu ładowania */ }
+//                .catch { /* Komunikat o błędzie */ }
+//                .collect { _user.value = user }
+//        }
+        val userLiveData = userRepository.get(userId)
+        userLiveData.observeForever { user ->
+            _user.value = user
+        }
     }
 
-    fun update(userId: String, user: User) {
-        userReference.child(userId).setValue(user)
-    }
-
-    fun create(Id: String, user: User) {
-        userReference.child(Id).setValue(user)
-    }
-
-    companion object {
-        private const val TAG = "UserViewModel"
+    fun save(user: User) {
+        viewModelScope.launch() {
+            userRepository.save(user)
+        }
     }
 }

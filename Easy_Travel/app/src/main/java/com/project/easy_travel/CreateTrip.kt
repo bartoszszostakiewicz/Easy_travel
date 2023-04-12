@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.Model.InvitedUser
-import com.project.easy_travel.ViewModel.UserViewModel
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.ViewModel.Pins
@@ -37,7 +36,7 @@ class CreateTrip : AppCompatActivity() {
     lateinit var recyclerViewTripPoint: RecyclerView
     lateinit var recyclerViewMember: RecyclerView
 
-    private lateinit var userViewModel: UserViewModel
+    //private lateinit var userViewModel: UserViewModel
 
     private lateinit var pointTripListActive: PointTripListActive
     private lateinit var memberListActive: MemberListActive
@@ -53,7 +52,7 @@ class CreateTrip : AppCompatActivity() {
         describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt)
 
         // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
 //        val userId = "-NMdAZQvSSRvUloijgCc"
 //        userViewModel.load(userId)

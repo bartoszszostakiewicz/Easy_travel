@@ -6,38 +6,45 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.project.easy_travel.Model.TripCell
+import com.project.easy_travel.ViewModel.MainViewModel
 import com.project.easy_travel.ViewModel.Organizacja
 import com.project.easy_travel.ViewModel.TripViewModel
-import com.project.easy_travel.ViewModel.UserViewModel
 import kotlin.math.log
 
 class TripListActivity : AppCompatActivity() {
     private lateinit var tripActive: TripActive
 
-    lateinit var userViewModel: UserViewModel
-    lateinit var tripViewModels: List<TripViewModel>
+//    lateinit var userViewModel: UserViewModel
+//    lateinit var tripViewModels: List<TripViewModel>
+
+    val mainApp = application as MainApp
+    val userViewModel = mainApp.userViewModelGet()
 
     lateinit var helloTxt: TextView
-
     private val tripItems: MutableList<TripCell> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
 
+
         var tripList = findViewById<RecyclerView>(R.id.tripList)
         var backBtn = findViewById<Button>(R.id.logOutButton)
 
         helloTxt = findViewById(R.id.hello_txt)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.load(intent.getStringExtra("userId").toString())
+        val userId = intent.getStringExtra("userId")
+        userViewModel.user.observe(this, Observer { user ->
+            helloTxt.text = "Witam ${user.name} ${user.surname}"
+        })
 
         tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element)
         tripList.adapter = tripActive
@@ -54,22 +61,22 @@ class TripListActivity : AppCompatActivity() {
         findViewById<Button>(R.id.join_trip).setOnClickListener {
         }
 
-        userViewModel.user.observe(this) { user ->
-            Toast.makeText(this, user.tripsID.toString(), Toast.LENGTH_SHORT).show()
-            helloTxt.text = "Witam ${user.name} ${user.surname}"
-            for (trip in user.tripsID) {
-                Toast.makeText(this, trip, Toast.LENGTH_SHORT).show()
-                val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
-                tripViewModel.load(trip)
-                tripViewModel.trip.observe(this) { trip ->
-                    val tripCell = TripCell(trip.title, false, trip.description)
-                    if (!tripItems.contains(tripCell)) {
-                        tripItems.add(tripCell)
-                        tripActive.notifyDataSetChanged()
-                    }
-                }
-
-            }
-        }
+//        userViewModel.user.observe(this) { user ->
+//            Toast.makeText(this, user.tripsID.toString(), Toast.LENGTH_SHORT).show()
+//            helloTxt.text = "Witam ${user.name} ${user.surname}"
+//            for (trip in user.tripsID) {
+//                Toast.makeText(this, trip, Toast.LENGTH_SHORT).show()
+//                val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
+//                tripViewModel.load(trip)
+//                tripViewModel.trip.observe(this) { trip ->
+//                    val tripCell = TripCell(trip.title, false, trip.description)
+//                    if (!tripItems.contains(tripCell)) {
+//                        tripItems.add(tripCell)
+//                        tripActive.notifyDataSetChanged()
+//                    }
+//                }
+//
+//            }
+//        }
     }
 }
