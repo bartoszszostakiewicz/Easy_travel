@@ -3,11 +3,13 @@ package com.project.easy_travel
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -16,29 +18,40 @@ import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.ViewModel.Pins
 import com.project.easy_travel.ViewModel.TripViewModel
+import java.util.Objects
 
 class OrganizerMainActivity : AppCompatActivity() {
 
-    lateinit var trip_data: DataSnapshot
+    private val TITLE = "title"
+    private val DESCRIPTION = "description"
+    val trip_id = "-NMdAXK265B3ffD0kkYQ"
+
+    var trip_data: MutableMap<String, Any>? = null
 
     lateinit var pointTripListActiveItems: MutableList<TripPoint>
     lateinit var memberListActiveItems: MutableList<InvitedUser>
+
+    var trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        rootActivity()
+
         //TODO: remove hardcode
-        var trip_id = "-NMdAXK265B3ffD0kkYQ"
         //val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
         //var loaded_data = tripViewModel.load(trip_id)
 
-        FirebaseDatabase.getInstance().getReference("trips").get().addOnCompleteListener {
-            trip_data = it.result
+        //TODO: change read data to complete model when ready
+        trip_fb_instance.get().addOnCompleteListener {
+            trip_data = it.result.value as MutableMap<String, Any>?
+            Log.d("read success", trip_data.toString())
+            Log.d("read success", trip_data!!["title"].toString())
+        }.addOnFailureListener {
+            Log.e("read error", it.toString())
         }
 
         pointTripListActiveItems = mutableListOf<TripPoint>()
         memberListActiveItems =  mutableListOf<InvitedUser>()
 
-        //TODO: read data about a trip and set it
+        rootActivity()
     }
 
     private fun rootActivity(){
@@ -77,21 +90,22 @@ class OrganizerMainActivity : AppCompatActivity() {
 
         var trip_name = findViewById<EditText>(R.id.nameTrip_edttxt)
         var trip_description = findViewById<EditText>(R.id.describeTrip_edttxt)
-        /*
-        trip_name.setText(trip_data.title)
-        trip_description.setText(trip_data.description)
-*/
+
+
+        trip_name.setText(trip_data!![TITLE].toString())
+        trip_description.setText(trip_data!![DESCRIPTION].toString())
+
         btn.setOnClickListener {
-            /*
-            trip_data = Trip(
-                trip_name.text.toString(),
-                trip_description.text.toString(),
-                trip_data.tripPointsID,
-                trip_data.organizerID,
-                trip_data.guidesID,
-                trip_data.participantsID
-            )
-*/
+
+            trip_data!![TITLE] = trip_name.text.toString() as Any
+            trip_data!![DESCRIPTION] = trip_description.text.toString() as Any
+
+            Log.d("update success", trip_data.toString())
+
+            trip_fb_instance.setValue(trip_data!!.toMap()).addOnFailureListener {
+                Log.e("update error", it.toString())
+            }
+
             //TODO: update the database
             editRoot()
         }
