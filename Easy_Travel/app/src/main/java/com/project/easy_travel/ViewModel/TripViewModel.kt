@@ -1,6 +1,8 @@
 package com.project.easy_travel.ViewModel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.project.easy_travel.Model.*
 
-class TripViewModel : ViewModel() {
+class TripViewModel(application: Application) : AndroidViewModel(application) {
     private val _trip = MutableLiveData<Trip>()
     val trip: LiveData<Trip> = _trip
 
