@@ -15,8 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.Model.TripCell
 import com.project.easy_travel.ViewModel.Chat_Activity_B
 import com.project.easy_travel.ViewModel.Organizacja
-import com.project.easy_travel.ViewModel.TripViewModel
-import com.project.easy_travel.ViewModel.UserViewModel
 import kotlin.math.log
 
 
@@ -29,9 +27,7 @@ class TripListActivity : AppCompatActivity() {
         //TODO: przy moich zmianach, ta linijk2 powoduje null-reference crashe
 //    val mainApp = application as MainApp
 //    val userViewModel = mainApp.userViewModelGet()
-    lateinit var userViewModel: UserViewModel
 
-    lateinit var tripViewModels: List<TripViewModel>
     private lateinit var mAuth: FirebaseAuth
 
 
@@ -41,7 +37,6 @@ class TripListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
 
         mAuth = FirebaseAuth.getInstance()
@@ -50,10 +45,6 @@ class TripListActivity : AppCompatActivity() {
         var backBtn = findViewById<Button>(R.id.logOutButton)
 
         helloTxt = findViewById(R.id.hello_txt)
-
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        //userViewModel.load(intent.getStringExtra("userId").toString())
-        userViewModel.load(replaceDotsWithEmail(mAuth.currentUser?.email.toString()))
 
         tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element)
         tripList.adapter = tripActive

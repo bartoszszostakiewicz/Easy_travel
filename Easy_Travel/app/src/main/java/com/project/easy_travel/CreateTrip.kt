@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.Model.InvitedUser
 import com.project.easy_travel.Model.Point
-import com.project.easy_travel.ViewModel.UserViewModel
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.ViewModel.Pins
