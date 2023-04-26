@@ -2,13 +2,14 @@ package com.project.easy_travel.repository
 
 object MainRepository{
 
-    private val userRepository: UserRepository = TODO()
+    private val userRepository: UserRepository = UserRepository()
+    private val tripRepository: TripRepository = TripRepository()
 
     fun getUserRepository(): UserRepository {
         return userRepository
     }
 
-    //fun getTripRepository(): TripRepository {
-    //    return tripRepository
-    //}
+    fun getTripRepository(): TripRepository {
+        return tripRepository
+    }
 }

@@ -18,7 +18,7 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     fun initUserViewModel(userId: String) {
         val userRepository = mainRepository.getUserRepository()
-        val userViewModel = UserViewModel(userRepository, userId)
+        val userViewModel = UserViewModel(/*userId, */userRepository)
         _userViewModel.value = userViewModel
     }
 }

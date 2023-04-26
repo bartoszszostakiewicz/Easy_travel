@@ -1,23 +1,16 @@
 package com.project.easy_travel
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.project.easy_travel.Model.TripCell
-import com.project.easy_travel.ViewModel.MainViewModel
-import com.project.easy_travel.ViewModel.Organizacja
-import com.project.easy_travel.ViewModel.TripViewModel
-import kotlin.math.log
+import com.project.easy_travel.remote.UserViewModel
 
 class TripListActivity : AppCompatActivity() {
     private lateinit var tripActive: TripActive
@@ -25,8 +18,10 @@ class TripListActivity : AppCompatActivity() {
 //    lateinit var userViewModel: UserViewModel
 //    lateinit var tripViewModels: List<TripViewModel>
 
-    val mainApp = application as MainApp
-    val userViewModel = mainApp.userViewModelGet()
+        //TODO: przy moich zmianach, ta linijk2 powoduje null-reference crashe
+//    val mainApp = application as MainApp
+//    val userViewModel = mainApp.userViewModelGet()
+    lateinit var userViewModel: UserViewModel
 
     lateinit var helloTxt: TextView
     private val tripItems: MutableList<TripCell> = mutableListOf()
@@ -34,7 +29,7 @@ class TripListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
-
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         var tripList = findViewById<RecyclerView>(R.id.tripList)
         var backBtn = findViewById<Button>(R.id.logOutButton)
@@ -42,8 +37,8 @@ class TripListActivity : AppCompatActivity() {
         helloTxt = findViewById(R.id.hello_txt)
 
         val userId = intent.getStringExtra("userId")
-        userViewModel.user.observe(this, Observer { user ->
-            helloTxt.text = "Witam ${user.name} ${user.surname}"
+        userViewModel.getResponse(userId!!).observe(this, Observer { user ->
+            helloTxt.text = "Witam ${user!!.name} ${user!!.surname}"
         })
 
         tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element)

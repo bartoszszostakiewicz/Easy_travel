@@ -1,33 +1,36 @@
 package com.project.easy_travel.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.User
-//import com.project.easy_travel.remote.UserSource
 
-class UserRepository {
+class TripRepository {
 
-    val USERS_REF = "users"
+    val TRIPS_REF = "trips"
 
     private val rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private val productRef: DatabaseReference = rootRef.child(USERS_REF)
+    private val productRef: DatabaseReference = rootRef.child(TRIPS_REF)
 
-    fun getLiveData(id: String) : MutableLiveData<User?>
+    fun getLiveData(id: String) : MutableLiveData<Trip?>
     {
-        val mutableLiveData = MutableLiveData<User?>();
+        val mutableLiveData = MutableLiveData<Trip?>();
         productRef.child(id).get().addOnCompleteListener { task ->
-            var user : User? = null
+            var trip : Trip? = null
             if(task.isSuccessful){
                 val result = task.result
                 result?.let {
-                    user = it.getValue(User::class.java)
+                    trip = it.getValue(Trip::class.java)
                 }
             }
-            mutableLiveData.value = user;
+            mutableLiveData.value = trip;
         }
         return mutableLiveData
     }
 
+    fun setData(id: String, data: Trip)
+    {
+        productRef.child(id).setValue(data.toMap())
+    }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.repository.UserRepository
-
+/*
 class UserSource : UserRepository {
     private val database = FirebaseDatabase.getInstance()
     private val ref = database.getReference("users")
@@ -33,3 +33,4 @@ class UserSource : UserRepository {
         ref.child(userId).removeValue()
     }
 }
+*/

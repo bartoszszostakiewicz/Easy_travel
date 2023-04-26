@@ -11,8 +11,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.project.easy_travel.Model.*
+import com.project.easy_travel.repository.MainRepository
+import com.project.easy_travel.repository.TripRepository
 
-class TripViewModel(application: Application) : AndroidViewModel(application) {
+class TripViewModel(
+    private val tripRepository: TripRepository = MainRepository.getTripRepository()
+) : ViewModel() {
+
+    fun getResponse(userId: String) : LiveData<Trip?>{
+        return  tripRepository.getLiveData(userId)
+    }
+
+/*
     private val _trip = MutableLiveData<Trip>()
     val trip: LiveData<Trip> = _trip
 
@@ -52,4 +62,6 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val TAG = "TripViewModel"
     }
+    */
+
 }
