@@ -25,6 +25,8 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pins)
 
+        supportActionBar?.hide()
+
 
         findViewById<MaterialButton>(R.id.mark_places).setOnClickListener{
 

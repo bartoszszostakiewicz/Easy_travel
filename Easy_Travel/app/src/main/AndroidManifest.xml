@@ -20,11 +20,23 @@
         android:theme="@style/Theme.Easy_travel"
         tools:targetApi="31">
         <activity
+            android:name=".ViewModel.ChatActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ViewModel.UserChat"
+            android:exported="false" />
+        <activity
+            android:name=".ViewModel.Chat_Activity_B"
+            android:exported="true" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ViewModel.LoginActivity"
-            />
+            android:parentActivityName=".ViewModel.LoginActivity" />
         <activity
             android:name=".ViewModel.Pins"
             android:exported="false" />
@@ -86,13 +98,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ChatActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ViewModel.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -104,9 +109,9 @@
         <activity
             android:name=".CreateTrip"
             android:exported="false">
-        <meta-data
-            android:name="android.app.lib_name"
-            android:value="" />
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".OrganizerMainActivity"
@@ -122,7 +127,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
     </application>
 
 </manifest>
