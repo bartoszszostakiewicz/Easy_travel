@@ -27,10 +27,10 @@ fun writeNewTrip(name:String,przewodnik:String, opis:String, key:String){
 }
 
 fun writeNewPoint(lat: Double, lng: Double) {
-    val point = Point(lat, lng)
+    //val point = Point(lat, lng)
 
     val database = Firebase.database.reference
-    database.child("points").push().setValue(point)
+    //database.child("points").push().setValue(point)
 
 }
 
@@ -43,8 +43,8 @@ fun read_points(callback: (MutableList<Point>) -> Unit) {
         data.children.forEach { point ->
             val p = point.getValue(Point::class.java)
             Log.i("point12", p?.lat.toString())
-            val newPoint = Point(p?.lat.toString().toDouble(),p?.lng.toString().toDouble())
-            listPoints.add(newPoint)
+            //val newPoint = Point(p?.lat.toString().toDouble(),p?.lng.toString().toDouble())
+            //listPoints.add(newPoint)
             Log.i("point13",listPoints.last().toString())
         }
 
