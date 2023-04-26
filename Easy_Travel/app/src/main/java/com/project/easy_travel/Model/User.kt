@@ -6,8 +6,17 @@ import com.google.firebase.database.*
 
 
 data class User(
-    val name: String = "",
+    var name: String = "",
     val surname: String = "",
     val email: String = "",
     val tripsID: List<String> = listOf()
-)
+) : Mapable {
+    override fun toMap(): Map<String, Any> {
+        return mapOf(
+            "name" to name,
+            "surname" to surname,
+            "email" to email,
+            "tripsID" to tripsID
+        )
+    }
+}

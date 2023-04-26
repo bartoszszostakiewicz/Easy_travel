@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.AdditionalInformationActivity
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.R
+import com.project.easy_travel.remote.UserViewModel
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -90,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 // ListOf give example of trips
-                userViewModel.create(replaceDotsWithEmail(email), User(name, surname, email, listOf("1", "2")))
+                //userViewModel.create(replaceDotsWithEmail(email), User(name, surname, email, listOf("1", "2")))
                 Toast.makeText(this, "Succesfully Registered", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(applicationContext, AdditionalInformationActivity::class.java))
             } else {
