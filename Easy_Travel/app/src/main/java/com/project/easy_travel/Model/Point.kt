@@ -5,13 +5,19 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 data class Point (
+    val name: String,
+    val describe: String,
     val lat: Double,
-    val lng: Double){
-    constructor()  : this(0.0,0.0)
-
+    val lng: Double) {
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+            "name" to name,
+            "describe" to describe,
+            "lat" to lat,
+            "lng" to lng
+        )
+    }
 }
-
-
 
 lateinit var database: DatabaseReference
 

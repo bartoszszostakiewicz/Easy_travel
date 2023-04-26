@@ -37,8 +37,6 @@ class ChatActivity : AppCompatActivity() {
         val name = extras?.getString("name")
         var receiverEmail = extras?.getString("email")
 
-        //dziala teraz problem jest z kropka
-
         var senderEmail = FirebaseAuth.getInstance().currentUser?.email
 
         mDbRef = FirebaseDatabase.getInstance().getReference()

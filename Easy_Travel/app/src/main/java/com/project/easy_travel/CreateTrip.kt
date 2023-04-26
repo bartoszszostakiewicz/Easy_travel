@@ -3,6 +3,7 @@ package com.project.easy_travel
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.Model.InvitedUser
+import com.project.easy_travel.Model.Point
 import com.project.easy_travel.ViewModel.UserViewModel
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.Model.User
@@ -49,25 +51,23 @@ class CreateTrip : AppCompatActivity() {
 
         // inicializacja z pierwszego xmla
         nextButton1 = findViewById<Button>(R.id.next_btn1)
-        nameTripEdttxt = findViewById<EditText>(R.id.nameTrip_edttxt)
-        describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt)
+        nameTripEdttxt = findViewById<EditText>(R.id.nameTrip_edttxt) // Do bazy danych
+        describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt) // Do bazy danych
+
+        val points = ArrayList<Point>() // Do bazy danych
+        val guidesID = ArrayList<String>() // Do bazy danych
+        val participantsID = ArrayList<String>() // Do bazy danych
+
 
         // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-//        val userId = "-NMdAZQvSSRvUloijgCc"
-//        userViewModel.load(userId)
-//
-//        userViewModel.user.observe(this) { user ->
-//            titleTxt = findViewById<TextView>(R.id.title_txt)
-//            titleTxt.text = user.name
-//        }
 
         val pointTripListActiveItems = mutableListOf<TripPoint>()
         val memberListActiveItems = mutableListOf<InvitedUser>()
 
 
         nextButton1.setOnClickListener {
+            Log.d("XXD1", nameTripEdttxt.text.toString())
             setContentView(R.layout.create_trip_page2)
             overridePendingTransition(R.anim.slide_right_to_left, R.anim.no_animation)
 
@@ -76,6 +76,7 @@ class CreateTrip : AppCompatActivity() {
             recyclerViewTripPoint = findViewById<RecyclerView>(R.id.tripPoint_list)
 
             nextButton2.setOnClickListener {
+
                 setContentView(R.layout.create_trip_page3)
                 nextButton3 = findViewById<Button>(R.id.create_trip_btn)
                 addMemberBtn = findViewById<Button>(R.id.add_member_btn)
@@ -84,6 +85,9 @@ class CreateTrip : AppCompatActivity() {
                 addMemberBtn.setOnClickListener {
                     val dialog = Dialog(this)
                     dialog.setContentView(R.layout.dialog_add_member)
+
+                    val tripPointName_edttxt = dialog.findViewById<EditText>(R.id.tripPointName_edttxt) // Do bazy danych
+                    val tripPointDescribe_edttxt = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt) // Do bazy danych
 
                     val roles = resources.getStringArray(R.array.roles)
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
@@ -97,6 +101,12 @@ class CreateTrip : AppCompatActivity() {
                     add_btn.setOnClickListener {
                         val email = dialog.findViewById<EditText>(R.id.emailMember_edttxt).text.toString()
                         val role = role_spinner.selectedItem.toString()
+
+                        if (role == "Uczestnik") {
+                            participantsID.add(email)
+                        } else {
+                            guidesID.add(email)
+                        }
 
                         memberListActiveItems.add(InvitedUser(email, role))
                         memberListActive = MemberListActive(memberListActiveItems)
@@ -115,6 +125,11 @@ class CreateTrip : AppCompatActivity() {
 
 
                 nextButton3.setOnClickListener {
+                    Log.d("XXD1", "Name trip - " + nameTripEdttxt.text.toString())
+                    Log.d("XXD1", "Describe trip - " + describeTripEdttxt.text.toString())
+                    Log.d("XXD1", "Points - " + points.toString())
+                    Log.d("XXD1", "Guides - " + guidesID.toString())
+                    Log.d("XXD1", "Participants - " + participantsID.toString())
                     val intent = Intent(this, OrganizerMainActivity::class.java)
                     startActivity(intent)
                 }
@@ -138,6 +153,7 @@ class CreateTrip : AppCompatActivity() {
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
                     val tripPoint = TripPoint(name, description)
+                    points.add(Point(name, description, 0.0, 0.0))
 
 
                     pointTripListActiveItems.add(tripPoint)
