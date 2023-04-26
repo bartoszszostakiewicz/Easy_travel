@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.R
 import com.project.easy_travel.SettingsActivity
 import com.project.easy_travel.TripListActivity
+import com.project.easy_travel.remote.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         var btn = findViewById<MaterialButton>(R.id.login_button)
         var register = findViewById<TextView>(R.id.register)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         register.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
@@ -41,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
+
 
             login(username.text.toString(),password.text.toString())
             /**

@@ -39,7 +39,7 @@ class CreateTrip : AppCompatActivity() {
     lateinit var recyclerViewTripPoint: RecyclerView
     lateinit var recyclerViewMember: RecyclerView
 
-    private lateinit var userViewModel: UserViewModel
+    //private lateinit var userViewModel: UserViewModel
 
     private lateinit var pointTripListActive: PointTripListActive
     private lateinit var memberListActive: MemberListActive
@@ -60,7 +60,7 @@ class CreateTrip : AppCompatActivity() {
 
 
         // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val pointTripListActiveItems = mutableListOf<TripPoint>()
         val memberListActiveItems = mutableListOf<InvitedUser>()
