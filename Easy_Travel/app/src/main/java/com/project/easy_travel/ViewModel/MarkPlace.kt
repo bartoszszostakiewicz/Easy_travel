@@ -84,7 +84,9 @@ class MarkPlace : Fragment() {
                 if (coordinates != null) {
                     if (coordinates.isNotEmpty()) {
                         val placeLocation = coordinates?.get(0)
-                        writeNewPoint(placeLocation.latitude, placeLocation.longitude)
+                        if (placeLocation != null) {
+                            writeNewPoint(placeLocation.latitude, placeLocation.longitude)
+                        }
                     } else {
                         Toast.makeText(requireContext(), "Nie znaleziono miejsca", Toast.LENGTH_SHORT).show()
                     }

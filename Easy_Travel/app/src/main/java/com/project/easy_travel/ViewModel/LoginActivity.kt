@@ -41,8 +41,9 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
-            //startActivity(Intent(applicationContext, Pins::class.java))
 
+            login(username.text.toString(),password.text.toString())
+            /**
             userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
                 if (emailExists) {
                     userViewModel.load(replaceDotsWithEmail(username.text.toString()))
@@ -50,9 +51,13 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("userId", replaceDotsWithEmail(username.text.toString()))
                     startActivity(intent)
                 }
+                else {
+                    Toast.makeText(this, "User does not exist", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(applicationContext, TripListActivity::class.java))
+                }
 
             }
-
+            **/
 
 
             //startActivity(Intent(applicationContext, Organizacja::class.java))
@@ -85,8 +90,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun replaceDotsWithEmail(email: String): String {
-        return email.replace(".", "_")
-    }
+
 
 }

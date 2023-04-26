@@ -48,12 +48,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="46dp"
-        android:layout_height="51dp"
-        android:text="Button"
+        android:id="@+id/chat_test"
+        android:layout_width="127dp"
+        android:layout_height="57dp"
+        android:text="chat"
         app:layout_constraintBottom_toTopOf="@+id/join_trip"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/hello_txt"

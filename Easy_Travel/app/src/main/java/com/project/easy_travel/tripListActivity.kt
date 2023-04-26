@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.Model.TripCell
+import com.project.easy_travel.ViewModel.Chat_Activity_B
 import com.project.easy_travel.ViewModel.Organizacja
 import com.project.easy_travel.ViewModel.TripViewModel
 import com.project.easy_travel.ViewModel.UserViewModel
@@ -22,6 +24,7 @@ class TripListActivity : AppCompatActivity() {
 
     lateinit var userViewModel: UserViewModel
     lateinit var tripViewModels: List<TripViewModel>
+    private lateinit var mAuth: FirebaseAuth
 
     lateinit var helloTxt: TextView
 
@@ -31,17 +34,24 @@ class TripListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
 
+
+        mAuth = FirebaseAuth.getInstance()
+
         var tripList = findViewById<RecyclerView>(R.id.tripList)
         var backBtn = findViewById<Button>(R.id.logOutButton)
 
         helloTxt = findViewById(R.id.hello_txt)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.load(intent.getStringExtra("userId").toString())
-
+        //userViewModel.load(intent.getStringExtra("userId").toString())
+        userViewModel.load(replaceDotsWithEmail(mAuth.currentUser?.email.toString()))
         tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element)
         tripList.adapter = tripActive
         tripList.layoutManager = LinearLayoutManager(this)
+
+        findViewById<Button>(R.id.chat_test).setOnClickListener {
+            startActivity(Intent(applicationContext,Chat_Activity_B::class.java))
+        }
 
         backBtn.setOnClickListener {
             this.finish()
@@ -71,5 +81,8 @@ class TripListActivity : AppCompatActivity() {
 
             }
         }
+    }
+    fun replaceDotsWithEmail(email: String): String {
+        return email.replace(".", "_")
     }
 }
