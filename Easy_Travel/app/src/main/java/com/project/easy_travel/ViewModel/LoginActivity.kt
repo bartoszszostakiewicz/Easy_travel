@@ -42,21 +42,24 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
-            //startActivity(Intent(applicationContext, Pins::class.java))
 
-            val intent = Intent(applicationContext, TripListActivity::class.java)
-            intent.putExtra("userId", "yarik0980504744@gmail_com")
-            startActivity(intent)
-//            userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
-//                if (emailExists) {
-//                    userViewModel.load(replaceDotsWithEmail(username.text.toString()))
-//                    val intent = Intent(applicationContext, TripListActivity::class.java)
-//                    intent.putExtra("userId", replaceDotsWithEmail(username.text.toString()))
-//                    startActivity(intent)
-//                }
-//
-//            }
 
+            login(username.text.toString(),password.text.toString())
+            /**
+            userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
+                if (emailExists) {
+                    userViewModel.load(replaceDotsWithEmail(username.text.toString()))
+                    val intent = Intent(applicationContext, TripListActivity::class.java)
+                    intent.putExtra("userId", replaceDotsWithEmail(username.text.toString()))
+                    startActivity(intent)
+                }
+                else {
+                    Toast.makeText(this, "User does not exist", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(applicationContext, TripListActivity::class.java))
+                }
+
+            }
+            **/
 
 
             //startActivity(Intent(applicationContext, Organizacja::class.java))
@@ -89,8 +92,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun replaceDotsWithEmail(email: String): String {
-        return email.replace(".", "_")
-    }
+
 
 }

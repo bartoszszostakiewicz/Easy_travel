@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-
+import com.project.easy_travel.ViewModel.Chat_Activity_B
 
 
 class MenuActivity : AppCompatActivity() {
@@ -36,7 +36,8 @@ class MenuActivity : AppCompatActivity() {
             startActivity(newActivity)
         }
         chatBtn.setOnClickListener {
-            var newActivity: Intent = Intent(applicationContext, ChatMainActivity::class.java)
+
+            var newActivity: Intent = Intent(applicationContext, Chat_Activity_B::class.java)
             startActivity(newActivity)
         }
 
