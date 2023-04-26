@@ -4,6 +4,7 @@ object MainRepository{
 
     private val userRepository: UserRepository = UserRepository()
     private val tripRepository: TripRepository = TripRepository()
+    private val pointRepository : PointRepository = PointRepository()
 
     fun getUserRepository(): UserRepository {
         return userRepository
@@ -11,5 +12,8 @@ object MainRepository{
 
     fun getTripRepository(): TripRepository {
         return tripRepository
+    }
+    fun getPointRepository(): PointRepository {
+        return pointRepository
     }
 }
