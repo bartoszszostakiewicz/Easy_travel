@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/white"
     app:layoutDescription="@xml/activity_register_scene"
     tools:context=".ViewModel.RegisterActivity">
 
@@ -16,120 +16,126 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/textView3"
+            android:layout_marginTop="00dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:padding="30sp"
+            android:padding="40dp"
             android:text="Utwórz konto Easytravel"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="32" />
+
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/textView3"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/rounded_edittext"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
             android:hint="Podaj email"
             android:inputType="textEmailAddress"
             android:padding="20dp"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/black"
             android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="356dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="16" />
+
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/email"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/rounded_edittext"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
             android:hint="Podaj hasło"
             android:inputType="textPassword"
             android:padding="20dp"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/black"
             android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password2" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/password2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/password"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/rounded_edittext"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
             android:hint="Powtórz hasło"
             android:inputType="textPassword"
             android:padding="20dp"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/black"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000" />
 
-            android:textColorHighlight="#FFFFFF" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="32" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/prev_btn_reg"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_weight="1"
-                android:text="Powróć" />
+                android:backgroundTint="#00D5FF"
+                android:textColor="@color/black"
+                android:text="Powróć" ></com.google.android.material.button.MaterialButton>
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/finn_btn_reg"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_weight="1"
-                android:text="Zarejestruj" />
+                android:backgroundTint="#55FF7A"
+                android:textColor="@color/black"
+                android:text="Zarejestruj" ></com.google.android.material.button.MaterialButton>
         </LinearLayout>
 
     </LinearLayout>
