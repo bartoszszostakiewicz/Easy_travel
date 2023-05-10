@@ -67,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //NOTE: przechodzi do ustawien
-        findViewById<MaterialButton>(R.id.create_trip_button).setOnClickListener{
-            startActivity(Intent(applicationContext, SettingsActivity::class.java))
-        }
+//        findViewById<MaterialButton>(R.id.create_trip_button).setOnClickListener{
+//            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+//        }
 
     }
 
