@@ -2,6 +2,7 @@ package com.project.easy_travel.ViewModel
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -67,9 +68,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //NOTE: przechodzi do ustawien
-//        findViewById<MaterialButton>(R.id.create_trip_button).setOnClickListener{
-//            startActivity(Intent(applicationContext, SettingsActivity::class.java))
-//        }
+        findViewById<ImageView>(R.id.create_trip_button).setOnClickListener{
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+        }
 
     }
 
