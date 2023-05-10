@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
         android:padding="40dp"
-        android:text="Zaloguj sie"
+        android:text="Easy Travel"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:textSize="60sp"
         android:textStyle="bold" />
 
 
@@ -33,11 +33,12 @@
         android:background="@drawable/rounded_edittext"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="10dp"
-        android:hint="Wpisz nazwe użytkownika"
+        android:hint="Nazwa użytkownika"
         android:inputType="text"
         android:padding="20dp"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF" />
+        android:textColor="@color/black"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#000000" />
 
     <EditText
         android:id="@+id/password"
@@ -51,11 +52,12 @@
         android:background="@drawable/rounded_edittext"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="10dp"
-        android:hint="Wpisz swoje hasło"
+        android:hint="Hasło"
         android:inputType="textPassword"
         android:padding="20dp"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF" />
+        android:textColor="@color/black"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#000000" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
@@ -67,9 +69,10 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="55dp"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:text="ZALOGUJ SIĘ"></com.google.android.material.button.MaterialButton>
-
+        android:backgroundTint="#55FF7A"
+        android:textColor="@color/black"
+        android:elevation="300dp"
+        android:text="ZALOGUJ SIĘ" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_trip_button"
@@ -84,6 +87,19 @@
         android:backgroundTint="@color/design_default_color_secondary"
         android:text="Norbert"></com.google.android.material.button.MaterialButton>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_trip_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="55dp"
+        android:backgroundTint="#00D5FF"
+        android:textColor="@color/black"
+        android:text="ZAREJESTRUJ SIĘ" />
 
 
 
@@ -98,20 +114,17 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:text="Zapomiałeś hasła"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/register"
+    <ImageView
+        android:id="@+id/my_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/forgotpass"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Zarejestruj się"
-        android:textColor="@color/white"
-        android:clickable="true"/>
+        android:layout_below="@+id/register"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="30dp"
+        android:src="@drawable/line" />
 
 </RelativeLayout>
