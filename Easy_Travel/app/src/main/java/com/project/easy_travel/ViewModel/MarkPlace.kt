@@ -1,6 +1,7 @@
 package com.project.easy_travel.ViewModel
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.project.easy_travel.CreateTrip
 import com.project.easy_travel.Model.Point
 import com.project.easy_travel.R
 
@@ -38,6 +40,8 @@ class MarkPlace : Fragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var geocoder: Geocoder
     private lateinit var placeNameEditText: EditText
+    private lateinit var database: FirebaseDatabase
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +89,18 @@ class MarkPlace : Fragment() {
                     if (coordinates.isNotEmpty()) {
                         val placeLocation = coordinates?.get(0)
                         if (placeLocation != null) {
-                            writeNewPoint(placeLocation.latitude, placeLocation.longitude)
+
+                            //writeNewPoint(placeLocation.latitude, placeLocation.longitude)
+                            //val dbref = FirebaseDatabase.getInstance().getReference("points")
+
+                            //val extras = intent.getStringExtra("pointId")
+                            //val pointId = extras?.getString("pointId")
+
+                            //val point = Point(pointId, placeName, placeLocation.latitude, placeLocation.longitude, tripId)
+
+
+                        } else {
+                            Toast.makeText(requireContext(), "Nie znaleziono miejsca", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(requireContext(), "Nie znaleziono miejsca", Toast.LENGTH_SHORT).show()

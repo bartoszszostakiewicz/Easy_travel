@@ -34,6 +34,10 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
             mapFragment?.getMapAsync(this)
         }
 
+        findViewById<MaterialButton>(R.id.mark_accept).setOnClickListener{
+
+            this.finish()
+        }
 
 
 
@@ -45,7 +49,7 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
         val mapView = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
 
-
+    /*
         read_points { points ->
             points.forEach{point ->
 
@@ -56,6 +60,7 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
                 )
             }
         }
+        **/
 
 
 

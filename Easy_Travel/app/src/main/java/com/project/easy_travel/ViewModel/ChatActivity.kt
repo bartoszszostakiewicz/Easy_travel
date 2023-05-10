@@ -38,6 +38,7 @@ class ChatActivity : AppCompatActivity() {
         var receiverEmail = extras?.getString("email")
 
         var senderEmail = FirebaseAuth.getInstance().currentUser?.email
+        //var senderEmail = FirebaseAuth.getInstance().currentUser?.email
 
         mDbRef = FirebaseDatabase.getInstance().getReference()
 

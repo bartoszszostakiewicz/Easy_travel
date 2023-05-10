@@ -8,7 +8,8 @@ data class Point (
     val name: String,
     val describe: String,
     val lat: Double,
-    val lng: Double) {
+    val lng: Double) : java.io.Serializable {
+
     fun toMap(): Map<String, Any> {
         return mapOf(
             "name" to name,

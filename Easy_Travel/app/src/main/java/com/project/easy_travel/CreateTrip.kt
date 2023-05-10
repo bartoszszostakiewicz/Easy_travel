@@ -164,9 +164,19 @@ class CreateTrip : AppCompatActivity() {
                 add_btn_tripPoint = dialog.findViewById<Button>(R.id.add_btn)
                 cancel_btn_tripPoint = dialog.findViewById<Button>(R.id.back_btn)
 
+
+
+
                 map_btn_tripPoint.setOnClickListener {
-                    startActivity(Intent(this, Pins::class.java))
+                    val intent = Intent(this, Pins::class.java)
+                    startActivity(intent)
+
+
+
                 }
+
+
+
 
 
                 add_btn_tripPoint.setOnClickListener {

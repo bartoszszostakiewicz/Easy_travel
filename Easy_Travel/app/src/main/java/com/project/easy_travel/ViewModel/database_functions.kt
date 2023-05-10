@@ -3,10 +3,7 @@ package com.project.easy_travel.ViewModel
 import android.util.Log
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.project.easy_travel.Model.Point
-import com.project.easy_travel.Model.User
-import com.project.easy_travel.Model.Wycieczka
-import com.project.easy_travel.Model.database
+import com.project.easy_travel.Model.*
 
 fun writeNewUser(userId: String, name:String,lastname:String, email:String, password:String){
 
@@ -27,21 +24,21 @@ fun writeNewTrip(name:String,przewodnik:String, opis:String, key:String){
 }
 
 fun writeNewPoint(lat: Double, lng: Double) {
-    //val point = Point(lat, lng)
+    val point = Coordinates(lat, lng)
 
     val database = Firebase.database.reference
-    //database.child("points").push().setValue(point)
+    database.child("points").push().setValue(point)
 
 }
 
-fun read_points(callback: (MutableList<Point>) -> Unit) {
+fun read_points(callback: (MutableList<Coordinates>) -> Unit) {
 
     val database = Firebase.database.reference
-    val listPoints = mutableListOf<Point>()
+    val listPoints = mutableListOf<Coordinates>()
 
     database.child("points").get().addOnSuccessListener { data ->
         data.children.forEach { point ->
-            val p = point.getValue(Point::class.java)
+            val p = point.getValue(Coordinates::class.java)
             Log.i("point12", p?.lat.toString())
             //val newPoint = Point(p?.lat.toString().toDouble(),p?.lng.toString().toDouble())
             //listPoints.add(newPoint)
