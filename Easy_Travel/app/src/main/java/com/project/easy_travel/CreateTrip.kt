@@ -13,10 +13,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.easy_travel.Model.InvitedUser
-import com.project.easy_travel.Model.Point
-import com.project.easy_travel.Model.TripPoint
-import com.project.easy_travel.Model.User
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import com.project.easy_travel.Model.*
 import com.project.easy_travel.ViewModel.Pins
 
 class CreateTrip : AppCompatActivity() {
@@ -102,9 +103,9 @@ class CreateTrip : AppCompatActivity() {
                         val role = role_spinner.selectedItem.toString()
 
                         if (role == "Uczestnik") {
-                            participantsID.add(email)
+                            participantsID.add(replaceDotsWithEmail(email))
                         } else {
-                            guidesID.add(email)
+                            guidesID.add(replaceDotsWithEmail(email))
                         }
 
                         memberListActiveItems.add(InvitedUser(email, role))
@@ -129,6 +130,27 @@ class CreateTrip : AppCompatActivity() {
                     Log.d("XXD1", "Points - " + points.toString())
                     Log.d("XXD1", "Guides - " + guidesID.toString())
                     Log.d("XXD1", "Participants - " + participantsID.toString())
+
+                    var ref = FirebaseDatabase.getInstance().getReference("points")
+
+                    // List of points
+                    val pointsID = arrayListOf<String>()
+
+                    // Add point to realtime database
+                    for (point in points) {
+                        val pointID = ref.push().key
+                        pointsID.add(pointID.toString())
+                        ref.child(pointID.toString()).setValue(point)
+                    }
+
+                    ref = FirebaseDatabase.getInstance().getReference("trips")
+                    val organizerID = FirebaseAuth.getInstance().currentUser?.email.toString() // adres e-mail organizatora
+
+                    // Add trip to realtime database
+                    val tripID = ref.push().key
+                    val trip = Trip(nameTripEdttxt.text.toString(), describeTripEdttxt.text.toString(), pointsID, replaceDotsWithEmail(organizerID), guidesID, participantsID)
+                    ref.child(tripID.toString()).setValue(trip)
+
                     val intent = Intent(this, OrganizerMainActivity::class.java)
                     startActivity(intent)
                 }
@@ -173,6 +195,10 @@ class CreateTrip : AppCompatActivity() {
 
 
     }
+}
+
+fun replaceDotsWithEmail(email: String): String {
+    return email.replace(".", "_")
 }
 
 class PointTripListActive (
