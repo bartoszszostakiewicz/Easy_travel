@@ -6,6 +6,7 @@ import com.google.firebase.database.*
 
 
 data class User(
+    var id: String = "",
     var name: String = "",
     val surname: String = "",
     val email: String = "",

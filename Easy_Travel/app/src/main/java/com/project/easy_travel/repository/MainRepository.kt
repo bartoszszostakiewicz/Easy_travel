@@ -1,6 +1,6 @@
 package com.project.easy_travel.repository
 
-object MainRepository{
+class MainRepository{
 
     private val userRepository: UserRepository = UserRepository()
     private val tripRepository: TripRepository = TripRepository()

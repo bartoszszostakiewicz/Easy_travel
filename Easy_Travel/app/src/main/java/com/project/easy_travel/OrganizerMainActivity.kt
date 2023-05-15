@@ -6,19 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.Model.InvitedUser
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.TripPoint
 import com.project.easy_travel.ViewModel.Pins
-import com.project.easy_travel.ViewModel.TripViewModel
-import java.util.Objects
 
 class OrganizerMainActivity : AppCompatActivity() {
 
@@ -28,7 +22,7 @@ class OrganizerMainActivity : AppCompatActivity() {
 
     var trip_data: MutableMap<String, Any>? = null
 
-    lateinit var pointTripListActiveItems: MutableList<TripPoint>
+    lateinit var pointTripListActiveItems: MutableList<Trip>
     lateinit var memberListActiveItems: MutableList<InvitedUser>
 
     var trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
@@ -48,7 +42,7 @@ class OrganizerMainActivity : AppCompatActivity() {
             Log.e("read error", it.toString())
         }
 
-        pointTripListActiveItems = mutableListOf<TripPoint>()
+        pointTripListActiveItems = mutableListOf<Trip>()
         memberListActiveItems =  mutableListOf<InvitedUser>()
 
         rootActivity()
@@ -139,7 +133,7 @@ class OrganizerMainActivity : AppCompatActivity() {
                 val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                 val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
-                val tripPoint = TripPoint(name, description)
+                val tripPoint = Trip("", name, description)
 
 
                 pointTripListActiveItems.add(tripPoint)

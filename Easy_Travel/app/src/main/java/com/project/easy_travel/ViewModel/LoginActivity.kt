@@ -37,6 +37,14 @@ class LoginActivity : AppCompatActivity() {
 
         //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        // Dodanie funkcjonalności, że jeśli użytkownik jest zalogowany, to od razu przenosi do listy wycieczek
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val intent = Intent(applicationContext, TripListActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
+
         register.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
         }

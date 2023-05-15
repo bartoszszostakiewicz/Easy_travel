@@ -2,22 +2,22 @@ package com.project.easy_travel
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.project.easy_travel.Model.TripCell
+import com.project.easy_travel.Model.Trip
+import com.project.easy_travel.ViewModel.TripViewModel
 
 
 class TripActive (
-    private val tripCells: MutableList<TripCell>,
-    private var context: Context,
+    private val tripData: MutableList<Trip>,
     private val intent: Intent,
-    private val xmlFile: Int
+    private val xmlFile: Int,
+    private val tripViewModel: TripViewModel
 ) : RecyclerView.Adapter<TripActive.TripViewHolder>()//AppCompatActivity()
 {
     class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -41,26 +41,21 @@ class TripActive (
 //        pass
 //    }
 
-    private fun toggleStrikeThrough(tripTitle: TextView, isOver: Boolean) {
-        if (isOver) {
-            tripTitle.paintFlags = STRIKE_THRU_TEXT_FLAG
-        }
-    }
-
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
-        val curTrip = tripCells[position]
+        val curTrip = tripData[position]
+
         holder.itemView.apply {
             var detailButton = findViewById<Button>(R.id.detailButton)
             var tripTitle = findViewById<TextView>(R.id.tripTitle)
-            tripTitle.text = curTrip.name
-            toggleStrikeThrough(tripTitle, curTrip.isOver)
+            tripTitle.text = curTrip.title
             detailButton.setOnClickListener {
                 context.startActivity(intent)
+                tripViewModel.setData(curTrip)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return tripCells.size
+        return tripData.size
     }
 }

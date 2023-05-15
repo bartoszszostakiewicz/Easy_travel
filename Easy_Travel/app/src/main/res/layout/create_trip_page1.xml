@@ -43,7 +43,7 @@
         android:background="@drawable/rounded_edittext"
         android:drawablePadding="10dp"
         android:hint="Podaj opis wycieczki"
-        android:inputType="textEmailAddress"
+        android:inputType="textMultiLine"
         android:padding="20dp"
         android:textColor="@color/cardview_dark_background"
         android:textColorHighlight="#FFFFFF"
@@ -51,6 +51,24 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descibeTrip_txt" />
+
+    <EditText
+        android:id="@+id/date_picker_actions"
+        android:layout_width="412dp"
+        android:layout_height="70dp"
+        android:background="@drawable/rounded_edittext"
+        android:clickable="true"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:hint="Podaj date i godzinę rozpoczęcie wycieczki"
+        android:inputType="datetime"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDate_txt" />
 
     <TextView
         android:id="@+id/title_txt"
@@ -88,4 +106,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTrip_edttxt" />
+
+    <TextView
+        android:id="@+id/startDate_txt"
+        android:layout_width="300dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="40dp"
+        android:text="Data i godzina rozpoczęcia wycieczki"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/describeTrip_edttxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

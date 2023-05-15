@@ -1,16 +1,15 @@
 package com.project.easy_travel.Model
 
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 data class Point (
+    var id: String = "",
     val name: String,
     val describe: String,
     val lat: Double,
-    val lng: Double) : java.io.Serializable {
-
-    fun toMap(): Map<String, Any> {
+    val lng: Double
+    ) : Mapable {
+    override fun toMap(): Map<String, Any> {
         return mapOf(
             "name" to name,
             "describe" to describe,
