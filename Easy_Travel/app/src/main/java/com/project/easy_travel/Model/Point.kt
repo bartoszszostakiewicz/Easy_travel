@@ -1,20 +1,24 @@
 package com.project.easy_travel.Model
 
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 data class Point (
+    var id: String = "",
     val name: String,
     val describe: String,
     val lat: Double,
-    val lng: Double) {
-    fun toMap(): Map<String, Any> {
+    val lng: Double,
+    val startDate: Long = 0L,
+    val finishDate: Long = 0L,
+    ) : Mapable {
+    override fun toMap(): Map<String, Any> {
         return mapOf(
             "name" to name,
             "describe" to describe,
             "lat" to lat,
-            "lng" to lng
+            "lng" to lng,
+            "startDate" to startDate,
+            "finishDate" to finishDate
         )
     }
 }

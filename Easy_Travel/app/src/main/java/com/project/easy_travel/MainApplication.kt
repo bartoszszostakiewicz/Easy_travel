@@ -1,15 +1,12 @@
-package com.project.easy_travel.ViewModel
+package com.project.easy_travel
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.project.easy_travel.Model.User
+import com.project.easy_travel.ViewModel.TripPointViewModel
+import com.project.easy_travel.ViewModel.TripViewModel
 import com.project.easy_travel.remote.UserViewModel
-import com.project.easy_travel.repository.MainRepository
 
-class MainViewModel : Application() {
+class MainApplication: Application() {
     val userViewModel: UserViewModel by lazy {
         ViewModelProvider.AndroidViewModelFactory.getInstance(this).create(UserViewModel::class.java)
     }
@@ -21,5 +18,4 @@ class MainViewModel : Application() {
     val tripPointViewModel: TripPointViewModel by lazy {
         ViewModelProvider.AndroidViewModelFactory.getInstance(this).create(TripPointViewModel::class.java)
     }
-
 }

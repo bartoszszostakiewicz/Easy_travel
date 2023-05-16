@@ -1,7 +1,9 @@
 package com.project.easy_travel
 
+
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,51 +12,86 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.easy_travel.remote.UserViewModel
-import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.TripCell
 import com.project.easy_travel.ViewModel.Chat_Activity_B
-import com.project.easy_travel.ViewModel.Organizacja
-import kotlin.math.log
+import com.project.easy_travel.ViewModel.LoginActivity
+import com.project.easy_travel.ViewModel.MainViewModel
+import com.project.easy_travel.ViewModel.TripViewModel
 
 
 class TripListActivity : AppCompatActivity() {
-    private lateinit var tripActive: TripActive
+    private lateinit var tripActive: TripActive // RecyclerView adapter
 
-//    lateinit var userViewModel: UserViewModel
-//    lateinit var tripViewModels: List<TripViewModel>
-
-        //TODO: przy moich zmianach, ta linijk2 powoduje null-reference crashe
-//    val mainApp = application as MainApp
-//    val userViewModel = mainApp.userViewModelGet()
-
+    // Firebase auth
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var authUser: String
 
+    // View elements
+    private val tripItems: MutableList<Trip> = mutableListOf()
 
-    lateinit var helloTxt: TextView
-    private val tripItems: MutableList<TripCell> = mutableListOf()
+    // View models
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var tripViewModel: TripViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
 
+        val application = applicationContext as MainApplication
 
+        // --- view models ---
+        userViewModel = application.userViewModel //ViewModelProvider(this).get(UserViewModel::class.java)
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+
+        // --- firebase auth ---
         mAuth = FirebaseAuth.getInstance()
+        authUser = mAuth.currentUser?.email.toString()
+        val authUserWithoutDot = replaceDotsWithEmail(authUser)
 
-        var tripList = findViewById<RecyclerView>(R.id.tripList)
-        var backBtn = findViewById<Button>(R.id.logOutButton)
+        // --- view elements ---
+        val helloTxt = findViewById<TextView>(R.id.hello_txt)
+        val tripList = findViewById<RecyclerView>(R.id.tripList)
+        val backBtn = findViewById<Button>(R.id.logOutButton)
 
-        helloTxt = findViewById(R.id.hello_txt)
-
-        tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element)
+        // --- view elements setup ---
+        tripActive = TripActive(tripItems, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element, tripViewModel)
         tripList.adapter = tripActive
         tripList.layoutManager = LinearLayoutManager(this)
+
+        // --- observers ---
+        userViewModel.getById(authUserWithoutDot).observe(this, Observer { user ->
+            if (user != null) {
+                helloTxt.text = "Witam ${user.name} ${user.surname}"
+            } else {
+                helloTxt.text = "Witam użytkowniku!"
+            }
+        })
+
+        tripViewModel.getAllItems().observe(this, Observer { trips ->
+            val tripList = mutableListOf<Trip>()
+            for (trip in trips) {
+                val this_trip = Trip("", trip.title, trip.description, startDate = trip.startDate)
+                if (trip.guidesID.contains(authUserWithoutDot) || trip.participantsID.contains(authUserWithoutDot) || trip.organizerID == authUserWithoutDot) {
+                    tripList.add(this_trip)
+                }
+            }
+            tripItems.clear()
+            tripItems.addAll(tripList)
+
+            this.tripActive.notifyDataSetChanged()
+        })
+
 
         findViewById<Button>(R.id.chat_test).setOnClickListener {
             startActivity(Intent(applicationContext,Chat_Activity_B::class.java))
         }
 
         backBtn.setOnClickListener {
+            mAuth.signOut()
+            val intent = Intent(applicationContext, LoginActivity::class.java)
+            startActivity(intent)
             this.finish()
         }
 
@@ -65,23 +102,7 @@ class TripListActivity : AppCompatActivity() {
         findViewById<Button>(R.id.join_trip).setOnClickListener {
         }
 
-//        userViewModel.user.observe(this) { user ->
-//            Toast.makeText(this, user.tripsID.toString(), Toast.LENGTH_SHORT).show()
-//            helloTxt.text = "Witam ${user.name} ${user.surname}"
-//            for (trip in user.tripsID) {
-//                Toast.makeText(this, trip, Toast.LENGTH_SHORT).show()
-//                val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
-//                tripViewModel.load(trip)
-//                tripViewModel.trip.observe(this) { trip ->
-//                    val tripCell = TripCell(trip.title, false, trip.description)
-//                    if (!tripItems.contains(tripCell)) {
-//                        tripItems.add(tripCell)
-//                        tripActive.notifyDataSetChanged()
-//                    }
-//                }
-//
-//            }
-//        }
+
     }
     fun replaceDotsWithEmail(email: String): String {
         return email.replace(".", "_")

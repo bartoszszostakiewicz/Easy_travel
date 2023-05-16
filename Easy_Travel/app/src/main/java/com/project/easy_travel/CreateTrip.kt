@@ -1,6 +1,9 @@
 package com.project.easy_travel
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,75 +12,102 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.Model.*
 import com.project.easy_travel.ViewModel.Pins
+import com.project.easy_travel.ViewModel.TripPointViewModel
+import com.project.easy_travel.ViewModel.TripViewModel
+import com.project.easy_travel.remote.UserViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateTrip : AppCompatActivity() {
+    lateinit var application: MainApplication
+    // View elements from xml #1
     lateinit var nextButton1: Button
+    lateinit var nameTripEdttxt: EditText
+    lateinit var describeTripEdttxt: EditText
+    lateinit var dateTimePicker: EditText
+
+    // View elements from xml #2
     lateinit var nextButton2: Button
-    lateinit var nextButton3: Button
-
-    lateinit var titleTxt: TextView
-
     lateinit var addTripPointBtn: Button
     lateinit var add_btn_tripPoint: Button
-    lateinit var addMemberBtn: Button
+    lateinit var date_start_tripPoint: EditText
+    lateinit var date_finish_tripPoint: EditText
+
     lateinit var cancel_btn_tripPoint: Button
     lateinit var map_btn_tripPoint: Button
 
-    lateinit var nameTripEdttxt: EditText
-    lateinit var describeTripEdttxt: EditText
+    // View elements from xml #3
+    lateinit var nextButton3: Button
+    lateinit var addMemberBtn: Button
+    private lateinit var pointTripListActive: PointTripListActive
+    private lateinit var memberListActive: MemberListActive
+
+    lateinit var titleTxt: TextView
 
     lateinit var recyclerViewTripPoint: RecyclerView
     lateinit var recyclerViewMember: RecyclerView
 
-    //private lateinit var userViewModel: UserViewModel
+    // View models
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var tripViewModel: TripViewModel
+    private lateinit var tripPointViewModel: TripPointViewModel
 
-    private lateinit var pointTripListActive: PointTripListActive
-    private lateinit var memberListActive: MemberListActive
+    //private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Add a new xml file
-        setContentView(R.layout.create_trip_page1)
 
-        // inicializacja z pierwszego xmla
-        nextButton1 = findViewById<Button>(R.id.next_btn1)
-        nameTripEdttxt = findViewById<EditText>(R.id.nameTrip_edttxt) // Do bazy danych
-        describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt) // Do bazy danych
+        application = applicationContext as MainApplication
+
+        userViewModel = application.userViewModel //ViewModelProvider(this).get(UserViewModel::class.java)
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+        tripPointViewModel = application.tripPointViewModel //ViewModelProvider(this).get(TripPointViewModel::class.java)
+
+        // Add a xml #1
+        setContentView(R.layout.create_trip_page1)
 
         val points = ArrayList<Point>() // Do bazy danych
         val guidesID = ArrayList<String>() // Do bazy danych
         val participantsID = ArrayList<String>() // Do bazy danych
 
+        // Initialize view elements from xml #1
+        nextButton1 = findViewById<Button>(R.id.next_btn1)
+        nameTripEdttxt = findViewById<EditText>(R.id.nameTrip_edttxt) // Do bazy danych
+        describeTripEdttxt = findViewById<EditText>(R.id.describeTrip_edttxt) // Do bazy danych
+        dateTimePicker = findViewById<EditText>(R.id.date_picker_actions)
 
-        // Odwolanie do UserViewModel w pliku ViewModel/UserViewModel.kt
-        //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        val pointTripListActiveItems = mutableListOf<TripPoint>()
+        val pointTripListActiveItems = mutableListOf<Trip>()
         val memberListActiveItems = mutableListOf<InvitedUser>()
 
 
+        dateTimePicker.setOnClickListener {
+            setDateTime(dateTimePicker, this)
+        }
+
+        // This button triggers the transition to the xml #2
         nextButton1.setOnClickListener {
-            Log.d("XXD1", nameTripEdttxt.text.toString())
+            // Add a xml #2
             setContentView(R.layout.create_trip_page2)
             overridePendingTransition(R.anim.slide_right_to_left, R.anim.no_animation)
 
+            // Initialize view elements from xml #2
             nextButton2 = findViewById<Button>(R.id.next_btn2)
             addTripPointBtn = findViewById<Button>(R.id.addTripPoint_btn)
             recyclerViewTripPoint = findViewById<RecyclerView>(R.id.tripPoint_list)
 
+            // This button triggers the transition to the xml #3
             nextButton2.setOnClickListener {
-
                 setContentView(R.layout.create_trip_page3)
+
+                // Initialize view elements from xml #3
                 nextButton3 = findViewById<Button>(R.id.create_trip_btn)
                 addMemberBtn = findViewById<Button>(R.id.add_member_btn)
                 recyclerViewMember = findViewById<RecyclerView>(R.id.member_list)
@@ -123,33 +153,38 @@ class CreateTrip : AppCompatActivity() {
                 }
 
 
-
+                // Final button to create a trip and add it to the database
                 nextButton3.setOnClickListener {
                     Log.d("XXD1", "Name trip - " + nameTripEdttxt.text.toString())
                     Log.d("XXD1", "Describe trip - " + describeTripEdttxt.text.toString())
                     Log.d("XXD1", "Points - " + points.toString())
                     Log.d("XXD1", "Guides - " + guidesID.toString())
                     Log.d("XXD1", "Participants - " + participantsID.toString())
-
-                    var ref = FirebaseDatabase.getInstance().getReference("points")
+                    Log.d("XXD1", "Date - " + convertStringToTimestamp(dateTimePicker.text.toString()))
 
                     // List of points
                     val pointsID = arrayListOf<String>()
 
                     // Add point to realtime database
                     for (point in points) {
-                        val pointID = ref.push().key
-                        pointsID.add(pointID.toString())
-                        ref.child(pointID.toString()).setValue(point)
+                        tripPointViewModel.save(point)
+
+                        Log.d("pointID", point.id.toString())
+                        pointsID.add(point.id.toString())
                     }
 
-                    ref = FirebaseDatabase.getInstance().getReference("trips")
                     val organizerID = FirebaseAuth.getInstance().currentUser?.email.toString() // adres e-mail organizatora
 
                     // Add trip to realtime database
-                    val tripID = ref.push().key
-                    val trip = Trip(nameTripEdttxt.text.toString(), describeTripEdttxt.text.toString(), pointsID, replaceDotsWithEmail(organizerID), guidesID, participantsID)
-                    ref.child(tripID.toString()).setValue(trip)
+                    val trip = Trip(id = "",
+                                    title = nameTripEdttxt.text.toString(),
+                                    description = describeTripEdttxt.text.toString(),
+                                    tripPointsID = pointsID,
+                                    organizerID = replaceDotsWithEmail(organizerID),
+                                    guidesID = guidesID,
+                                    participantsID = participantsID,
+                                    startDate = convertStringToTimestamp(dateTimePicker.text.toString()))
+                    tripViewModel.save(trip)
 
                     val intent = Intent(this, OrganizerMainActivity::class.java)
                     startActivity(intent)
@@ -164,17 +199,36 @@ class CreateTrip : AppCompatActivity() {
                 add_btn_tripPoint = dialog.findViewById<Button>(R.id.add_btn)
                 cancel_btn_tripPoint = dialog.findViewById<Button>(R.id.back_btn)
 
-                map_btn_tripPoint.setOnClickListener {
-                    startActivity(Intent(this, Pins::class.java))
+                date_start_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_start_actions)
+                date_finish_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_finish_actions)
+
+                date_start_tripPoint.setOnClickListener {
+                    setDateTime(date_start_tripPoint, this)
                 }
+
+                date_finish_tripPoint.setOnClickListener {
+                    setDateTime(date_finish_tripPoint, this)
+                }
+
+
+                map_btn_tripPoint.setOnClickListener {
+                    val intent = Intent(this, Pins::class.java)
+                    startActivity(intent)
+
+
+
+                }
+
+
+
 
 
                 add_btn_tripPoint.setOnClickListener {
                     val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
-                    val tripPoint = TripPoint(name, description)
-                    points.add(Point(name, description, 0.0, 0.0))
+                    val tripPoint = Trip("", name, description)
+                    points.add(Point("", name, description, 0.0, 0.0, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString())))
 
 
                     pointTripListActiveItems.add(tripPoint)
@@ -197,12 +251,55 @@ class CreateTrip : AppCompatActivity() {
     }
 }
 
+fun convertStringToTimestamp(strDate: String): Long {
+    try {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val date = formatter.parse(strDate)
+        val timestamp = date.time
+        return timestamp
+    } catch (e: Exception) {
+        return 0L
+    }
+}
+
+fun setDateTime(dateTimePicker: EditText, context: Context) {
+    val currentDateTime = Calendar.getInstance()
+    val date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+        val time = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            currentDateTime.set(Calendar.YEAR, year)
+            currentDateTime.set(Calendar.MONTH, monthOfYear)
+            currentDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            currentDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            currentDateTime.set(Calendar.MINUTE, minute)
+            dateTimePicker.setText(SimpleDateFormat("yyyy-MM-dd HH:mm").format(currentDateTime.time))
+        }
+        val currentTime = Calendar.getInstance()
+        TimePickerDialog(
+            context,
+            time,
+            currentTime.get(Calendar.HOUR_OF_DAY),
+            currentTime.get(Calendar.MINUTE),
+            true
+        ).show()
+    }
+    DatePickerDialog(
+        context,
+        date,
+        currentDateTime.get(Calendar.YEAR),
+        currentDateTime.get(Calendar.MONTH),
+        currentDateTime.get(Calendar.DAY_OF_MONTH)
+    ).show()
+
+
+}
+
+
 fun replaceDotsWithEmail(email: String): String {
     return email.replace(".", "_")
 }
 
-class PointTripListActive (
-    private val tripPoints: MutableList<TripPoint>
+class PointTripListActive(
+    private val tripPoints: MutableList<Trip>
 ) : RecyclerView.Adapter<PointTripListActive.TripPointViewHolder>() {
     class TripPointViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

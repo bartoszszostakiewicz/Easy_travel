@@ -12,56 +12,31 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.project.easy_travel.Model.*
 import com.project.easy_travel.repository.MainRepository
+import com.project.easy_travel.repository.TripPointRepository
 import com.project.easy_travel.repository.TripRepository
 
-class TripViewModel(
-    private val tripRepository: TripRepository = MainRepository.getTripRepository()
-) : ViewModel() {
+class TripViewModel() : ViewModel() {
+    private val repository = TripRepository.getInstance()
+    private val _data = MutableLiveData<Trip>()
+    val data: LiveData<Trip> get() = _data
 
-    fun getResponse(userId: String) : LiveData<Trip?>{
-        return  tripRepository.getLiveData(userId)
+    fun setData(trip: Trip) {
+        _data.value = trip
     }
 
-/*
-    private val _trip = MutableLiveData<Trip>()
-    val trip: LiveData<Trip> = _trip
-
-    private val database = FirebaseDatabase.getInstance()
-    private val userReference = database.getReference("trips")
-
-    fun load(tripId: String) {
-        userReference.child(tripId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val title = snapshot.child("title").value as? String ?: ""
-                val description = snapshot.child("description").value as? String ?: ""
-                val tripPointsID = snapshot.child("tripPointsID").value as? List<String> ?: listOf()
-                val organizerID = snapshot.child("organizerID").value as? String ?: ""
-                val guidesID = snapshot.child("guidesID").value as? List<String> ?: listOf()
-                val participantsID = snapshot.child("participantsID").value as? List<String> ?: listOf()
-
-                val trip = Trip(title, description, tripPointsID, organizerID, guidesID, participantsID)
-
-                _trip.value = trip
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Load trip failed", error.toException())
-            }
-        })
+    fun getAllItems(): LiveData<List<Trip>> {
+        return repository.getAllItems()
     }
 
-    fun update(tripId: String, trip: Trip) {
-        userReference.child(tripId).setValue(trip)
+    fun getById(id: String): LiveData<Trip?> {
+        return repository.getById(id)
     }
 
-    // Create a new user without ID (default ID is generated)
-    fun create(trip: Trip) {
-        userReference.push().setValue(trip)
+    fun save(trip: Trip, id: String = "") {
+        repository.save(trip, id)
     }
 
-    companion object {
-        private const val TAG = "TripViewModel"
+    fun delete(id: String) {
+        repository.delete(id)
     }
-    */
-
 }

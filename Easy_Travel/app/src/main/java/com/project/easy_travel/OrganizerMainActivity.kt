@@ -10,10 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.Model.InvitedUser
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.TripPoint
@@ -28,12 +25,12 @@ class OrganizerMainActivity : AppCompatActivity() {
     private val DESCRIPTION = "description"
     val trip_id = "-NMdAXK265B3ffD0kkYQ"
 
-    lateinit var trip_data: MutableLiveData<Trip?>
+    var trip_data: MutableMap<String, Any>? = null
 
-    lateinit var pointTripListActiveItems: MutableList<TripPoint>
+    lateinit var pointTripListActiveItems: MutableList<Trip>
     lateinit var memberListActiveItems: MutableList<InvitedUser>
 
-    //var trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
+    var trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,11 +39,15 @@ class OrganizerMainActivity : AppCompatActivity() {
         //var loaded_data = tripViewModel.load(trip_id)
 
         //TODO: change read data to complete model when ready
-        trip_data = MainRepository.getTripRepository().getLiveData(trip_id)
+        trip_fb_instance.get().addOnCompleteListener {
+            trip_data = it.result.value as MutableMap<String, Any>?
+            Log.d("read success", trip_data.toString())
+            Log.d("read success", trip_data!!["title"].toString())
+        }.addOnFailureListener {
+            Log.e("read error", it.toString())
+        }
 
-
-
-        pointTripListActiveItems = mutableListOf<TripPoint>()
+        pointTripListActiveItems = mutableListOf<Trip>()
         memberListActiveItems =  mutableListOf<InvitedUser>()
 
         rootActivity()
@@ -81,11 +82,6 @@ class OrganizerMainActivity : AppCompatActivity() {
     }
 
     private fun editName(){
-        if(trip_data.value == null)
-            return
-
-        var data = trip_data.value!!
-
         setContentView(R.layout.create_trip_page1)
         findViewById<TextView>(R.id.title_txt).text = "Modyfikacja wycieczki"
         var btn = findViewById<Button>(R.id.next_btn1)
@@ -95,23 +91,21 @@ class OrganizerMainActivity : AppCompatActivity() {
         var trip_description = findViewById<EditText>(R.id.describeTrip_edttxt)
 
 
-        trip_name.setText(data.title)
-        trip_description.setText(data.description)
+        trip_name.setText(trip_data!![TITLE].toString())
+        trip_description.setText(trip_data!![DESCRIPTION].toString())
 
         btn.setOnClickListener {
 
-            data.title = trip_name.text.toString()
-            data.description = trip_description.text.toString()
+            trip_data!![TITLE] = trip_name.text.toString() as Any
+            trip_data!![DESCRIPTION] = trip_description.text.toString() as Any
 
             Log.d("update success", trip_data.toString())
 
-            MainRepository.getTripRepository().setData(trip_id, data)
-            /*
-            trip_fb_instance.setValue(data.toMap()).addOnFailureListener {
+            trip_fb_instance.setValue(trip_data!!.toMap()).addOnFailureListener {
                 Log.e("update error", it.toString())
             }
-            */
 
+            //TODO: update the database
             editRoot()
         }
     }
@@ -144,7 +138,7 @@ class OrganizerMainActivity : AppCompatActivity() {
                 val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                 val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
-                val tripPoint = TripPoint(name, description)
+                val tripPoint = Trip("", name, description)
 
 
                 pointTripListActiveItems.add(tripPoint)

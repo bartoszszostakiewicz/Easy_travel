@@ -2,6 +2,7 @@ package com.project.easy_travel.ViewModel
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,14 @@ class LoginActivity : AppCompatActivity() {
 
         //userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        // Dodanie funkcjonalności, że jeśli użytkownik jest zalogowany, to od razu przenosi do listy wycieczek
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val intent = Intent(applicationContext, TripListActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
+
         register.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
         }
@@ -67,9 +76,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //NOTE: przechodzi do ustawien
-//        findViewById<MaterialButton>(R.id.create_trip_button).setOnClickListener{
-//            startActivity(Intent(applicationContext, SettingsActivity::class.java))
-//        }
+        findViewById<ImageView>(R.id.create_trip_button).setOnClickListener{
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+        }
 
     }
 
