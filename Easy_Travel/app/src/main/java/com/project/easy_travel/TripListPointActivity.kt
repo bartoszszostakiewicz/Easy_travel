@@ -29,11 +29,11 @@ class TripListPointActivity : AppCompatActivity() {
         tripItems.add(TripCell("Wiskord", true, "..."))
         tripItems.add(TripCell("Wały Chrobrego", true, "..."))
 
-        tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_plan_element)
-
-
-        tripList.adapter = tripActive
-        tripList.layoutManager = LinearLayoutManager(this)
+//        tripActive = TripActive(tripItems, this, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_plan_element)
+//
+//
+//        tripList.adapter = tripActive
+//        tripList.layoutManager = LinearLayoutManager(this)
 
         backBtn.setOnClickListener {
             this.finish()

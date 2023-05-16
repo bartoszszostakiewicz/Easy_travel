@@ -90,10 +90,12 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                // ListOf give example of trips
-                //userViewModel.create(replaceDotsWithEmail(email), User(name, surname, email, listOf("1", "2")))
                 Toast.makeText(this, "Succesfully Registered", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(applicationContext, AdditionalInformationActivity::class.java))
+
+                val newUser = User(name, surname, email)
+                userViewModel.save(newUser, replaceDotsWithEmail(email))
+
+                this.finish()
             } else {
                 Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
             }

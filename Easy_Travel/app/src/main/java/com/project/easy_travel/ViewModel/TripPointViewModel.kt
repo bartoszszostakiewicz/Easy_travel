@@ -1,56 +1,35 @@
 package com.project.easy_travel.ViewModel
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.project.easy_travel.Model.TripPoint
-import com.project.easy_travel.Model.User
-import java.util.*
+import com.project.easy_travel.Model.*
+import com.project.easy_travel.repository.TripPointRepository
+import com.project.easy_travel.repository.TripRepository
+import java.security.cert.PolicyNode
 
-class TripPointViewModel(application: Application) : AndroidViewModel(application) {
-    private val _tripPoint = MutableLiveData<TripPoint>()
-    val tripPoint: LiveData<TripPoint> = _tripPoint
+class TripPointViewModel() : ViewModel() {
+    private val repository = TripPointRepository.getInstance()
+    private val _data = MutableLiveData<Point>()
+    val data: LiveData<Point> get() = _data
 
-
-    private val database = FirebaseDatabase.getInstance()
-    private val userReference = database.getReference("tripPoints")
-
-    fun load(tripPointId: String) {
-        userReference.child(tripPointId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val title = snapshot.child("title").value as? String ?: ""
-                val description = snapshot.child("description").value as? String ?: ""
-                val latitude = snapshot.child("latitude").value as? Double ?: -19.9492463
-                val longitude = snapshot.child("longitude").value as? Double ?: -69.6336635
-                val dateStarted = snapshot.child("dateStarted").value as? Date ?: ""
-                val dateFinished = snapshot.child("dateFinished").value as? Date ?: ""
-                val isFinished = snapshot.child("isFinished").value as? Boolean ?: false
-                val tripPoint = TripPoint(title, description, latitude, longitude, dateStarted as Date, dateFinished as Date, isFinished)
-                _tripPoint.value = tripPoint
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Load trip point failed", error.toException())
-            }
-        })
+    fun setData(point: Point) {
+        _data.value = point
     }
 
-    fun update(userId: String, user: User) {
-        userReference.child(userId).setValue(user)
+    fun getAllItems(): LiveData<List<Point>> {
+        return repository.getAllItems()
     }
 
-    fun create(user: User) {
-        userReference.push().setValue(user)
+    fun getById(id: String): LiveData<Point?> {
+        return repository.getById(id)
     }
 
-    companion object {
-        private const val TAG = "TripPointViewModel"
+    fun save(trip: Point, id: String = "") {
+        return repository.save(trip, id)
+    }
+
+    fun delete(id: String) {
+        repository.delete(id)
     }
 }
