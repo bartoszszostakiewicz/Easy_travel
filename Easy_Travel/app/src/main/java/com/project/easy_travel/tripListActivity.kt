@@ -39,11 +39,11 @@ class TripListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trip_list)
 
-        val application = applicationContext as MainViewModel
+        val application = applicationContext as MainApplication
 
         // --- view models ---
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        tripViewModel = application.tripViewModel//ViewModelProvider(this).get(TripViewModel::class.java)
+        userViewModel = application.userViewModel //ViewModelProvider(this).get(UserViewModel::class.java)
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
 
         // --- firebase auth ---
         mAuth = FirebaseAuth.getInstance()
@@ -72,7 +72,7 @@ class TripListActivity : AppCompatActivity() {
         tripViewModel.getAllItems().observe(this, Observer { trips ->
             val tripList = mutableListOf<Trip>()
             for (trip in trips) {
-                val this_trip = Trip("", trip.title, trip.description)
+                val this_trip = Trip("", trip.title, trip.description, startDate = trip.startDate)
                 if (trip.guidesID.contains(authUserWithoutDot) || trip.participantsID.contains(authUserWithoutDot) || trip.organizerID == authUserWithoutDot) {
                     tripList.add(this_trip)
                 }

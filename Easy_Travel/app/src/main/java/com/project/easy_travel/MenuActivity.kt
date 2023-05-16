@@ -14,6 +14,7 @@ import com.project.easy_travel.ViewModel.TripViewModel
 
 
 class MenuActivity : AppCompatActivity() {
+    private lateinit var application: MainApplication
 
     private lateinit var tripViewModel: TripViewModel
 
@@ -21,9 +22,9 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_map)
 
-        val application = applicationContext as MainViewModel
+        val application = applicationContext as MainApplication
 
-        tripViewModel = application.tripViewModel//ViewModelProvider(this).get(TripViewModel::class.java)
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
 
 
         tripViewModel.data.observe(this, Observer {trip ->

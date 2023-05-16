@@ -26,6 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CreateTrip : AppCompatActivity() {
+    lateinit var application: MainApplication
     // View elements from xml #1
     lateinit var nextButton1: Button
     lateinit var nameTripEdttxt: EditText
@@ -36,6 +37,8 @@ class CreateTrip : AppCompatActivity() {
     lateinit var nextButton2: Button
     lateinit var addTripPointBtn: Button
     lateinit var add_btn_tripPoint: Button
+    lateinit var date_start_tripPoint: EditText
+    lateinit var date_finish_tripPoint: EditText
 
     lateinit var cancel_btn_tripPoint: Button
     lateinit var map_btn_tripPoint: Button
@@ -61,9 +64,11 @@ class CreateTrip : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
-        tripPointViewModel = ViewModelProvider(this).get(TripPointViewModel::class.java)
+        application = applicationContext as MainApplication
+
+        userViewModel = application.userViewModel //ViewModelProvider(this).get(UserViewModel::class.java)
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+        tripPointViewModel = application.tripPointViewModel //ViewModelProvider(this).get(TripPointViewModel::class.java)
 
         // Add a xml #1
         setContentView(R.layout.create_trip_page1)
@@ -155,6 +160,7 @@ class CreateTrip : AppCompatActivity() {
                     Log.d("XXD1", "Points - " + points.toString())
                     Log.d("XXD1", "Guides - " + guidesID.toString())
                     Log.d("XXD1", "Participants - " + participantsID.toString())
+                    Log.d("XXD1", "Date - " + convertStringToTimestamp(dateTimePicker.text.toString()))
 
                     // List of points
                     val pointsID = arrayListOf<String>()
@@ -170,7 +176,14 @@ class CreateTrip : AppCompatActivity() {
                     val organizerID = FirebaseAuth.getInstance().currentUser?.email.toString() // adres e-mail organizatora
 
                     // Add trip to realtime database
-                    val trip = Trip("", nameTripEdttxt.text.toString(), describeTripEdttxt.text.toString(), pointsID, replaceDotsWithEmail(organizerID), guidesID, participantsID, convertStringToTimestamp(dateTimePicker.text.toString()))
+                    val trip = Trip(id = "",
+                                    title = nameTripEdttxt.text.toString(),
+                                    description = describeTripEdttxt.text.toString(),
+                                    tripPointsID = pointsID,
+                                    organizerID = replaceDotsWithEmail(organizerID),
+                                    guidesID = guidesID,
+                                    participantsID = participantsID,
+                                    startDate = convertStringToTimestamp(dateTimePicker.text.toString()))
                     tripViewModel.save(trip)
 
                     val intent = Intent(this, OrganizerMainActivity::class.java)
@@ -186,7 +199,16 @@ class CreateTrip : AppCompatActivity() {
                 add_btn_tripPoint = dialog.findViewById<Button>(R.id.add_btn)
                 cancel_btn_tripPoint = dialog.findViewById<Button>(R.id.back_btn)
 
+                date_start_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_start_actions)
+                date_finish_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_finish_actions)
 
+                date_start_tripPoint.setOnClickListener {
+                    setDateTime(date_start_tripPoint, this)
+                }
+
+                date_finish_tripPoint.setOnClickListener {
+                    setDateTime(date_finish_tripPoint, this)
+                }
 
 
                 map_btn_tripPoint.setOnClickListener {
@@ -206,7 +228,7 @@ class CreateTrip : AppCompatActivity() {
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
                     val tripPoint = Trip("", name, description)
-                    points.add(Point("", name, description, 0.0, 0.0))
+                    points.add(Point("", name, description, 0.0, 0.0, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString())))
 
 
                     pointTripListActiveItems.add(tripPoint)

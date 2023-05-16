@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#9B61A9"
     android:layout_width="match_parent"
-    android:layout_height="450dp">
+    android:layout_height="650dp">
 
     <TextView
         android:id="@+id/tripPointTitle_txt"
@@ -55,6 +55,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripPointName_edttxt" />
 
+    <EditText
+        android:id="@+id/date_picker_start_actions"
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_edittext"
+        android:clickable="true"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:hint="Podaj date i godzinę rozpoczęcie"
+        android:inputType="datetime"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripPointDescribe_edttxt" />
+
+
+    <EditText
+        android:id="@+id/date_picker_finish_actions"
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_edittext"
+        android:clickable="true"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:hint="Podaj date i godzinę zakończenie"
+        android:inputType="datetime"
+        android:padding="20dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHighlight="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_picker_start_actions" />
+
     <Button
         android:id="@+id/map_btn"
         android:layout_width="wrap_content"
@@ -62,9 +101,9 @@
         android:layout_marginTop="28dp"
         android:text="Zaznacz punkt na mapie"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPointDescribe_edttxt" />
+        app:layout_constraintTop_toBottomOf="@+id/date_picker_finish_actions" />
 
     <Button
         android:id="@+id/add_btn"

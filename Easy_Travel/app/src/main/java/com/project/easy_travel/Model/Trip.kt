@@ -20,7 +20,8 @@ data class Trip(
             "tripPointsID" to tripPointsID,
             "organizerID" to organizerID,
             "guidesID" to guidesID,
-            "participantsID" to participantsID
+            "participantsID" to participantsID,
+            "startDate" to startDate
         )
     }
 }
