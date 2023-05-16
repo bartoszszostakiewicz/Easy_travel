@@ -10,7 +10,10 @@ import androidx.preference.PreferenceManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.R
+import com.project.easy_travel.RestorePasswordActivity
 import com.project.easy_travel.SettingsActivity
 import com.project.easy_travel.TripListActivity
 import com.project.easy_travel.remote.UserViewModel
@@ -23,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var auth = Firebase.auth
+        if(auth.currentUser != null)
+            auth.signOut()
 
         var prefs = PreferenceManager.getDefaultSharedPreferences(this)
         var savedUsername = prefs.getString("remembered_login", "")
@@ -80,6 +87,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, SettingsActivity::class.java))
         }
 
+        findViewById<TextView>(R.id.forgotpass).setOnClickListener {
+            startActivity(Intent(applicationContext, RestorePasswordActivity::class.java))
+        }
     }
 
     private fun login(email:String,password:String) {
