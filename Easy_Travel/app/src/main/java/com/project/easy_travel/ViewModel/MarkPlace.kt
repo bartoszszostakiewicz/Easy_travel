@@ -1,7 +1,6 @@
 package com.project.easy_travel.ViewModel
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -10,17 +9,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.CreateTrip
+import com.project.easy_travel.MainApplication
 import com.project.easy_travel.Model.Point
 import com.project.easy_travel.R
 
@@ -42,6 +41,9 @@ class MarkPlace : Fragment() {
     private lateinit var placeNameEditText: EditText
     private lateinit var database: FirebaseDatabase
 
+    val application = AppCompatActivity().applicationContext as MainApplication
+    val tripPointViewModel = application.tripPointViewModel
+    val point = Point("","","",0.0,0.0,0L,0L)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +91,11 @@ class MarkPlace : Fragment() {
                     if (coordinates.isNotEmpty()) {
                         val placeLocation = coordinates?.get(0)
                         if (placeLocation != null) {
+
+                            point.lat = placeLocation.latitude
+                            point.lng = placeLocation.longitude
+
+                            tripPointViewModel.setData(point)
 
                             //writeNewPoint(placeLocation.latitude, placeLocation.longitude)
                             //val dbref = FirebaseDatabase.getInstance().getReference("points")

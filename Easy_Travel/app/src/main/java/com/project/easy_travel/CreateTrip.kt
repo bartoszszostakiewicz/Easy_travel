@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -169,6 +168,8 @@ class CreateTrip : AppCompatActivity() {
                     for (point in points) {
                         tripPointViewModel.save(point)
 
+
+
                         Log.d("pointID", point.id.toString())
                         pointsID.add(point.id.toString())
                     }
@@ -212,6 +213,7 @@ class CreateTrip : AppCompatActivity() {
 
 
                 map_btn_tripPoint.setOnClickListener {
+
                     val intent = Intent(this, Pins::class.java)
                     startActivity(intent)
 
@@ -221,14 +223,27 @@ class CreateTrip : AppCompatActivity() {
 
 
 
-
-
                 add_btn_tripPoint.setOnClickListener {
                     val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
+                    var lat = 0.0
+                    var lng = 0.0
+
+                    tripPointViewModel.data.observe(this, androidx.lifecycle.Observer { point ->
+
+                        lat = point.lat
+                        lng = point.lng
+
+                        Log.d("XXD1", "Lat - " + lat.toString())
+                        Log.d("XXD1", "Lng - " + lng.toString())
+
+
+                    })
+
+
                     val tripPoint = Trip("", name, description)
-                    points.add(Point("", name, description, 0.0, 0.0, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString())))
+                    points.add(Point("", name, description, lat, lng, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString())))
 
 
                     pointTripListActiveItems.add(tripPoint)
@@ -250,6 +265,7 @@ class CreateTrip : AppCompatActivity() {
 
     }
 }
+
 
 fun convertStringToTimestamp(strDate: String): Long {
     try {

@@ -1,13 +1,14 @@
 package com.project.easy_travel.Model
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
 
-data class Point (
+data class Point(
     var id: String = "",
     val name: String,
     val describe: String,
-    val lat: Double,
-    val lng: Double,
+    var lat: Double,
+    var lng: Double,
     val startDate: Long = 0L,
     val finishDate: Long = 0L,
     ) : Mapable {
@@ -21,6 +22,8 @@ data class Point (
             "finishDate" to finishDate
         )
     }
+
+
 }
 
 lateinit var database: DatabaseReference

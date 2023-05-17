@@ -12,12 +12,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.button.MaterialButton
+import com.project.easy_travel.MainApplication
 import com.project.easy_travel.R
 import com.project.easy_travel.Model.Point
 import kotlin.math.abs
 import kotlin.random.Random
 
 class Pins() : AppCompatActivity(), OnMapReadyCallback{
+
+    val application = applicationContext as MainApplication
+
+    val tripPointViewModel = application.tripPointViewModel
 
 
 
@@ -49,13 +54,13 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
         val mapView = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
 
-    /*
+    /**
         read_points { points ->
             points.forEach{point ->
 
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(LatLng(point.lat,point.lng))
+                        .position(point.get)
                         .title("Marker :)")
                 )
             }
