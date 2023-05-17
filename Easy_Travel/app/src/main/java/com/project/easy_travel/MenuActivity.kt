@@ -28,7 +28,7 @@ class MenuActivity : AppCompatActivity() {
 
 
         tripViewModel.data.observe(this, Observer {trip ->
-            Toast.makeText(applicationContext, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
+           Toast.makeText(applicationContext, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
         })
 
         var btn = findViewById<Button>(R.id.button5)

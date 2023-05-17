@@ -41,28 +41,30 @@ class MarkPlace : Fragment() {
     private lateinit var placeNameEditText: EditText
     private lateinit var database: FirebaseDatabase
 
-    val application = AppCompatActivity().applicationContext as MainApplication
-    val tripPointViewModel = application.tripPointViewModel
-    val point = Point("","","",0.0,0.0,0L,0L)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val application = requireContext().applicationContext as MainApplication
+        val tripPointViewModel = application.tripPointViewModel
+
+
         val view = inflater.inflate(R.layout.fragment_mark_place, container, false)
         geocoder = Geocoder(requireContext())
         view.findViewById<MaterialButton>(R.id.addPlaceButton).setOnClickListener {
 
             var placeNameEditText = view.findViewById<EditText>(R.id.placeNameEditText)
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            getLocationAndSaveToFirebase(placeNameEditText.text.toString())
+            getLocationAndSaveToFirebase(placeNameEditText.text.toString(), tripPointViewModel)
         }
 
 
         return view
     }
 
-    private fun getLocationAndSaveToFirebase(placeName: String) {
+    private fun getLocationAndSaveToFirebase(placeName: String, tripPointViewModel: TripPointViewModel) {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -91,6 +93,7 @@ class MarkPlace : Fragment() {
                     if (coordinates.isNotEmpty()) {
                         val placeLocation = coordinates?.get(0)
                         if (placeLocation != null) {
+                            val point = Point("","","",0.0,0.0,0L,0L)
 
                             point.lat = placeLocation.latitude
                             point.lng = placeLocation.longitude

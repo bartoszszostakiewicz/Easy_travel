@@ -20,13 +20,8 @@ import kotlin.random.Random
 
 class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
-    val application = applicationContext as MainApplication
-
-    val tripPointViewModel = application.tripPointViewModel
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("TripCheck", "Work!")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pins)
 
