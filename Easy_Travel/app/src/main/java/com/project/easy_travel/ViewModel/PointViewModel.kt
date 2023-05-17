@@ -1,5 +1,5 @@
 package com.project.easy_travel.remote
-
+/*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.project.easy_travel.Model.Point
@@ -22,3 +22,4 @@ class PointViewModel(
         return  pointRepository.getMultipleLiveData(userId)
     }
 }
+**/
