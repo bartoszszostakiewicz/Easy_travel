@@ -40,15 +40,9 @@ class RestorePasswordActivity : AppCompatActivity() {
     }
 
     private fun confirmReset(){
-        setContentView(R.layout.activity_register_2)
-
-        findViewById<TextView>(R.id.textView3).text = "Zmień hasło konta Easytravel"
-
-        var code_edit = findViewById<EditText>(R.id.email)
-        code_edit.hint = "Podaj kod"
+        setContentView(R.layout.activity_restore_password_2)
 
         var btn_resend = findViewById<MaterialButton>(R.id.prev_btn_reg)
-        btn_resend.text = "Wyślij ponownie kod"
         btn_resend.setOnClickListener {
             auth.sendPasswordResetEmail(email).addOnFailureListener {
                 Log.e(TAG, it.message.toString())
@@ -56,21 +50,8 @@ class RestorePasswordActivity : AppCompatActivity() {
         }
 
         var btn_confirm = findViewById<MaterialButton>(R.id.finn_btn_reg)
-        btn_confirm.text = "Zmień hasło"
         btn_confirm.setOnClickListener {
-            var code = code_edit.text.toString()
-
-            var pwd1 = findViewById<EditText>(R.id.password).text.toString()
-            var pwd2 = findViewById<EditText>(R.id.password2).text.toString()
-
-            if(pwd1 != pwd2)
-                return@setOnClickListener
-
-            auth.confirmPasswordReset(code, pwd1).addOnSuccessListener {
-                startActivity(Intent(applicationContext, LoginActivity::class.java))
-            }.addOnFailureListener {
-                Log.e(TAG, it.message.toString())
-            }
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
     }
 }

@@ -58,9 +58,13 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
+            var username_txt = username.text.toString()
+            var password_txt = password.text.toString()
 
+            if(username_txt.isNullOrEmpty() || password_txt.isNullOrEmpty())
+                return@setOnClickListener
 
-            login(username.text.toString(),password.text.toString())
+            login(username_txt, password_txt)
             /**
             userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
                 if (emailExists) {
