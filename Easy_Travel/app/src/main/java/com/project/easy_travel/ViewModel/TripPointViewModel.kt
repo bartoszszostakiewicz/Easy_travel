@@ -17,6 +17,8 @@ class TripPointViewModel() : ViewModel() {
         _data.value = point
     }
 
+
+
     fun getAllItems(): LiveData<List<Point>> {
         return repository.getAllItems()
     }

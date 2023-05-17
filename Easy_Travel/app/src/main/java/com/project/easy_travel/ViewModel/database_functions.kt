@@ -1,6 +1,7 @@
 package com.project.easy_travel.ViewModel
 
 import android.util.Log
+
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.Model.*
@@ -34,12 +35,13 @@ fun writeNewPoint(lat: Double, lng: Double) {
 fun read_points(callback: (MutableList<Coordinates>) -> Unit) {
 
     val database = Firebase.database.reference
-    val listPoints = mutableListOf<Coordinates>()
+    val listPoints = mutableListOf<Point>()
 
     database.child("points").get().addOnSuccessListener { data ->
         data.children.forEach { point ->
-            val p = point.getValue(Coordinates::class.java)
+            val p = point.getValue(Point::class.java)
             Log.i("point12", p?.lat.toString())
+
             //val newPoint = Point(p?.lat.toString().toDouble(),p?.lng.toString().toDouble())
             //listPoints.add(newPoint)
             Log.i("point13",listPoints.last().toString())
@@ -49,7 +51,7 @@ fun read_points(callback: (MutableList<Coordinates>) -> Unit) {
         Log.i("point11","pierwszy element zwracanej listy" + listPoints[0].toString())
 
         // Zamiast zwracać listę, przekazujemy ją do funkcji callback
-        callback(listPoints)
+        //callback(listPoints)
     }.addOnFailureListener { exception ->
         Log.e("firebase", "Error getting data", exception)
         // W przypadku błędu przekazujemy pustą listę do funkcji callback
