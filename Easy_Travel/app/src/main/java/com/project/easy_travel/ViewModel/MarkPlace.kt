@@ -100,15 +100,6 @@ class MarkPlace : Fragment() {
 
                             tripPointViewModel.setData(point)
 
-                            //writeNewPoint(placeLocation.latitude, placeLocation.longitude)
-                            //val dbref = FirebaseDatabase.getInstance().getReference("points")
-
-                            //val extras = intent.getStringExtra("pointId")
-                            //val pointId = extras?.getString("pointId")
-
-                            //val point = Point(pointId, placeName, placeLocation.latitude, placeLocation.longitude, tripId)
-
-
                         } else {
                             Toast.makeText(requireContext(), "Nie znaleziono miejsca", Toast.LENGTH_SHORT).show()
                         }
