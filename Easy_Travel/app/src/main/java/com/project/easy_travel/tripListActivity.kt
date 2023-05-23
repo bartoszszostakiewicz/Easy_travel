@@ -72,9 +72,9 @@ class TripListActivity : AppCompatActivity() {
         tripViewModel.getAllItems().observe(this, Observer { trips ->
             val tripList = mutableListOf<Trip>()
             for (trip in trips) {
-                val this_trip = Trip("", trip.title, trip.description, startDate = trip.startDate)
+
                 if (trip.guidesID.contains(authUserWithoutDot) || trip.participantsID.contains(authUserWithoutDot) || trip.organizerID == authUserWithoutDot) {
-                    tripList.add(this_trip)
+                    tripList.add(trip)
                 }
             }
             tripItems.clear()

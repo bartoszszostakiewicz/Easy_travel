@@ -5,18 +5,33 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.project.easy_travel.Model.Point
 import com.project.easy_travel.ViewModel.Chat_Activity_B
-import com.project.easy_travel.ViewModel.MainViewModel
 import com.project.easy_travel.ViewModel.TripViewModel
 
 
-class MenuActivity : AppCompatActivity() {
+
+class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var application: MainApplication
 
     private lateinit var tripViewModel: TripViewModel
+
+    private lateinit var tripID: String
+
+    private val listPoints = mutableListOf<Point>()
+    private var pointsId : List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +39,45 @@ class MenuActivity : AppCompatActivity() {
 
         val application = applicationContext as MainApplication
 
+
+
         tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+
 
 
         tripViewModel.data.observe(this, Observer {trip ->
            Toast.makeText(applicationContext, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
+            pointsId = trip.tripPointsID
+            tripID = trip.id
+
+            Log.d("TripCheck", "Trip: $trip")
+
         })
 
-        var btn = findViewById<Button>(R.id.button5)
 
-        btn.setOnClickListener{
-            var database_test: Intent = Intent(applicationContext,Database_test::class.java)
-            startActivity(database_test)
+        /*****************************************************************************************************************************************************************/
+        // Read points from databasa
+        val db = Firebase.database.reference.child("points")
+        db.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (pointSnapshot in dataSnapshot.children) {
+                    val pointKey = pointSnapshot.key.toString()
+                    val point = pointSnapshot.getValue(Point::class.java)
+                    point?.let {
+                        if (pointKey in pointsId)
+                            listPoints.add(point)
+                    }
+                }
+                val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+                mapFragment?.getMapAsync(this@MenuActivity)
+            }
 
-        }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("points", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
+        /*****************************************************************************************************************************************************************/
+
 
 
         val tripBtn = findViewById<Button>(R.id.trip_button)
@@ -61,4 +101,36 @@ class MenuActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        val mapView = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+
+        listPoints.forEach { point ->
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(point.toLatLng())
+                    .title(point.name)
+            )
+        }
+
+        // Dodaj listener do kliknięcia na pinezkę
+        googleMap.setOnMarkerClickListener { marker ->
+            // Pobierz opis pinezki
+            val description = marker.title
+
+            // Wyświetl opis w dowolny sposób, np. w oknie dialogowym
+            AlertDialog.Builder(this)
+                .setTitle("Opis")
+                .setMessage(description)
+                .setPositiveButton("OK", null)
+                .show()
+
+            // Zwróć true, aby oznaczyć kliknięcie jako obsłużone
+            true
+        }
+    }
+
+
+
+
 }
