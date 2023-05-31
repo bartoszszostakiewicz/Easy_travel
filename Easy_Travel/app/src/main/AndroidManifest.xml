@@ -21,9 +21,11 @@
         android:theme="@style/Theme.Easy_travel"
         tools:targetApi="31">
         <activity
+            android:screenOrientation="portrait"
             android:name=".RestorePasswordActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.ChatActivity"
             android:exported="false">
             <meta-data
@@ -31,20 +33,25 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.UserChat"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.Chat_Activity_B"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ViewModel.LoginActivity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.Pins"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.RegisterActivity"
             android:exported="false">
             <meta-data
@@ -52,6 +59,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.Organizacja"
             android:exported="false">
             <meta-data
@@ -59,6 +67,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Database_test"
             android:exported="false">
             <meta-data
@@ -71,6 +80,7 @@
             android:value="${GOOGLE_MAPS_API_KEY}" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".ListaWycieczek"
             android:exported="false">
             <meta-data
@@ -78,9 +88,11 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".MenuActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".TripListActivity"
             android:exported="false">
             <meta-data
@@ -88,6 +100,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".TripListPointActivity"
             android:exported="false">
             <meta-data
@@ -95,6 +108,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ChatMainActivity"
             android:exported="false">
             <meta-data
@@ -102,6 +116,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ViewModel.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -111,6 +126,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".CreateTrip"
             android:exported="true">
             <intent-filter>
@@ -124,6 +140,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".OrganizerMainActivity"
             android:exported="false">
             <meta-data
@@ -131,6 +148,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".HelpActivity"
             android:exported="false">
             <meta-data
