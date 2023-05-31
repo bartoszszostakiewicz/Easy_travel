@@ -96,8 +96,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Zapomiałeś hasła"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:text="Zapomiałeś hasła"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register"
