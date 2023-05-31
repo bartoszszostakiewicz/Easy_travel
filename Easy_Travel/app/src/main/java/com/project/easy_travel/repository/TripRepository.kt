@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
+import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.User
 
@@ -53,7 +54,9 @@ class TripRepository {
 
         localRef.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val item = snapshot.getValue(Trip::class.java)
+                val item = snapshot.getValue(Trip::class.java)?.apply {
+                    this.id = id
+                }
                 data.value = item
             }
 

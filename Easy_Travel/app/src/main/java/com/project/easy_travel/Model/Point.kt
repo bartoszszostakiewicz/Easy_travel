@@ -2,6 +2,7 @@ package com.project.easy_travel.Model
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
+import java.lang.reflect.Constructor
 
 data class Point(
     var id: String = "",
@@ -22,6 +23,8 @@ data class Point(
             "finishDate" to finishDate
         )
     }
+
+    constructor(): this("", "", "", 0.0, 0.0, 0L, 0L)
 
 
 }
