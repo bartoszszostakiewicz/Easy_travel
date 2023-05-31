@@ -54,7 +54,9 @@ class TripPointRepository {
 
             localRef.child(id).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val item = snapshot.getValue(Point::class.java)
+                    val item = snapshot.getValue(Point::class.java)?.apply {
+                        this.id = id
+                    }
                     data.value = item
                 }
 

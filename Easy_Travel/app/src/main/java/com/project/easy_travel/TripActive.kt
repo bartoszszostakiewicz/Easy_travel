@@ -1,6 +1,5 @@
 package com.project.easy_travel
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,7 +55,6 @@ class TripActive (
             var detailButton = findViewById<Button>(R.id.detailButton)
             var startDateText = findViewById<TextView>(R.id.startDateTitle)
             var tripTitle = findViewById<TextView>(R.id.tripTitle)
-            Log.d("tripTime", Date().time.toString())
             if (curTrip.startDate == 0L) {
                 startDateText.text = "Data rozpoczęcia: Nie zaznaczono"
             } else if (curTrip.startDate < Date().time) {
@@ -68,6 +66,7 @@ class TripActive (
 
             tripTitle.text = curTrip.title
             detailButton.setOnClickListener {
+                Log.d("tripCheck", "Trip: $curTrip")
                 context.startActivity(intent)
                 tripViewModel.setData(curTrip)
             }

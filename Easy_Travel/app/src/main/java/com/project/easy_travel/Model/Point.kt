@@ -2,16 +2,20 @@ package com.project.easy_travel.Model
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
+import java.lang.reflect.Constructor
 
 data class Point(
     var id: String = "",
-    val name: String,
-    val describe: String,
-    var lat: Double,
-    var lng: Double,
+    val name: String = "",
+    val describe: String = "",
+    var lat: Double = 0.0,
+    var lng: Double = 0.0,
     val startDate: Long = 0L,
-    val finishDate: Long = 0L,
-    ) : Mapable {
+    val finishDate: Long = 0L
+) : Mapable {
+
+    constructor() : this("", "", "", 0.0, 0.0, 0L, 0L)
+
     override fun toMap(): Map<String, Any> {
         return mapOf(
             "name" to name,
@@ -23,10 +27,16 @@ data class Point(
         )
     }
 
-
+    constructor(): this("", "", "", 0.0, 0.0, 0L, 0L)
+    
+    fun toLatLng(): LatLng {
+        return LatLng(lat, lng)
+    }
 }
 
+
 lateinit var database: DatabaseReference
+
 
 
 

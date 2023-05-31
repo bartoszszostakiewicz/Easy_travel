@@ -6,12 +6,15 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -83,7 +86,7 @@ class CreateTrip : AppCompatActivity() {
         dateTimePicker = findViewById<EditText>(R.id.date_picker_actions)
 
 
-        val pointTripListActiveItems = mutableListOf<Trip>()
+        val pointTripListActiveItems = mutableListOf<Point>()
         val memberListActiveItems = mutableListOf<InvitedUser>()
 
 
@@ -93,6 +96,25 @@ class CreateTrip : AppCompatActivity() {
 
         // This button triggers the transition to the xml #2
         nextButton1.setOnClickListener {
+            // Validate data
+            if (nameTripEdttxt.text.toString().isEmpty()) {
+                nameTripEdttxt.error = "Wprowadź nazwę wycieczki"
+                nameTripEdttxt.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (describeTripEdttxt.text.toString().isEmpty()) {
+                describeTripEdttxt.error = "Wprowadź opis wycieczki"
+                describeTripEdttxt.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (dateTimePicker.text.toString().isEmpty()) {
+                dateTimePicker.error = "Wprowadź datę rozpoczęcia wycieczki"
+                dateTimePicker.requestFocus()
+                return@setOnClickListener
+            }
+
             // Add a xml #2
             setContentView(R.layout.create_trip_page2)
             overridePendingTransition(R.anim.slide_right_to_left, R.anim.no_animation)
@@ -112,6 +134,7 @@ class CreateTrip : AppCompatActivity() {
                 recyclerViewMember = findViewById<RecyclerView>(R.id.member_list)
 
                 addMemberBtn.setOnClickListener {
+
                     val dialog = Dialog(this)
                     dialog.setContentView(R.layout.dialog_add_member)
 
@@ -128,8 +151,15 @@ class CreateTrip : AppCompatActivity() {
                     val cancel_btn = dialog.findViewById<Button>(R.id.back_btn)
 
                     add_btn.setOnClickListener {
+                        val emailEdtTxt = dialog.findViewById<EditText>(R.id.emailMember_edttxt)
+
                         val email = dialog.findViewById<EditText>(R.id.emailMember_edttxt).text.toString()
                         val role = role_spinner.selectedItem.toString()
+
+                        if (emailEdtTxt.text.toString().isEmpty()) {
+                            emailEdtTxt.error = "Wprowadź adres email"
+                            return@setOnClickListener
+                        }
 
                         if (role == "Uczestnik") {
                             participantsID.add(replaceDotsWithEmail(email))
@@ -225,6 +255,12 @@ class CreateTrip : AppCompatActivity() {
 
 
                 add_btn_tripPoint.setOnClickListener {
+                    // Validate data
+                    if (dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString().isEmpty()) {
+                        dialog.findViewById<EditText>(R.id.tripPointName_edttxt).error = "Wpisz nazwę punktu"
+                        return@setOnClickListener
+                    }
+
                     val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
@@ -243,12 +279,12 @@ class CreateTrip : AppCompatActivity() {
                     })
 
 
-                    val tripPoint = Trip("", name, description)
-                    points.add(Point("", name, description, lat, lng, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString())))
+                    val tripPoint = Point("", name, description, lat, lng, convertStringToTimestamp(date_start_tripPoint.text.toString()), convertStringToTimestamp(date_finish_tripPoint.text.toString()))
+                    points.add(tripPoint)
 
 
                     pointTripListActiveItems.add(tripPoint)
-                    pointTripListActive = PointTripListActive(pointTripListActiveItems)
+                    pointTripListActive = PointTripListActive(pointTripListActiveItems, tripPointViewModel)
 
                     recyclerViewTripPoint.adapter = pointTripListActive
                     recyclerViewTripPoint.layoutManager = LinearLayoutManager(this)
@@ -316,7 +352,8 @@ fun replaceDotsWithEmail(email: String): String {
 }
 
 class PointTripListActive(
-    private val tripPoints: MutableList<Trip>
+    private val tripPoints: MutableList<Point>,
+    private val tripPointViewModel: TripPointViewModel
 ) : RecyclerView.Adapter<PointTripListActive.TripPointViewHolder>() {
     class TripPointViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -339,8 +376,107 @@ class PointTripListActive(
         holder.itemView.apply {
             var tripPointName = findViewById<TextView>(R.id.point_trip_element_title_txt)
             var tripPointDescribe = findViewById<TextView>(R.id.point_trip_element_describe_txt)
-            tripPointName.text = curTripPoint.title
-            tripPointDescribe.text = curTripPoint.description
+            var editButton = findViewById<Button>(R.id.change_btn)
+            tripPointName.text = curTripPoint.name
+            tripPointDescribe.text = curTripPoint.describe
+            editButton.setOnClickListener {
+                val dialog = Dialog(context)
+                dialog.setContentView(R.layout.dialog_create_trip_point)
+
+                val tripTitle = dialog.findViewById<TextView>(R.id.tripPointName_edttxt)
+                val tripDescribe = dialog.findViewById<TextView>(R.id.tripPointDescribe_edttxt)
+
+
+                tripTitle.text = Editable.Factory.getInstance().newEditable(curTripPoint.name)
+                tripDescribe.text = Editable.Factory.getInstance().newEditable(curTripPoint.describe)
+
+                val date_start_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_start_actions)
+                val date_finish_tripPoint = dialog.findViewById<EditText>(R.id.date_picker_finish_actions)
+
+                date_start_tripPoint.setText(
+                    if (curTripPoint.startDate == 0L) {
+                        ""
+                    } else {
+                        SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm",
+                            Locale.getDefault()
+                        ).format(curTripPoint.startDate)
+                    }
+                )
+
+                date_finish_tripPoint.setText(
+                    if (curTripPoint.finishDate == 0L) {
+                        ""
+                    } else {
+                        SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm",
+                            Locale.getDefault()
+                        ).format(curTripPoint.finishDate)
+                    }
+                )
+
+                date_start_tripPoint.setOnClickListener {
+                    setDateTime(date_start_tripPoint, context)
+                }
+
+                date_finish_tripPoint.setOnClickListener {
+                    setDateTime(date_finish_tripPoint, context)
+                }
+
+                val deleteButton = dialog.findViewById<Button>(R.id.back_btn)
+                deleteButton.text = "Delete"
+
+                 deleteButton.setOnClickListener {
+                    //delete current trip point
+                    tripPoints.removeAt(position)
+                    notifyDataSetChanged()
+                    dialog.dismiss()
+                }
+
+                val updateButton = dialog.findViewById<Button>(R.id.add_btn)
+                updateButton.text = "Update"
+
+                updateButton.setOnClickListener {
+                    // Validate data
+                    if (tripTitle.text.toString().isEmpty()) {
+                        tripTitle.error = "Wprowadź nazwę punktu"
+                        tripTitle.requestFocus()
+                        return@setOnClickListener
+                    }
+
+                    //update current trip point
+                    val name =
+                        tripTitle.text.toString()
+                    val description =
+                        tripDescribe.text.toString()
+
+                    var lat = 0.0
+                    var lng = 0.0
+
+                    tripPointViewModel.data.observe((context as FragmentActivity), androidx.lifecycle.Observer { point ->
+
+                        lat = point.lat
+                        lng = point.lng
+
+                    })
+
+                    val startDate = convertStringToTimestamp(
+                        dialog.findViewById<EditText>(R.id.date_picker_start_actions).text.toString()
+                    )
+
+                    val finishDate = convertStringToTimestamp(
+                        dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString()
+                    )
+
+                    val point = Point("", name, description, lat, lng, startDate, finishDate)
+                    tripPoints[position] = point
+                    notifyItemChanged(position)
+                    dialog.dismiss()
+                }
+
+
+                dialog.show()
+            }
         }
     }
 
@@ -371,8 +507,59 @@ class MemberListActive (
         holder.itemView.apply {
             var memberName = findViewById<TextView>(R.id.member_element_email_txt)
             var memberRole = findViewById<TextView>(R.id.member_element_role_txt)
+            val editButton = findViewById<Button>(R.id.change_btn)
             memberName.text = curMember.email
             memberRole.text = curMember.role
+
+            editButton.setOnClickListener {
+                val dialog = Dialog(context)
+                dialog.setContentView(R.layout.dialog_add_member)
+
+                val memberEmail = dialog.findViewById<TextView>(R.id.emailMember_edttxt)
+                val memberRole = dialog.findViewById<Spinner>(R.id.role_spinner)
+
+                memberEmail.text = Editable.Factory.getInstance().newEditable(curMember.email)
+                // TODO: Set role in spinner
+
+
+
+                val deleteButton = dialog.findViewById<Button>(R.id.back_btn)
+                deleteButton.text = "Delete"
+
+                deleteButton.setOnClickListener {
+                    //delete current member
+                    members.removeAt(position)
+                    notifyDataSetChanged()
+                    dialog.dismiss()
+                }
+
+                val updateButton = dialog.findViewById<Button>(R.id.add_btn)
+                updateButton.text = "Update"
+
+                updateButton.setOnClickListener {
+                    // Validate data
+                    if (memberEmail.text.toString().isEmpty()) {
+                        memberEmail.error = "Wprowadź email członka"
+                        memberEmail.requestFocus()
+                        return@setOnClickListener
+                    }
+
+                    //update current member
+                    val email =
+                        memberEmail.text.toString()
+                    val role =
+                        memberRole.selectedItem.toString()
+
+                    val member = InvitedUser(email, role)
+                    members[position] = member
+                    notifyItemChanged(position)
+                    dialog.dismiss()
+                }
+
+                dialog.show()
+            }
+
+
         }
     }
 }

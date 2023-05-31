@@ -2,6 +2,7 @@ package com.project.easy_travel.ViewModel
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -27,10 +28,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var auth = Firebase.auth
-        if(auth.currentUser != null)
-            auth.signOut()
-
         var prefs = PreferenceManager.getDefaultSharedPreferences(this)
         var savedUsername = prefs.getString("remembered_login", "")
 
@@ -46,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Dodanie funkcjonalności, że jeśli użytkownik jest zalogowany, to od razu przenosi do listy wycieczek
         val currentUser = FirebaseAuth.getInstance().currentUser
+        Log.d("user", currentUser.toString())
         if (currentUser != null) {
             val intent = Intent(applicationContext, TripListActivity::class.java)
             startActivity(intent)

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.User
 //import com.project.easy_travel.remote.UserSource
@@ -55,7 +56,9 @@ class UserRepository {
 
         localRef.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val item = snapshot.getValue(User::class.java)
+                val item = snapshot.getValue(User::class.java)?.apply {
+                    this.id = id
+                }
                 data.value = item
             }
 

@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
 
+    <TextView
+        android:id="@+id/theme_textView"
+        android:layout_width="414dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="00dp"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="#DD8348"
+        android:text="Zgubiłeś się?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/map_navigation_button"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:backgroundTint="#00D5FF"
         android:layout_width="266dp"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
         android:text="Mapa z nawigacją"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -20,40 +36,18 @@
 
     <Button
         android:id="@+id/organizer_chat_button"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:backgroundTint="#00D5FF"
         android:layout_width="266dp"
         android:layout_height="49dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
         android:text="Czat z organizatorem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_navigation_button" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="266dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="16dp"
-        android:text="Wstecz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/theme_textView"
-        android:layout_width="209dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="40dp"
-        android:text="Zgubiłeś się?"
-        android:textColor="#DD8348"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/information_textView"
@@ -66,4 +60,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/organizer_chat_button" />
+    <Button
+        android:id="@+id/back_button"
+        android:backgroundTint="#00D5FF"
+        android:layout_width="266dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="60dp"
+        android:textColor="@color/black"
+        android:text="Wstecz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

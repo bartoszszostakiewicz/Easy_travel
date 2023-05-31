@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.project.easy_travel.MainApplication
 import com.project.easy_travel.MessageAdapter
 import com.project.easy_travel.Model.Message
 import com.project.easy_travel.R
@@ -20,8 +22,12 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageBox: EditText
     private lateinit var sendButton: ImageView
 
+
+
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
+
+
 
     private lateinit var mDbRef: DatabaseReference
 
@@ -36,6 +42,8 @@ class ChatActivity : AppCompatActivity() {
         var extras : Bundle? = intent.extras
         val name = extras?.getString("name")
         var receiverEmail = extras?.getString("email")
+
+
 
         var senderEmail = FirebaseAuth.getInstance().currentUser?.email
         //var senderEmail = FirebaseAuth.getInstance().currentUser?.email
@@ -82,6 +90,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+
 
                 }
 
