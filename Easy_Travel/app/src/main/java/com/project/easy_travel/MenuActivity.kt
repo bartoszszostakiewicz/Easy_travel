@@ -19,6 +19,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.easy_travel.Model.Point
 import com.project.easy_travel.ViewModel.Chat_Activity_B
+import com.project.easy_travel.ViewModel.TripPointViewModel
 import com.project.easy_travel.ViewModel.TripViewModel
 
 
@@ -27,6 +28,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var application: MainApplication
 
     private lateinit var tripViewModel: TripViewModel
+    private lateinit var tripPointViewModel: TripPointViewModel
 
     private lateinit var tripID: String
 
@@ -42,6 +44,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+        tripPointViewModel = application.tripPointViewModel
 
 
 
@@ -50,33 +53,47 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
             pointsId = trip.tripPointsID
             tripID = trip.id
 
-            Log.d("TripCheck", "Trip: $trip")
+            for (i in pointsId.indices) {
+                tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
+                    if (point != null) {
+                        listPoints.add(point)
 
-        })
-
-
-        /*****************************************************************************************************************************************************************/
-        // Read points from databasa
-        val db = Firebase.database.reference.child("points")
-        db.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (pointSnapshot in dataSnapshot.children) {
-                    val pointKey = pointSnapshot.key.toString()
-                    val point = pointSnapshot.getValue(Point::class.java)
-                    point?.let {
-                        if (pointKey in pointsId)
-                            listPoints.add(point)
+                        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+                        mapFragment?.getMapAsync(this@MenuActivity)
                     }
-                }
-                val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
-                mapFragment?.getMapAsync(this@MenuActivity)
-            }
+                })
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("points", "loadPost:onCancelled", databaseError.toException())
             }
         })
-        /*****************************************************************************************************************************************************************/
+
+
+
+
+
+//        /*****************************************************************************************************************************************************************/
+//        // Read points from databasa
+//        val db = Firebase.database.reference.child("points")
+//        db.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (pointSnapshot in dataSnapshot.children) {
+//                    val pointKey = pointSnapshot.key.toString()
+//                    val point = pointSnapshot.getValue(Point::class.java)
+//                    point?.let {
+//                        if (pointKey in pointsId)
+//                            listPoints.add(point)
+//                    }
+//                }
+//
+//                val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+//                mapFragment?.getMapAsync(this@MenuActivity)
+//
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                Log.d("points", "loadPost:onCancelled", databaseError.toException())
+//            }
+//        })
+//        /*****************************************************************************************************************************************************************/
 
 
 

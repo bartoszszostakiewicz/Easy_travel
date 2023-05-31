@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.SupportMapFragment
 import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.TripCell
 import com.project.easy_travel.ViewModel.TripPointViewModel
 import kotlinx.coroutines.*
+import androidx.lifecycle.Observer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,48 +31,32 @@ class TripListPointActivity : AppCompatActivity() {
 
         val application = applicationContext as MainApplication
 
-        val tripItems: MutableList<Point> = mutableListOf()
-
         val tripViewModel = application.tripViewModel
         val tripPointViewModel = application.tripPointViewModel
 
+        val tripItems: MutableList<Point> = mutableListOf()
+
+        var pointsId: List<String> = listOf()
+        var tripID: String = ""
+
         tripAdapter = TripPointAdapter(tripItems, R.layout.trip_plan_element, tripPointViewModel)
 
+        tripViewModel.data.observe(this, Observer {trip ->
+            pointsId = trip.tripPointsID
+            tripID = trip.id
 
-//        tripViewModel.data.observe(this, androidx.lifecycle.Observer { trip ->
-//            trip.tripPointsID.map { pointID ->
-//                Transformations.switchMap(tripPointViewModel.getById(pointID)) { point ->
-//                    MutableLiveData<Point?>().apply { value = point }
-//                }
-//            }.zip().observe(this, androidx.lifecycle.Observer { tripList ->
-//                tripItems.clear()
-//                tripItems.addAll(tripList)
-//                tripAdapter.notifyDataSetChanged()
-//            })
-//        })
+            for (i in pointsId.indices) {
+                tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
+                    if (point != null) {
 
-        // Tworzenie korutyny
-        val parentJob = Job()
-        val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+                        tripItems.add(point)
+                        // Update trip adapter
+                        tripAdapter.notifyDataSetChanged()
+                    }
+                })
 
-        // Obserwowanie tripViewModel.data
-        tripViewModel.data.observe(this, androidx.lifecycle.Observer { trip ->
-            coroutineScope.launch {
-                val tripListDeferred = trip.tripPointsID.map { pointID ->
-                    async { tripPointViewModel.getById(pointID).value }
-                }
-                val tripList = tripListDeferred.awaitAll()
-
-                // Aktualizowanie interfejsu użytkownika w wątku głównym
-                withContext(Dispatchers.Main) {
-                    tripItems.clear()
-                    tripItems.addAll(tripList.filterNotNull()) // Filtruj null
-                    tripAdapter.notifyDataSetChanged()
-                }
             }
         })
-
-
 
         findViewById<Button>(R.id.buttonBack).setOnClickListener {
             this.finish()
