@@ -33,10 +33,27 @@ class Chat_Activity_B : AppCompatActivity() {
         val application = applicationContext as MainApplication
         tripViewModel = application.tripViewModel
 
+        var participantsId: List<String> = ArrayList()
+        var organiserId :String
+        var guideId :List<String> = ArrayList()
+
         tripViewModel.data.observe(this, Observer {trip ->
             tripId = trip.id
-            Log.d("User123",tripId)
+
+            //Log.d("User123",tripId)
+            //Log.d("User123",trip.participantsID.toString())
+            //Log.d("User123",trip.organizerID.toString())
+            //Log.d("User123",trip.guidesID.toString())
+            participantsId = emptyList()
+            participantsId += trip.participantsID
+            participantsId += trip.organizerID
+            participantsId += trip.guidesID
+
+            Log.d("test123",participantsId.toString())
         })
+
+
+
         /*************************************************************************************************************************************************************************************/
 
         mAuth = FirebaseAuth.getInstance()
@@ -60,9 +77,18 @@ class Chat_Activity_B : AppCompatActivity() {
                 for(postSnapshot in snapshot.children){
                     val currentUser = postSnapshot.getValue(User::class.java)
 
+                    //Log.d("User123",currentUser.toString())
+//zmienic logike !!!!!!!
                     if(mAuth.currentUser?.email != currentUser?.email ){
-                        if(currentUser?.tripsID?.contains(tripId) == true)
+                        //Log.d("tripid",tripId)
+                        //Log.d("User123",currentUser.toString())
+                        Log.d("User123",participantsId.toString())
+                        if(currentUser?.email?.contains(participantsId.toString()) == true) {
                             userList.add(currentUser!!)
+                                //Log.d("User123",currentUser.toString())
+                            //Log.d("User123",participantsId.toString())
+                        }
+
                     }
 
 
@@ -72,12 +98,17 @@ class Chat_Activity_B : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
+                Log.d("User123","error")
             }
 
         })
 
 
 
+    }
+
+    fun replaceDotsWithEmail(email: String): String {
+        return email.replace("_", ".")
     }
 
 }
