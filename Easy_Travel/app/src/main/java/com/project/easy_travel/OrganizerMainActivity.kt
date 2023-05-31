@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.easy_travel.Model.InvitedUser
 import com.project.easy_travel.Model.Trip
@@ -18,25 +19,43 @@ import com.project.easy_travel.ViewModel.Pins
 import com.project.easy_travel.ViewModel.TripViewModel
 import com.project.easy_travel.repository.MainRepository
 import java.util.Objects
+import kotlin.math.log
 
 class OrganizerMainActivity : AppCompatActivity() {
 
+    lateinit var application: MainApplication
+    private lateinit var tripViewModel: TripViewModel
+
     private val TITLE = "title"
     private val DESCRIPTION = "description"
-    val trip_id = "-NMdAXK265B3ffD0kkYQ"
+    lateinit var trip_id : String
 
     var trip_data: MutableMap<String, Any>? = null
 
     lateinit var pointTripListActiveItems: MutableList<Trip>
     lateinit var memberListActiveItems: MutableList<InvitedUser>
 
-    var trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
+    lateinit var trip_fb_instance : DatabaseReference
+
+    val TAG = "organizer/edit"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: remove hardcode
-        //val tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
+        application = applicationContext as MainApplication
+
+        trip_id = intent.getStringExtra("trip_id").toString()
+        trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
+
+        tripViewModel = application.tripViewModel
+
+        var trip_data_l = tripViewModel.getById(trip_id)
+
+        Log.d(TAG, trip_data_l.value.toString())
+        Log.d(TAG, trip_id)
         //var loaded_data = tripViewModel.load(trip_id)
+
+
 
         //TODO: change read data to complete model when ready
         trip_fb_instance.get().addOnCompleteListener {

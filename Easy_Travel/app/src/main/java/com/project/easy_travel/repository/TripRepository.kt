@@ -65,7 +65,7 @@ class TripRepository {
         return data
     }
 
-    fun save(data: Trip, id: String = "") {
+    fun save(data: Trip, id: String = ""): String {
         val id = if (id.isEmpty()) localRef.push().key else id
         val values = data.toMap()
 
@@ -76,6 +76,7 @@ class TripRepository {
             localRef.updateChildren(childUpdates)
         }
         data.id = id.toString()
+        return id!!
     }
 
     fun delete(id: String) {
