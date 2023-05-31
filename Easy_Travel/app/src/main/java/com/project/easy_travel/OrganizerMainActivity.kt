@@ -47,7 +47,7 @@ class OrganizerMainActivity : AppCompatActivity() {
             Log.e("read error", it.toString())
         }
 
-        pointTripListActiveItems = mutableListOf<Trip>()
+        //pointTripListActiveItems = mutableListOf<Trip>()
         memberListActiveItems =  mutableListOf<InvitedUser>()
 
         rootActivity()
@@ -142,9 +142,9 @@ class OrganizerMainActivity : AppCompatActivity() {
 
 
                 pointTripListActiveItems.add(tripPoint)
-                var pointTripListActive = PointTripListActive(pointTripListActiveItems)
+                //var pointTripListActive = PointTripListActive(pointTripListActiveItems)
 
-                recyclerViewTripPoint.adapter = pointTripListActive
+                //recyclerViewTripPoint.adapter = pointTripListActive
                 recyclerViewTripPoint.layoutManager = LinearLayoutManager(this)
                 dialog.dismiss()
             }

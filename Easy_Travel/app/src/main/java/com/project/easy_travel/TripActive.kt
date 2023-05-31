@@ -55,7 +55,6 @@ class TripActive (
             var detailButton = findViewById<Button>(R.id.detailButton)
             var startDateText = findViewById<TextView>(R.id.startDateTitle)
             var tripTitle = findViewById<TextView>(R.id.tripTitle)
-            Log.d("tripTime", Date().time.toString())
             if (curTrip.startDate == 0L) {
                 startDateText.text = "Data rozpoczęcia: Nie zaznaczono"
             } else if (curTrip.startDate < Date().time) {
