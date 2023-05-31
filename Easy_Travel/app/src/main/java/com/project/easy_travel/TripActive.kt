@@ -1,6 +1,5 @@
 package com.project.easy_travel
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -67,6 +66,7 @@ class TripActive (
 
             tripTitle.text = curTrip.title
             detailButton.setOnClickListener {
+                Log.d("tripCheck", "Trip: $curTrip")
                 context.startActivity(intent)
                 tripViewModel.setData(curTrip)
             }

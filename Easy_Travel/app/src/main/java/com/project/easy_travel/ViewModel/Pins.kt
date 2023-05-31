@@ -28,6 +28,7 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
         supportActionBar?.hide()
 
 
+
         findViewById<MaterialButton>(R.id.mark_places).setOnClickListener{
 
             val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
@@ -55,7 +56,7 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(point.get)
+                        .position(point.toLatLng())
                         .title("Marker :)")
                 )
             }
