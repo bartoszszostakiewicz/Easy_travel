@@ -61,7 +61,7 @@ class Chat_Activity_B : AppCompatActivity() {
                     val currentUser = postSnapshot.getValue(User::class.java)
 
                     if(mAuth.currentUser?.email != currentUser?.email ){
-                        if(currentUser?.tripsID?.contains(tripId) == true)
+                       // if(currentUser?.tripsID?.contains(tripId) == true)
                             userList.add(currentUser!!)
                     }
 
