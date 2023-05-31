@@ -27,8 +27,6 @@ data class Point(
         )
     }
 
-    constructor(): this("", "", "", 0.0, 0.0, 0L, 0L)
-    
     fun toLatLng(): LatLng {
         return LatLng(lat, lng)
     }
