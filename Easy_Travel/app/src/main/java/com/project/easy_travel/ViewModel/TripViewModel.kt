@@ -32,8 +32,8 @@ class TripViewModel() : ViewModel() {
         return repository.getById(id)
     }
 
-    fun save(trip: Trip, id: String = "") {
-        repository.save(trip, id)
+    fun save(trip: Trip, id: String = ""): String {
+        return repository.save(trip, id)
     }
 
     fun delete(id: String) {
