@@ -1,6 +1,7 @@
 package com.project.easy_travel
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,10 +33,15 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
 
-        if(FirebaseAuth.getInstance().currentUser?.email.equals(currentMessage.senderId)){
-            return ITEM_SENT
+
+        return if(FirebaseAuth.getInstance().currentUser?.email.equals(currentMessage.senderId)){
+            //to do zle porowynwanie!!!!!!!!!!!!!111
+            //Log.d("TAG", "getItemViewType: ${FirebaseAuth.getInstance().currentUser?.email} ${currentMessage.senderId}")
+            //Log.d("TAG", "getItemViewType: ${FirebaseAuth.getInstance().currentUser?.email.equals(currentMessage.senderId)}"
+
+            ITEM_SENT
         }else{
-            return ITEM_RECEIVE
+            ITEM_RECEIVE
         }
     }
 

@@ -95,7 +95,7 @@
         android:textColor="@color/black"
         android:textColorHighlight="#FFFFFF"
         android:textColorHint="#000000"
-        android:hint="2010-01-01 00:00"
+        android:hint="Data i Godzina"
          />
 
     <com.google.android.material.button.MaterialButton
