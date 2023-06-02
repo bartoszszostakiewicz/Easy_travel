@@ -80,6 +80,7 @@ class Chat_Activity_B : AppCompatActivity() {
                     //Log.d("User123",currentUser.toString())
 //zmienic logike !!!!!!!
                     if(mAuth.currentUser?.email != currentUser?.email ){
+                       // if(currentUser?.tripsID?.contains(tripId) == true)
                         //Log.d("tripid",tripId)
                         //Log.d("User123",currentUser.toString())
                         Log.d("User123",participantsId.toString())

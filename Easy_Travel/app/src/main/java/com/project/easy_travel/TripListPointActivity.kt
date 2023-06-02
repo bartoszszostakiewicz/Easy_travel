@@ -8,15 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.SupportMapFragment
 import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.TripCell
 import com.project.easy_travel.ViewModel.TripPointViewModel
 import kotlinx.coroutines.*
+import androidx.lifecycle.Observer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,48 +32,38 @@ class TripListPointActivity : AppCompatActivity() {
 
         val application = applicationContext as MainApplication
 
-        val tripItems: MutableList<Point> = mutableListOf()
-
         val tripViewModel = application.tripViewModel
         val tripPointViewModel = application.tripPointViewModel
 
-        tripAdapter = TripPointAdapter(tripItems, R.layout.trip_plan_element, tripPointViewModel)
+        val tripItems: MutableList<Point> = mutableListOf()
+
+        var pointsId: List<String> = listOf()
+        var tripID: String = ""
+
+        val tripRecycleView = findViewById<RecyclerView>(R.id.tripList)
+
+        tripAdapter = TripPointAdapter(tripItems, Intent(applicationContext, TripPointDetailActivity::class.java), R.layout.trip_plan_element, tripPointViewModel)
+        tripRecycleView.adapter = tripAdapter
+        tripRecycleView.layoutManager = LinearLayoutManager(this)
 
 
-//        tripViewModel.data.observe(this, androidx.lifecycle.Observer { trip ->
-//            trip.tripPointsID.map { pointID ->
-//                Transformations.switchMap(tripPointViewModel.getById(pointID)) { point ->
-//                    MutableLiveData<Point?>().apply { value = point }
-//                }
-//            }.zip().observe(this, androidx.lifecycle.Observer { tripList ->
-//                tripItems.clear()
-//                tripItems.addAll(tripList)
-//                tripAdapter.notifyDataSetChanged()
-//            })
-//        })
+        tripViewModel.data.observe(this, Observer {trip ->
+            pointsId = trip.tripPointsID
+            tripID = trip.id
 
-        // Tworzenie korutyny
-        val parentJob = Job()
-        val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+            for (i in pointsId.indices) {
+                tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
+                    if (point != null) {
 
-        // Obserwowanie tripViewModel.data
-        tripViewModel.data.observe(this, androidx.lifecycle.Observer { trip ->
-            coroutineScope.launch {
-                val tripListDeferred = trip.tripPointsID.map { pointID ->
-                    async { tripPointViewModel.getById(pointID).value }
-                }
-                val tripList = tripListDeferred.awaitAll()
+                        tripItems.add(point)
+                        Log.d("tripItems2", tripItems.toString())
+                        // Update trip adapter
+                        tripAdapter.notifyDataSetChanged()
+                    }
+                })
 
-                // Aktualizowanie interfejsu użytkownika w wątku głównym
-                withContext(Dispatchers.Main) {
-                    tripItems.clear()
-                    tripItems.addAll(tripList.filterNotNull()) // Filtruj null
-                    tripAdapter.notifyDataSetChanged()
-                }
             }
         })
-
-
 
         findViewById<Button>(R.id.buttonBack).setOnClickListener {
             this.finish()
@@ -79,6 +73,7 @@ class TripListPointActivity : AppCompatActivity() {
 
 class TripPointAdapter (
     private val tripData: MutableList<Point>,
+    private val intent: Intent,
     private val xmlFile: Int,
     private val tripPointViewModel: TripPointViewModel
 ) : RecyclerView.Adapter<TripPointAdapter.TripViewHolder>()//AppCompatActivity()
@@ -96,18 +91,36 @@ class TripPointAdapter (
     }
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val curTripPoint = tripData[position]
-        Log.d("tripPoint", curTripPoint.toString())
+
 
         holder.itemView.apply {
-            var tripText = findViewById<TextView>(R.id.point_trip_element_title_txt)
-            var describeText = findViewById<TextView>(R.id.point_trip_element_describe_txt)
-            var change_btn = findViewById<Button>(R.id.change_btn)
+            var tripText = findViewById<TextView>(R.id.tripTitle)
+            var detail_button = findViewById<Button>(R.id.detailButton)
+            var startDateText = findViewById<TextView>(R.id.startDateTitle)
+
+            var dateText = ""
+
+            if (curTripPoint.startDate == 0L) {
+                dateText = "Data rozpoczęcia: Nie zaznaczono"
+            } else {
+                if (curTripPoint.finishDate*1000 < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate*1000 < Date().time) {
+                    dateText = "Zwiedzanie tego punktu zostało zakończone"
+                } else {
+                    if (curTripPoint.startDate*1000 < Date().time) {
+                        dateText = "Zwiedzanie tego punktu trwa"
+                    } else {
+                        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                        dateText = "Data rozpoczęcia: " + sdf.format(curTripPoint.startDate * 1000).toString()
+                    }
+                }
+            }
 
             tripText.text = curTripPoint.name
-            describeText.text = curTripPoint.describe
+            startDateText.text = dateText
 
-            change_btn.setOnClickListener {
-                ;
+            detail_button.setOnClickListener {
+                tripPointViewModel.setData(curTripPoint)
+                context.startActivity(intent)
             }
         }
     }

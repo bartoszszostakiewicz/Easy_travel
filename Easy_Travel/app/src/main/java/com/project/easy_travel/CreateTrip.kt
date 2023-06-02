@@ -1,6 +1,7 @@
 package com.project.easy_travel
 
 import android.app.DatePickerDialog
+import androidx.lifecycle.Observer
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -184,12 +185,6 @@ class CreateTrip : AppCompatActivity() {
 
                 // Final button to create a trip and add it to the database
                 nextButton3.setOnClickListener {
-                    Log.d("XXD1", "Name trip - " + nameTripEdttxt.text.toString())
-                    Log.d("XXD1", "Describe trip - " + describeTripEdttxt.text.toString())
-                    Log.d("XXD1", "Points - " + points.toString())
-                    Log.d("XXD1", "Guides - " + guidesID.toString())
-                    Log.d("XXD1", "Participants - " + participantsID.toString())
-                    Log.d("XXD1", "Date - " + convertStringToTimestamp(dateTimePicker.text.toString()))
 
                     // List of points
                     val pointsID = arrayListOf<String>()
