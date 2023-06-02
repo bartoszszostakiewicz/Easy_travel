@@ -100,6 +100,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
         val tripBtn = findViewById<Button>(R.id.trip_button)
         val helpBtn = findViewById<Button>(R.id.help)
         val chatBtn = findViewById<Button>(R.id.chat)
+        val infoBtn = findViewById<Button>(R.id.information)
 
         tripBtn.setOnClickListener {
             var newActivity: Intent = Intent(applicationContext, TripListPointActivity::class.java)
@@ -114,6 +115,12 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
             var newActivity: Intent = Intent(applicationContext, Chat_Activity_B::class.java)
             startActivity(newActivity)
         }
+
+        infoBtn.setOnClickListener {
+            var newActivity: Intent = Intent(applicationContext, InformationActivity::class.java)
+            startActivity(newActivity)
+        }
+
 
 
 

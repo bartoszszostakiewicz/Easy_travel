@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,12 @@ class TripListPointActivity : AppCompatActivity() {
         var pointsId: List<String> = listOf()
         var tripID: String = ""
 
-        tripAdapter = TripPointAdapter(tripItems, R.layout.trip_plan_element, tripPointViewModel)
+        val tripRecycleView = findViewById<RecyclerView>(R.id.tripList)
+
+        tripAdapter = TripPointAdapter(tripItems, Intent(applicationContext, TripPointDetailActivity::class.java), R.layout.trip_plan_element, tripPointViewModel)
+        tripRecycleView.adapter = tripAdapter
+        tripRecycleView.layoutManager = LinearLayoutManager(this)
+
 
         tripViewModel.data.observe(this, Observer {trip ->
             pointsId = trip.tripPointsID
@@ -50,6 +56,7 @@ class TripListPointActivity : AppCompatActivity() {
                     if (point != null) {
 
                         tripItems.add(point)
+                        Log.d("tripItems2", tripItems.toString())
                         // Update trip adapter
                         tripAdapter.notifyDataSetChanged()
                     }
@@ -66,6 +73,7 @@ class TripListPointActivity : AppCompatActivity() {
 
 class TripPointAdapter (
     private val tripData: MutableList<Point>,
+    private val intent: Intent,
     private val xmlFile: Int,
     private val tripPointViewModel: TripPointViewModel
 ) : RecyclerView.Adapter<TripPointAdapter.TripViewHolder>()//AppCompatActivity()
@@ -83,18 +91,36 @@ class TripPointAdapter (
     }
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val curTripPoint = tripData[position]
-        Log.d("tripPoint", curTripPoint.toString())
+
 
         holder.itemView.apply {
-            var tripText = findViewById<TextView>(R.id.point_trip_element_title_txt)
-            var describeText = findViewById<TextView>(R.id.point_trip_element_describe_txt)
-            var change_btn = findViewById<Button>(R.id.change_btn)
+            var tripText = findViewById<TextView>(R.id.tripTitle)
+            var detail_button = findViewById<Button>(R.id.detailButton)
+            var startDateText = findViewById<TextView>(R.id.startDateTitle)
+
+            var dateText = ""
+
+            if (curTripPoint.startDate == 0L) {
+                dateText = "Data rozpoczęcia: Nie zaznaczono"
+            } else {
+                if (curTripPoint.finishDate*1000 < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate*1000 < Date().time) {
+                    dateText = "Zwiedzanie tego punktu zostało zakończone"
+                } else {
+                    if (curTripPoint.startDate*1000 < Date().time) {
+                        dateText = "Zwiedzanie tego punktu trwa"
+                    } else {
+                        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                        dateText = "Data rozpoczęcia: " + sdf.format(curTripPoint.startDate * 1000).toString()
+                    }
+                }
+            }
 
             tripText.text = curTripPoint.name
-            describeText.text = curTripPoint.describe
+            startDateText.text = dateText
 
-            change_btn.setOnClickListener {
-                ;
+            detail_button.setOnClickListener {
+                tripPointViewModel.setData(curTripPoint)
+                context.startActivity(intent)
             }
         }
     }
