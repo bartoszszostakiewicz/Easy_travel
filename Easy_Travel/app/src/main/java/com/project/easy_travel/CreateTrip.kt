@@ -378,6 +378,7 @@ class PointTripListActive(
                 val dialog = Dialog(context)
                 dialog.setContentView(R.layout.dialog_create_trip_point)
 
+
                 val tripTitle = dialog.findViewById<TextView>(R.id.tripPointName_edttxt)
                 val tripDescribe = dialog.findViewById<TextView>(R.id.tripPointDescribe_edttxt)
 
