@@ -29,7 +29,7 @@ class Chat_Activity_B : AppCompatActivity() {
         setContentView(R.layout.activity_chat_b)
         supportActionBar?.hide()
 
-        /*************************************************************************************************************************************************************************************/
+
         val application = applicationContext as MainApplication
         tripViewModel = application.tripViewModel
 
@@ -39,22 +39,12 @@ class Chat_Activity_B : AppCompatActivity() {
 
         tripViewModel.data.observe(this, Observer {trip ->
             tripId = trip.id
-
-            //Log.d("User123",tripId)
-            //Log.d("User123",trip.participantsID.toString())
-            //Log.d("User123",trip.organizerID.toString())
-            //Log.d("User123",trip.guidesID.toString())
             participantsId = emptyList()
             participantsId += trip.participantsID
             participantsId += trip.organizerID
             participantsId += trip.guidesID
-
-            Log.d("test123",participantsId.toString())
         })
 
-
-
-        /*************************************************************************************************************************************************************************************/
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().getReference()
@@ -68,33 +58,22 @@ class Chat_Activity_B : AppCompatActivity() {
         userRecyclerView.adapter = adapter
 
 
-        Log.d("User123","prev")
         mDbRef.child("users").addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 userList.clear()
-
-                for(postSnapshot in snapshot.children){
+                for(postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
 
-                    //Log.d("User123",currentUser.toString())
-//zmienic logike !!!!!!!
-                    if(mAuth.currentUser?.email != currentUser?.email ){
-                        userList.add(currentUser!!)
-                        /*
-                       // if(currentUser?.tripsID?.contains(tripId) == true)
-                        //Log.d("tripid",tripId)
-                        //Log.d("User123",currentUser.toString())
-                        Log.d("User123",participantsId.toString())
-                        if(currentUser?.email?.contains(participantsId.toString()) == true) {
-                            userList.add(currentUser!!)
-                                //Log.d("User123",currentUser.toString())
-                            //Log.d("User123",participantsId.toString())
+                    mAuth.currentUser?.email?.let { mAuthEmail ->
+                        currentUser?.email?.let { currentUserEmail ->
+                            if (mAuthEmail != currentUserEmail && replaceDotsWithEmail(
+                                    currentUserEmail.toString()
+                                ) in participantsId
+                            ) {
+                                userList.add(currentUser!!)
+                            }
                         }
-*/
                     }
-
-
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -105,13 +84,10 @@ class Chat_Activity_B : AppCompatActivity() {
             }
 
         })
-
-
-
     }
 
     fun replaceDotsWithEmail(email: String): String {
-        return email.replace("_", ".")
+        return email.replace(".", "_")
     }
 
 }
