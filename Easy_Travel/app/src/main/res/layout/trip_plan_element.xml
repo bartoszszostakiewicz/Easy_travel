@@ -11,10 +11,12 @@
         android:id="@+id/tripTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Trip - a plan"
+        android:layout_marginTop="8dp"
+        android:text="Point - a list"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#0055AA"
         app:layout_constraintEnd_toStartOf="@+id/detailButton"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,4 +28,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/startDateTitle"
+        android:layout_width="305dp"
+        android:layout_height="21dp"
+        android:text="Data rozpoczęcia"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/detailButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripTitle"
+        app:layout_constraintVertical_bias="0.421" />
 </androidx.constraintlayout.widget.ConstraintLayout>

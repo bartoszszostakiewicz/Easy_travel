@@ -29,15 +29,22 @@ class Chat_Activity_B : AppCompatActivity() {
         setContentView(R.layout.activity_chat_b)
         supportActionBar?.hide()
 
-        /*************************************************************************************************************************************************************************************/
+
         val application = applicationContext as MainApplication
         tripViewModel = application.tripViewModel
 
+        var participantsId: List<String> = ArrayList()
+        var organiserId :String
+        var guideId :List<String> = ArrayList()
+
         tripViewModel.data.observe(this, Observer {trip ->
             tripId = trip.id
-            Log.d("User123",tripId)
+            participantsId = emptyList()
+            participantsId += trip.participantsID
+            participantsId += trip.organizerID
+            participantsId += trip.guidesID
         })
-        /*************************************************************************************************************************************************************************************/
+
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().getReference()
@@ -51,33 +58,36 @@ class Chat_Activity_B : AppCompatActivity() {
         userRecyclerView.adapter = adapter
 
 
-        Log.d("User123","prev")
         mDbRef.child("users").addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 userList.clear()
-
-                for(postSnapshot in snapshot.children){
+                for(postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
 
-                    if(mAuth.currentUser?.email != currentUser?.email ){
-                        if(currentUser?.tripsID?.contains(tripId) == true)
-                            userList.add(currentUser!!)
+                    mAuth.currentUser?.email?.let { mAuthEmail ->
+                        currentUser?.email?.let { currentUserEmail ->
+                            if (mAuthEmail != currentUserEmail && replaceDotsWithEmail(
+                                    currentUserEmail.toString()
+                                ) in participantsId
+                            ) {
+                                userList.add(currentUser!!)
+                            }
+                        }
                     }
-
-
                 }
                 adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
+                Log.d("User123","error")
             }
 
         })
+    }
 
-
-
+    fun replaceDotsWithEmail(email: String): String {
+        return email.replace(".", "_")
     }
 
 }

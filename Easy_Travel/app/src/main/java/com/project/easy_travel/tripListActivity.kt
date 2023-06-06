@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -53,7 +54,7 @@ class TripListActivity : AppCompatActivity() {
         // --- view elements ---
         val helloTxt = findViewById<TextView>(R.id.hello_txt)
         val tripList = findViewById<RecyclerView>(R.id.tripList)
-        val backBtn = findViewById<Button>(R.id.logOutButton)
+        val backBtn = findViewById<ImageView>(R.id.logOutButton)
 
         // --- view elements setup ---
         tripActive = TripActive(tripItems, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element, tripViewModel)

@@ -66,9 +66,8 @@ class TripActive (
 
             tripTitle.text = curTrip.title
             detailButton.setOnClickListener {
-                Log.d("tripCheck", "Trip: $curTrip")
-                context.startActivity(intent)
                 tripViewModel.setData(curTrip)
+                context.startActivity(intent)
             }
         }
     }

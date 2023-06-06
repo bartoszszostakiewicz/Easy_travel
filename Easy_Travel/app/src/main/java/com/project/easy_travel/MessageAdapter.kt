@@ -1,6 +1,7 @@
 package com.project.easy_travel
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,12 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        if(viewType == 1){
+        return if(viewType == 1){
             val view: View = LayoutInflater.from(context).inflate(R.layout.receive,parent,false)
-            return ReceiveViewHolder(view)
+            ReceiveViewHolder(view)
         }else{
             val view: View = LayoutInflater.from(context).inflate(R.layout.sent,parent,false)
-            return SentViewHolder(view)
+            SentViewHolder(view)
         }
 
     }
@@ -32,10 +33,10 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
 
-        if(FirebaseAuth.getInstance().currentUser?.email.equals(currentMessage.senderId)){
-            return ITEM_SENT
+        return if(replaceDotsWithEmail(FirebaseAuth.getInstance().currentUser?.email.toString()) == currentMessage.senderId.toString()){
+            ITEM_SENT
         }else{
-            return ITEM_RECEIVE
+            ITEM_RECEIVE
         }
     }
 
