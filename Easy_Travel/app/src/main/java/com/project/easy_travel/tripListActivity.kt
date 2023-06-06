@@ -84,9 +84,7 @@ class TripListActivity : AppCompatActivity() {
         })
 
 
-        findViewById<Button>(R.id.chat_test).setOnClickListener {
-            startActivity(Intent(applicationContext,Chat_Activity_B::class.java))
-        }
+
 
         backBtn.setOnClickListener {
             mAuth.signOut()
