@@ -20,7 +20,8 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         map:layout_constraintVertical_bias="0.45"
-        map:mapId="17ff8d31f209ff59" />
+        map:mapId="17ff8d31f209ff59"
+        tools:layout="@layout/activity_lista_wycieczek" />
 
     <Button
         android:id="@+id/chat"

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.ViewModel.TripViewModel
 import java.text.SimpleDateFormat
@@ -17,6 +18,7 @@ import java.util.*
 class TripActive (
     private val tripData: MutableList<Trip>,
     private val intent: Intent,
+    private val intent2: Intent,
     private val xmlFile: Int,
     private val tripViewModel: TripViewModel
 ) : RecyclerView.Adapter<TripActive.TripViewHolder>()//AppCompatActivity()
@@ -67,6 +69,13 @@ class TripActive (
             tripTitle.text = curTrip.title
             detailButton.setOnClickListener {
                 tripViewModel.setData(curTrip)
+                var currentUserID = FirebaseAuth.getInstance().currentUser?.email.toString().replace(".", "_")
+                if(currentUserID == curTrip.organizerID)
+                {
+                    intent2.putExtra("trip_id", curTrip.id)
+                    context.startActivity(intent2)
+                    return@setOnClickListener
+                }
                 context.startActivity(intent)
             }
         }

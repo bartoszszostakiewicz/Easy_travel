@@ -5,221 +5,157 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.easy_travel.Model.InvitedUser
+import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.Trip
 import com.project.easy_travel.Model.TripPoint
-import com.project.easy_travel.ViewModel.Pins
-import com.project.easy_travel.ViewModel.TripViewModel
+import com.project.easy_travel.ViewModel.*
 import com.project.easy_travel.repository.MainRepository
-import java.util.Objects
+import java.util.*
 import kotlin.math.log
 
-class OrganizerMainActivity : AppCompatActivity() {
+//TODO: obesnie jest w cholere duplikacji kodu z clasy 'MenuActivity'
+class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    lateinit var application: MainApplication
+    private lateinit var tripID: String
+    private lateinit var tripPointViewModel: TripPointViewModel
     private lateinit var tripViewModel: TripViewModel
-
-    private val TITLE = "title"
-    private val DESCRIPTION = "description"
     lateinit var trip_id : String
 
-    var trip_data: MutableMap<String, Any>? = null
-
-    lateinit var pointTripListActiveItems: MutableList<Trip>
-    lateinit var memberListActiveItems: MutableList<InvitedUser>
-
-    lateinit var trip_fb_instance : DatabaseReference
-
-    val TAG = "organizer/edit"
+    private val listPoints = mutableListOf<Point>()
+    private var pointsId : List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        application = applicationContext as MainApplication
-
         trip_id = intent.getStringExtra("trip_id").toString()
-        trip_fb_instance = FirebaseDatabase.getInstance().getReference("trips").child(trip_id)
 
-        tripViewModel = application.tripViewModel
-
-        var trip_data_l = tripViewModel.getById(trip_id)
-
-        Log.d(TAG, trip_data_l.value.toString())
-        Log.d(TAG, trip_id)
-        //var loaded_data = tripViewModel.load(trip_id)
-
-
-
-        //TODO: change read data to complete model when ready
-        trip_fb_instance.get().addOnCompleteListener {
-            trip_data = it.result.value as MutableMap<String, Any>?
-            Log.d("read success", trip_data.toString())
-            Log.d("read success", trip_data!!["title"].toString())
-        }.addOnFailureListener {
-            Log.e("read error", it.toString())
-        }
-
-        //pointTripListActiveItems = mutableListOf<Trip>()
-        memberListActiveItems =  mutableListOf<InvitedUser>()
-
-        rootActivity()
-    }
-
-    private fun rootActivity(){
         setContentView(R.layout.organizer_main)
 
         findViewById<Button>(R.id.button_edit_trip).setOnClickListener {
-            editRoot()
+            var intent = Intent(applicationContext, OrganizerEditActivity::class.java)
+            intent.putExtra("trip_id", trip_id)
+            startActivity(intent)
         }
+
+        val application = applicationContext as MainApplication
+
+        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
+        tripPointViewModel = application.tripPointViewModel
+
+
+        var main_map = findViewById<ConstraintLayout>(R.id.include_main_map)
+        tripViewModel.data.observe(this, Observer {trip ->
+            Toast.makeText(applicationContext, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
+            pointsId = trip.tripPointsID
+            tripID = trip.id
+
+            for (i in pointsId.indices) {
+                tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
+                    if (point != null) {
+                        listPoints.add(point)
+
+                        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+                        mapFragment?.getMapAsync(this@OrganizerMainActivity)
+                    }
+                })
+
+            }
+        })
+
+        val tripBtn = main_map.findViewById<Button>(R.id.trip_button)
+        val helpBtn = main_map.findViewById<Button>(R.id.help)
+        val chatBtn = main_map.findViewById<Button>(R.id.chat)
+        val infoBtn = main_map.findViewById<Button>(R.id.information)
+
+        tripBtn.setOnClickListener {
+            var newActivity: Intent = Intent(applicationContext, TripListPointActivity::class.java)
+            startActivity(newActivity)
+        }
+        helpBtn.setOnClickListener {
+            var newActivity: Intent = Intent(applicationContext, HelpActivity::class.java)
+            startActivity(newActivity)
+        }
+        chatBtn.setOnClickListener {
+
+            var newActivity: Intent = Intent(applicationContext, Chat_Activity_B::class.java)
+            startActivity(newActivity)
+        }
+
+        infoBtn.setOnClickListener {
+            var newActivity: Intent = Intent(applicationContext, InformationActivity::class.java)
+            startActivity(newActivity)
+        }
+
     }
 
-    private fun editRoot(){
-        setContentView(R.layout.edit_trip_root)
 
-        findViewById<Button>(R.id.edit_trip_name).setOnClickListener {
-            editName()
+    override fun onMapReady(googleMap: GoogleMap) {
+        val mapView = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+
+        val titleList = mutableListOf<String>()
+        val descriptionList = mutableListOf<String>()
+        val dateList = mutableListOf<String>()
+
+        listPoints.forEach { point ->
+
+            val currentDate = Date()
+
+            Log.d("test123",currentDate.toString())
+            Log.d("test123",point.startDate.toString())
+
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(point.toLatLng())
+                    .title(point.name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            )
+
+            titleList.add(point.name)
+            descriptionList.add(point.describe)
         }
 
-        findViewById<Button>(R.id.edit_trip_events).setOnClickListener {
-            editTripPoints()
+        val builder = LatLngBounds.builder()
+        for (point in listPoints) {
+            builder.include(point.toLatLng())
+        }
+        val bounds = builder.build()
+        val padding = 100
+        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+        googleMap.moveCamera(cameraUpdate)
+
+        googleMap.setOnMarkerClickListener { marker ->
+            var i = titleList.indexOf(marker.title)
+
+            val title = marker.title
+            val description = descriptionList[i]
+            AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(description)
+                .setPositiveButton("Wróć", null)
+                .show()
+
+            true
         }
 
-        findViewById<Button>(R.id.edit_trip_members).setOnClickListener {
-            editParticipants()
-        }
-
-        findViewById<Button>(R.id.edit_trip_return).setOnClickListener{
-            rootActivity()
-        }
-    }
-
-    private fun editName(){
-        setContentView(R.layout.create_trip_page1)
-        findViewById<TextView>(R.id.title_txt).text = "Modyfikacja wycieczki"
-        var btn = findViewById<Button>(R.id.next_btn1)
-        btn.text = "Zapisz"
-
-        var trip_name = findViewById<EditText>(R.id.nameTrip_edttxt)
-        var trip_description = findViewById<EditText>(R.id.describeTrip_edttxt)
-
-
-        trip_name.setText(trip_data!![TITLE].toString())
-        trip_description.setText(trip_data!![DESCRIPTION].toString())
-
-        btn.setOnClickListener {
-
-            trip_data!![TITLE] = trip_name.text.toString() as Any
-            trip_data!![DESCRIPTION] = trip_description.text.toString() as Any
-
-            Log.d("update success", trip_data.toString())
-
-            trip_fb_instance.setValue(trip_data!!.toMap()).addOnFailureListener {
-                Log.e("update error", it.toString())
-            }
-
-            //TODO: update the database
-            editRoot()
-        }
-    }
-
-    private fun editTripPoints()
-    {
-        setContentView(R.layout.create_trip_page2)
-        findViewById<TextView>(R.id.title_txt).text = "Modyfikacja wycieczki"
-
-        var ret_btn = findViewById<Button>(R.id.next_btn2)
-        ret_btn.text = "Zapisz"
-
-
-        var recyclerViewTripPoint = findViewById<RecyclerView>(R.id.tripPoint_list)
-        var addTripPointBtn = findViewById<Button>(R.id.addTripPoint_btn)
-        addTripPointBtn.setOnClickListener {
-            val dialog = Dialog(this)
-            dialog.setContentView(R.layout.dialog_create_trip_point)
-
-            var map_btn_tripPoint = dialog.findViewById<Button>(R.id.map_btn)
-            var add_btn_tripPoint = dialog.findViewById<Button>(R.id.add_btn)
-            var cancel_btn_tripPoint = dialog.findViewById<Button>(R.id.back_btn)
-
-            map_btn_tripPoint.setOnClickListener {
-                startActivity(Intent(this, Pins::class.java))
-            }
-
-
-            add_btn_tripPoint.setOnClickListener {
-                val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
-                val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
-
-                val tripPoint = Trip("", name, description)
-
-
-                pointTripListActiveItems.add(tripPoint)
-                //var pointTripListActive = PointTripListActive(pointTripListActiveItems)
-
-                //recyclerViewTripPoint.adapter = pointTripListActive
-                recyclerViewTripPoint.layoutManager = LinearLayoutManager(this)
-                dialog.dismiss()
-            }
-            cancel_btn_tripPoint.setOnClickListener {
-                dialog.dismiss()
-            }
-
-            dialog.show()
-        }
-
-        ret_btn.setOnClickListener {
-            editRoot()
-        }
-    }
-
-    private fun editParticipants() {
-        setContentView(R.layout.create_trip_page3)
-        var addMemberBtn = findViewById<Button>(R.id.add_member_btn)
-        var recyclerViewMember = findViewById<RecyclerView>(R.id.member_list)
-
-        var ret_btn = findViewById<Button>(R.id.create_trip_btn)
-        ret_btn.text = "Zapisz"
-
-        addMemberBtn.setOnClickListener {
-            val dialog = Dialog(this)
-            dialog.setContentView(R.layout.dialog_add_member)
-
-            val roles = resources.getStringArray(R.array.roles)
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            val role_spinner = dialog.findViewById<Spinner>(R.id.role_spinner)
-            role_spinner.adapter = adapter
-
-            val add_btn = dialog.findViewById<Button>(R.id.add_btn)
-            val cancel_btn = dialog.findViewById<Button>(R.id.back_btn)
-
-            add_btn.setOnClickListener {
-                val email = dialog.findViewById<EditText>(R.id.emailMember_edttxt).text.toString()
-                val role = role_spinner.selectedItem.toString()
-
-                memberListActiveItems.add(InvitedUser(email, role))
-                var memberListActive = MemberListActive(memberListActiveItems)
-
-                recyclerViewMember.adapter = memberListActive
-                recyclerViewMember.layoutManager = LinearLayoutManager(this)
-                dialog.dismiss()
-            }
-            cancel_btn.setOnClickListener {
-                dialog.dismiss()
-            }
-
-            dialog.show()
-        }
-
-        ret_btn.setOnClickListener {
-            editRoot()
-        }
     }
 }
