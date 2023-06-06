@@ -6,9 +6,11 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.button.MaterialButton
@@ -20,6 +22,8 @@ import kotlin.random.Random
 
 class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
+    private val points:MutableList<Point> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("TripCheck", "Work!")
         super.onCreate(savedInstanceState)
@@ -27,13 +31,6 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
 
         supportActionBar?.hide()
 
-
-
-        findViewById<MaterialButton>(R.id.mark_places).setOnClickListener{
-
-            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-            mapFragment?.getMapAsync(this)
-        }
 
         findViewById<MaterialButton>(R.id.mark_accept).setOnClickListener{
 
@@ -45,28 +42,45 @@ class Pins() : AppCompatActivity(), OnMapReadyCallback{
     }
 
 
+    fun onPlaceAdded(point: Point) {
+        // Add the new point to the list
+        points.add(point)
+
+        // Get the GoogleMap instance from the SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment?.getMapAsync { googleMap ->
+            // Draw a marker for the new point
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(point.lat, point.lng))
+                    .title("Marker :)")
+            )
+
+            // Move camera to the new point with zoom level
+            val zoomLevel = 10f
+            val cameraPosition = CameraPosition.Builder()
+                .target(LatLng(point.lat, point.lng))
+                .zoom(zoomLevel)
+                .build()
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
 
 
         val mapView = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-
-    /**
-        read_points { points ->
-            points.forEach{point ->
-
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(point.toLatLng())
-                        .title("Marker :)")
-                )
-            }
+        points.forEach { point ->
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(point.lat, point.lng))
+                    .title("Marker :)")
+            )
         }
-        **/
-
-
-
 
     }
+
+
 
 
 }

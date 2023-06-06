@@ -1,6 +1,7 @@
 package com.project.easy_travel.ViewModel
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -41,12 +42,18 @@ class MarkPlace : Fragment() {
     private lateinit var placeNameEditText: EditText
     private lateinit var database: FirebaseDatabase
 
+    private lateinit var pinsActivity: Pins
 
 
+    override fun onAttach(context: Context){
+        super.onAttach(context)
+        pinsActivity = context as Pins
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val application = requireContext().applicationContext as MainApplication
         val tripPointViewModel = application.tripPointViewModel
 
@@ -59,8 +66,7 @@ class MarkPlace : Fragment() {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
             getLocationAndSaveToFirebase(placeNameEditText.text.toString(), tripPointViewModel)
         }
-
-
+        
         return view
     }
 
@@ -99,6 +105,8 @@ class MarkPlace : Fragment() {
                             point.lng = placeLocation.longitude
 
                             tripPointViewModel.setData(point)
+
+                            pinsActivity.onPlaceAdded(point)
 
                         } else {
                             Toast.makeText(requireContext(), "Nie znaleziono miejsca", Toast.LENGTH_SHORT).show()
