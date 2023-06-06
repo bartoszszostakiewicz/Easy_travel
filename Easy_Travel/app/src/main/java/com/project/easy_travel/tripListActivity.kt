@@ -57,7 +57,9 @@ class TripListActivity : AppCompatActivity() {
         val backBtn = findViewById<ImageView>(R.id.logOutButton)
 
         // --- view elements setup ---
-        tripActive = TripActive(tripItems, Intent(applicationContext, MenuActivity::class.java), R.layout.trip_list_element, tripViewModel)
+        var organizerIntent = Intent(applicationContext, OrganizerMainActivity::class.java)
+        var menuIntent = Intent(applicationContext, MenuActivity::class.java)
+        tripActive = TripActive(tripItems, menuIntent, organizerIntent, R.layout.trip_list_element, tripViewModel)
         tripList.adapter = tripActive
         tripList.layoutManager = LinearLayoutManager(this)
 
