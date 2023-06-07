@@ -420,7 +420,7 @@ class PointTripListActive(
                 }
 
                 val deleteButton = dialog.findViewById<Button>(R.id.back_btn)
-                deleteButton.text = "Delete"
+                deleteButton.text = "Usuń"
 
                  deleteButton.setOnClickListener {
                     //delete current trip point
@@ -430,7 +430,7 @@ class PointTripListActive(
                 }
 
                 val updateButton = dialog.findViewById<Button>(R.id.add_btn)
-                updateButton.text = "Update"
+                updateButton.text = "Zaktualizuj"
 
                 updateButton.setOnClickListener {
                     // Validate data
@@ -520,7 +520,7 @@ class MemberListActive (
 
 
                 val deleteButton = dialog.findViewById<Button>(R.id.back_btn)
-                deleteButton.text = "Delete"
+                deleteButton.text = "Usuń"
 
                 deleteButton.setOnClickListener {
                     //delete current member
@@ -530,7 +530,7 @@ class MemberListActive (
                 }
 
                 val updateButton = dialog.findViewById<Button>(R.id.add_btn)
-                updateButton.text = "Update"
+                updateButton.text = "Zaktualizuj"
 
                 updateButton.setOnClickListener {
                     // Validate data
