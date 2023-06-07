@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    android:layout_marginStart="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -10,8 +11,10 @@
         android:layout_height="29dp"
         android:gravity="center_vertical"
         android:text="UserEmail"
-        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
+        android:layout_marginStart="25dp"
         app:layout_constraintEnd_toStartOf="@+id/change_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,18 +24,20 @@
         android:layout_width="292dp"
         android:layout_height="44dp"
         android:ellipsize="end"
-        android:gravity="center_vertical|right"
         android:text="Role"
-        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="25dp"
         app:layout_constraintEnd_toStartOf="@+id/change_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/member_element_email_txt" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/change_btn"
         android:layout_width="92dp"
         android:layout_height="43dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black"
         android:text="Edytuj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
