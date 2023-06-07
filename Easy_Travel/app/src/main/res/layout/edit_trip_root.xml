@@ -3,37 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/edit_trip_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="zmien nazwe/opis" />
+            android:backgroundTint="#55FF7A"
+            android:text="zmien nazwe/opis"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/edit_trip_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="edytuj punkty wycieczki" />
+            android:backgroundTint="#55FF7A"
+            android:text="edytuj punkty wycieczki"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/edit_trip_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="zarzadzaj uczestnikami" />
+            android:backgroundTint="#55FF7A"
+            android:text="zarzadzaj uczestnikami"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/edit_trip_return"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Powróć" />
+            android:text="Powróć"
+            android:textColor="@color/black" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

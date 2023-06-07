@@ -1,83 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:background="#9B61A9">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
 
-
-    <TextView
-
-        android:id="@+id/memberTitle_txt"
-        android:layout_width="333dp"
-        android:layout_height="23dp"
-        android:text="Dodanie użytkownika"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/emailMember_edttxt"
+        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/rounded_edittext"
         android:drawablePadding="10dp"
-        android:hint="Podaj e-mail użytkownika"
-        android:inputType="textEmailAddress"
         android:padding="20dp"
-
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@color/black"
         android:textColorHighlight="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memberTitle_txt" />
+        android:textColorHint="#000000"
+        android:hint="Podaj e-mail użytkownika"/>
 
     <TextView
         android:id="@+id/roleTitle_txt"
-        android:layout_width="263dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="32dp"
-        android:text="Rola użytkownika"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailMember_edttxt" />
+        android:layout_below="@+id/emailMember_edttxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Rola użytkownika"/>
 
     <Spinner
         android:id="@+id/role_spinner"
+        android:layout_below="@+id/roleTitle_txt"
         android:layout_width="265dp"
         android:layout_height="22dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleTitle_txt" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp" />
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/role_spinner"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp">
+
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        android:text="Skasuj"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/role_spinner" />
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:backgroundTint="#00D5FF"
+            android:textColor="@color/black"
+            android:text="Skasuj"/>
 
-    <Button
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="60dp"
-        android:text="Dodaj"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/role_spinner" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:backgroundTint="#55FF7A"
+            android:textColor="@color/black"
+            android:text="Dodaj"/>
+    </LinearLayout>
+</RelativeLayout>
