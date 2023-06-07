@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         var username = findViewById<TextView>(R.id.username)
+        var errorTextView = findViewById<TextView>(R.id.errorTextView)
         username.text = savedUsername
         var password = findViewById<TextView>(R.id.password)
 
@@ -56,13 +57,27 @@ class LoginActivity : AppCompatActivity() {
 
 
         btn.setOnClickListener{
+            errorTextView.alpha = 0f
+            // validate login
+            if(username.text.toString().isEmpty()) {
+                username.error = "Wprowadź nazwę użytkownika"
+                username.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(password.text.toString().isEmpty()) {
+                password.error = "Wprowadź hasło"
+                password.requestFocus()
+                return@setOnClickListener
+            }
+
             var username_txt = username.text.toString()
             var password_txt = password.text.toString()
 
             if(username_txt.isNullOrEmpty() || password_txt.isNullOrEmpty())
                 return@setOnClickListener
 
-            login(username_txt, password_txt)
+            login(username_txt, password_txt, errorTextView)
             /**
             userViewModel.checkId(replaceDotsWithEmail(username.text.toString())) { emailExists ->
                 if (emailExists) {
@@ -94,20 +109,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login(email:String,password:String) {
+    private fun login(email:String,password:String, errorTextView: TextView) {
         var auth = FirebaseAuth.getInstance()
 
         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this) {
             if(it.isSuccessful){
-
-                Toast.makeText(this,"Succesfully LoggedIn", Toast.LENGTH_SHORT).show()
-
-
                 startActivity(Intent(applicationContext, TripListActivity::class.java))
-
+                this.finish()
 
             }else{
-                Toast.makeText(this,"Log In failed ", Toast.LENGTH_SHORT).show()
+                errorTextView.alpha = 1f
             }
         }
 
