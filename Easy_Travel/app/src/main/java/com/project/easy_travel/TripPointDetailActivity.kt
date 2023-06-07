@@ -52,5 +52,9 @@ class TripPointDetailActivity : AppCompatActivity() {
                     dateFormat.format(date)
                 })
         })
+
+        back_button.setOnClickListener {
+            finish()
+        }
     }
 }
