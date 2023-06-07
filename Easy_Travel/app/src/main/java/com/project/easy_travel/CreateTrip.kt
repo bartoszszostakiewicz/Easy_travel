@@ -486,6 +486,7 @@ class MemberListActive (
 ) : RecyclerView.Adapter<MemberListActive.MemberViewHolder>() {
     class MemberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         return MemberViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -515,6 +516,8 @@ class MemberListActive (
 
                 val memberEmail = dialog.findViewById<TextView>(R.id.emailMember_edttxt)
                 val memberRole = dialog.findViewById<Spinner>(R.id.role_spinner)
+                val roles = resources.getStringArray(R.array.roles)
+                memberRole.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, roles)
 
                 memberEmail.text = Editable.Factory.getInstance().newEditable(curMember.email)
                 // TODO: Set role in spinner
