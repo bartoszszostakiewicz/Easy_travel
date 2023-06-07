@@ -1,129 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#9B61A9"
     android:layout_width="match_parent"
-    android:layout_height="650dp">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layoutDescription="@xml/activity_register_scene"
+    tools:context=".ViewModel.RegisterActivity">
 
-    <TextView
-        android:id="@+id/tripPointTitle_txt"
-        android:layout_width="302dp"
-        android:layout_height="25dp"
-        android:text="Dodanie punktu wycieczki"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <EditText
-        android:id="@+id/tripPointName_edttxt"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/rounded_edittext"
-        android:drawablePadding="10dp"
-        android:hint="Podaj tytul punktu wycieczki"
-        android:inputType="textEmailAddress"
-        android:padding="20dp"
-
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPointTitle_txt" />
-
-    <EditText
-        android:id="@+id/tripPointDescribe_edttxt"
-        android:layout_width="406dp"
-        android:layout_height="134dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/rounded_edittext"
-        android:drawablePadding="10dp"
-        android:hint="Podaj opis punktu wycieczki"
-        android:inputType="textEmailAddress"
-        android:padding="20dp"
-
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPointName_edttxt" />
-
-    <EditText
-        android:id="@+id/date_picker_start_actions"
-        android:layout_width="412dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/rounded_edittext"
-        android:clickable="true"
-        android:drawablePadding="10dp"
-        android:focusable="false"
-        android:hint="Podaj date i godzinę rozpoczęcie"
-        android:inputType="datetime"
-        android:padding="20dp"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPointDescribe_edttxt" />
-
-
-    <EditText
-        android:id="@+id/date_picker_finish_actions"
-        android:layout_width="412dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/rounded_edittext"
-        android:clickable="true"
-        android:drawablePadding="10dp"
-        android:focusable="false"
-        android:hint="Podaj date i godzinę zakończenie"
-        android:inputType="datetime"
-        android:padding="20dp"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHighlight="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_picker_start_actions" />
-
-    <Button
-        android:id="@+id/map_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Zaznacz punkt na mapie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_picker_finish_actions" />
-
-    <Button
-        android:id="@+id/add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
-        android:text="Dodaj"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_btn" />
-
-    <Button
-        android:id="@+id/back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:text="Skasuj"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_btn" />
+        app:layout_constraintEnd_toEndOf="parent">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/tripPointName_edttxt"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawablePadding="10dp"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
+            android:hint="Podaj tytuł punktu wycieczki" />
+
+        <EditText
+            android:id="@+id/tripPointDescribe_edttxt"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/tripPointTitle_txt"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawablePadding="10dp"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
+            android:hint="Podaj opis punktu wycieczki"/>
+
+        <EditText
+            android:id="@+id/date_picker_start_actions"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:layout_below="@+id/tripPointDescribe_edttxt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawablePadding="10dp"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
+            android:drawableLeft="@drawable/baseline_calendar_month_24"
+            android:hint="Data rozpoczęcia"/>
+
+
+        <EditText
+            android:id="@+id/date_picker_finish_actions"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:layout_below="@+id/date_picker_start_actions"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawablePadding="10dp"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#000000"
+            android:drawableLeft="@drawable/baseline_calendar_month_24"
+            android:hint="Data zakończenia"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/map_btn"
+            android:layout_below="@+id/date_picker_finish_actions"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="55dp"
+            android:backgroundTint="#00D5FF"
+            android:textColor="@color/black"
+            android:elevation="300dp"
+            android:text="Zaznacz punkt na mapie"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/map_btn"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:backgroundTint="#00D5FF"
+                android:textColor="@color/black"
+                android:text="Skasuj"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_btn"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:backgroundTint="#55FF7A"
+                android:textColor="@color/black"
+                android:text="Dodaj"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
