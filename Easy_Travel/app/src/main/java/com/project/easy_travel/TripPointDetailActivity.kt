@@ -39,7 +39,7 @@ class TripPointDetailActivity : AppCompatActivity() {
                 "Nie zaznaczono daty"
                 } else {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                    val date = Date(point.startDate*1000)
+                    val date = Date(point.startDate)
                     dateFormat.format(date)
                 })
 
@@ -48,7 +48,7 @@ class TripPointDetailActivity : AppCompatActivity() {
                     "Nie zaznaczono daty"
                 } else {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                    val date = Date(point.finishDate*1000)
+                    val date = Date(point.finishDate)
                     dateFormat.format(date)
                 })
         })

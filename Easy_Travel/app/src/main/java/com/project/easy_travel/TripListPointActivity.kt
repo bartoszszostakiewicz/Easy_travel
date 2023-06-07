@@ -103,14 +103,14 @@ class TripPointAdapter (
             if (curTripPoint.startDate == 0L) {
                 dateText = "Data rozpoczęcia: Nie zaznaczono"
             } else {
-                if (curTripPoint.finishDate*1000 < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate*1000 < Date().time) {
+                if (curTripPoint.finishDate < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate < Date().time) {
                     dateText = "Zwiedzanie tego punktu zostało zakończone"
                 } else {
-                    if (curTripPoint.startDate*1000 < Date().time) {
+                    if (curTripPoint.startDate < Date().time) {
                         dateText = "Zwiedzanie tego punktu trwa"
                     } else {
                         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                        dateText = "Data rozpoczęcia: " + sdf.format(curTripPoint.startDate * 1000).toString()
+                        dateText = "Data rozpoczęcia: " + sdf.format(curTripPoint.startDate).toString()
                     }
                 }
             }

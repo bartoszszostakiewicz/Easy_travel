@@ -46,7 +46,7 @@ class InformationActivity : AppCompatActivity() {
 
             trip_name.text = "Nazwa wycieczki: ${trip.title}"
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-            val dateText = "Data rozpoczęcia: " + sdf.format(trip.startDate * 1000).toString()
+            val dateText = "Data rozpoczęcia: " + sdf.format(trip.startDate).toString()
             trip_date.text = dateText
             trip_description.text = trip.description
 
