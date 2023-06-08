@@ -37,7 +37,9 @@
 
         <EditText
             android:id="@+id/tripPointDescribe_edttxt"
-            android:inputType="textEmailAddress"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:lines="5"
             android:layout_below="@+id/tripPointTitle_txt"
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -55,8 +57,10 @@
 
         <EditText
             android:id="@+id/date_picker_start_actions"
-            android:inputType="datetime"
+            android:inputType="none"
             android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
             android:layout_below="@+id/tripPointDescribe_edttxt"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -76,8 +80,10 @@
 
         <EditText
             android:id="@+id/date_picker_finish_actions"
-            android:inputType="datetime"
+            android:inputType="none"
             android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
             android:layout_below="@+id/date_picker_start_actions"
             android:layout_width="match_parent"
             android:layout_height="60dp"

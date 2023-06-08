@@ -211,10 +211,12 @@ class CreateTrip : AppCompatActivity() {
                                     participantsID = participantsID,
                                     startDate = convertStringToTimestamp(dateTimePicker.text.toString()))
                     var trip_id = tripViewModel.save(trip)
+                    tripViewModel.setData(trip)
 
                     val intent = Intent(this, OrganizerMainActivity::class.java)
                     intent.putExtra("trip_id", trip_id)
                     startActivity(intent)
+                    this.finish()
                 }
             }
 
