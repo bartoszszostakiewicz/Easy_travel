@@ -28,7 +28,9 @@ import com.project.easy_travel.Model.Point
 import com.project.easy_travel.ViewModel.Chat_Activity_B
 import com.project.easy_travel.ViewModel.TripPointViewModel
 import com.project.easy_travel.ViewModel.TripViewModel
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 
 class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -49,6 +51,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_map)
+        Log.d("data123","MenuActivity")
 
         val application = applicationContext as MainApplication
 
@@ -68,7 +71,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
                 tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
                     if (point != null) {
                         listPoints.add(point)
-
+                        Log.d("data123","Rysowanie punktow")
                         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
                         mapFragment?.getMapAsync(this@MenuActivity)
                     }
@@ -114,24 +117,54 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val titleList = mutableListOf<String>()
         val descriptionList = mutableListOf<String>()
-        val dateList = mutableListOf<String>()
+        val dateListStart = mutableListOf<Long>()
+        val dateListFinish = mutableListOf<Long>()
+        val dateListStartString = mutableListOf<String>()
+        val dateListFinishString = mutableListOf<String>()
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+
+        val currentDate = Date()
 
         listPoints.forEach { point ->
 
-            val currentDate = Date()
-
-            Log.d("test123",currentDate.toString())
-            Log.d("test123",point.startDate.toString())
-
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position(point.toLatLng())
-                    .title(point.name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-            )
-
             titleList.add(point.name)
             descriptionList.add(point.describe)
+            dateListStart.add(point.startDate)
+            dateListFinish.add(point.finishDate)
+            dateListStartString.add("Data rozpoczęcia: "+sdf.format(point.startDate).toString())
+            dateListFinishString.add("Data zakonczenia: "+sdf.format(point.finishDate).toString())
+
+
+            if(point.startDate <= currentDate.time && point.finishDate >= currentDate.time)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(point.toLatLng())
+                        .title(point.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                )
+            else if(point.startDate > currentDate.time)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(point.toLatLng())
+                        .title(point.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                )
+            else if(point.finishDate <= currentDate.time)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(point.toLatLng())
+                        .title(point.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+            else if(point.startDate == currentDate.time || point.finishDate == currentDate.time
+                || (point.startDate < currentDate.time && point.finishDate > currentDate.time))
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(point.toLatLng())
+                        .title(point.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                )
         }
 
         val builder = LatLngBounds.builder()
@@ -147,7 +180,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
             var i = titleList.indexOf(marker.title)
 
             val title = marker.title
-            val description = descriptionList[i]
+            val description = descriptionList[i] + "\n" + dateListStartString[i] + "\n" + dateListFinishString[i]
             AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(description)
@@ -158,6 +191,7 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.project.easy_travel.ViewModel
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.google.firebase.database.*
 import com.project.easy_travel.MainApplication
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.R
+
 
 
 class Chat_Activity_B : AppCompatActivity() {
@@ -37,12 +39,18 @@ class Chat_Activity_B : AppCompatActivity() {
         var organiserId :String
         var guideId :List<String> = ArrayList()
 
+        val isOnlyOrganizer = intent.getBooleanExtra("OnlyOrganizer", false)
+
         tripViewModel.data.observe(this, Observer {trip ->
             tripId = trip.id
             participantsId = emptyList()
-            participantsId += trip.participantsID
-            participantsId += trip.organizerID
-            participantsId += trip.guidesID
+            if(isOnlyOrganizer){
+                participantsId += trip.organizerID
+            }else{
+                participantsId += trip.participantsID
+                participantsId += trip.guidesID
+            }
+
         })
 
 
@@ -79,8 +87,14 @@ class Chat_Activity_B : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-                Log.d("User123","error")
+                Log.e("User123", "Database Error: ${error.message}")
+                // Display an error message to the user
+                // For example, you can show a Toast message or update a TextView with the error information
+                // You can also handle specific types of errors differently by checking the error code
+
+                // Example: Show a Toast message
+                //Toast.makeText(context.applicationContext, "Error occurred: ${error.message}", Toast.LENGTH_SHORT).show()
+
             }
 
         })
