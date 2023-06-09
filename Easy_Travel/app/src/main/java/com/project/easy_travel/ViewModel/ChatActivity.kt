@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,10 @@ class ChatActivity : AppCompatActivity() {
         var receiverEmail = extras?.getString("email")
 
 
+        //get textview
+        val textView = findViewById<TextView>(R.id.chat_user_name)
+
+        textView.text = name
 
         var senderEmail = FirebaseAuth.getInstance().currentUser?.email
         //var senderEmail = FirebaseAuth.getInstance().currentUser?.email

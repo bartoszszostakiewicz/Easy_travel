@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d("data123", "Login")
 
         var prefs = PreferenceManager.getDefaultSharedPreferences(this)
         var savedUsername = prefs.getString("remembered_login", "")
