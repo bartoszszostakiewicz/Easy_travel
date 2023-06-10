@@ -208,7 +208,6 @@ class OrganizerEditActivity : AppCompatActivity() {
             }
 
 
-
             add_btn_tripPoint.setOnClickListener {
                 // Validate data
                 if (dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString().isEmpty()) {
@@ -255,8 +254,22 @@ class OrganizerEditActivity : AppCompatActivity() {
         ret_btn.setOnClickListener {
             for (p in pointTripListActiveItems)
                 if(p.id.isEmpty())
-                    tripPointViewModel.save(p)
+                    tripPointViewModel.save(p, p.id)
+
             var res: List<String> = pointTripListActiveItems.map { point -> point.id }
+
+            for (id in pointIDs)
+                if(!res.contains(id))
+                    tripPointViewModel.delete(id)
+                else
+                {
+                    var point = pointTripListActiveItems.find { it.id == id }
+                    points_fb_instance.child(id).setValue(point!!.toMap()).addOnFailureListener {
+                        Log.e(TAG, "not saved point")
+                    }
+                }
+
+
             trip_data!!.tripPointsID = res
             trip_fb_instance.setValue(trip_data!!.toMap()).addOnFailureListener {
                 Log.e("update error", it.toString())
@@ -280,13 +293,13 @@ class OrganizerEditActivity : AppCompatActivity() {
 
         for(guide in trip_data!!.guidesID)
         {
-            participantsID.add(guide)
-            memberListActiveItems.add(InvitedUser(guide.replace('_', '.'), roles[0]))
+            //participantsID.add(guide)
+            memberListActiveItems.add(InvitedUser(guide.replace('_', '.'), roles[1]))
         }
 
         for(participant in trip_data!!.participantsID)
         {
-            participantsID.add(participant)
+            //participantsID.add(participant)
             memberListActiveItems.add(InvitedUser(participant.replace('_', '.'), roles[0]))
         }
 
@@ -303,9 +316,6 @@ class OrganizerEditActivity : AppCompatActivity() {
 
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.dialog_add_member)
-
-            val tripPointName_edttxt = dialog.findViewById<EditText>(R.id.tripPointName_edttxt) // Do bazy danych
-            val tripPointDescribe_edttxt = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt) // Do bazy danych
 
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -348,6 +358,24 @@ class OrganizerEditActivity : AppCompatActivity() {
 
 
         ret_btn.setOnClickListener {
+
+            for(p in memberListActiveItems)
+            {
+                val id = p.email.replace('.', '_')
+                if(p.role == roles[1])//guide
+                    guidesID.add(id)
+                else
+                    participantsID.add(id)
+            }
+
+            trip_data!!.participantsID = participantsID
+            trip_data!!.guidesID = guidesID
+
+            trip_fb_instance.setValue(trip_data!!.toMap()).addOnFailureListener {
+                Log.e("update error", it.toString())
+            }.addOnSuccessListener {
+                tripViewModel.setData(trip_data!!)
+            }
             editRoot()
         }
     }

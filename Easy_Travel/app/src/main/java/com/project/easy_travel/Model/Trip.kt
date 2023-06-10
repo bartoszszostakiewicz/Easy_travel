@@ -9,8 +9,8 @@ data class Trip(
     var description: String = "",
     var tripPointsID: List<String> = listOf(),
     val organizerID: String = "",
-    val guidesID: List<String> = listOf(),
-    val participantsID: List<String> = listOf(),
+    var guidesID: List<String> = listOf(),
+    var participantsID: List<String> = listOf(),
     var startDate: Long = 0L,
 ) : Mapable {
     override fun toMap(): Map<String, Any> {

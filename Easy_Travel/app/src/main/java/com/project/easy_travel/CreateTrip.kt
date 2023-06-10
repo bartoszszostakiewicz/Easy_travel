@@ -466,7 +466,7 @@ class PointTripListActive(
                         dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString()
                     )
 
-                    val point = Point("", name, description, lat, lng, startDate, finishDate)
+                    val point = Point(curTripPoint.id, name, description, lat, lng, startDate, finishDate)
                     tripPoints[position] = point
                     notifyItemChanged(position)
                     dialog.dismiss()
