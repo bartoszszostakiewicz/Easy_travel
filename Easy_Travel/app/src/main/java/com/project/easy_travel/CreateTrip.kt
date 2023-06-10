@@ -466,7 +466,7 @@ class PointTripListActive(
                         dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString()
                     )
 
-                    val point = Point("", name, description, lat, lng, startDate, finishDate)
+                    val point = Point(curTripPoint.id, name, description, lat, lng, startDate, finishDate)
                     tripPoints[position] = point
                     notifyItemChanged(position)
                     dialog.dismiss()
@@ -485,6 +485,7 @@ class MemberListActive (
     private val members: MutableList<InvitedUser>,
 ) : RecyclerView.Adapter<MemberListActive.MemberViewHolder>() {
     class MemberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         return MemberViewHolder(
@@ -515,6 +516,8 @@ class MemberListActive (
 
                 val memberEmail = dialog.findViewById<TextView>(R.id.emailMember_edttxt)
                 val memberRole = dialog.findViewById<Spinner>(R.id.role_spinner)
+                val roles = resources.getStringArray(R.array.roles)
+                memberRole.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, roles)
 
                 memberEmail.text = Editable.Factory.getInstance().newEditable(curMember.email)
                 // TODO: Set role in spinner

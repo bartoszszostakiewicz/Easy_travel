@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,16 +35,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.log
 
-//TODO: obesnie jest w cholere duplikacji kodu z clasy 'MenuActivity'
 class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var tripID: String
-    private lateinit var tripPointViewModel: TripPointViewModel
-    private lateinit var tripViewModel: TripViewModel
     lateinit var trip_id : String
-
-    private val listPoints = mutableListOf<Point>()
-    private var pointsId : List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,134 +53,13 @@ class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         val application = applicationContext as MainApplication
-
-        tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
-        tripPointViewModel = application.tripPointViewModel
-
-
         var main_map = findViewById<ConstraintLayout>(R.id.include_main_map)
-        tripViewModel.data.observe(this, Observer {trip ->
-            Toast.makeText(applicationContext, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
-            pointsId = trip.tripPointsID
-            tripID = trip.id
 
-            for (i in pointsId.indices) {
-                tripPointViewModel.getById(pointsId[i]).observe(this, Observer { point ->
-                    if (point != null) {
-                        listPoints.add(point)
-
-                        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
-                        mapFragment?.getMapAsync(this@OrganizerMainActivity)
-                    }
-                })
-
-            }
-        })
-
-        val tripBtn = main_map.findViewById<Button>(R.id.trip_button)
-        val helpBtn = main_map.findViewById<Button>(R.id.help)
-        val chatBtn = main_map.findViewById<Button>(R.id.chat)
-        val infoBtn = main_map.findViewById<Button>(R.id.information)
-
-        tripBtn.setOnClickListener {
-            var newActivity: Intent = Intent(applicationContext, TripListPointActivity::class.java)
-            startActivity(newActivity)
-        }
-        helpBtn.setOnClickListener {
-            var newActivity: Intent = Intent(applicationContext, HelpActivity::class.java)
-            startActivity(newActivity)
-        }
-        chatBtn.setOnClickListener {
-
-            var newActivity: Intent = Intent(applicationContext, Chat_Activity_B::class.java)
-            startActivity(newActivity)
-        }
-
-        infoBtn.setOnClickListener {
-            var newActivity: Intent = Intent(applicationContext, InformationActivity::class.java)
-            startActivity(newActivity)
-        }
-
+        MenuActivity.LayoutSetup(this, main_map, application)
     }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mapView = supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
-
-        val titleList = mutableListOf<String>()
-        val descriptionList = mutableListOf<String>()
-        val dateListStart = mutableListOf<Long>()
-        val dateListFinish = mutableListOf<Long>()
-        val dateListStartString = mutableListOf<String>()
-        val dateListFinishString = mutableListOf<String>()
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-
-        val currentDate = Date()
-
-        listPoints.forEach { point ->
-
-            titleList.add(point.name)
-            descriptionList.add(point.describe)
-            dateListStart.add(point.startDate)
-            dateListFinish.add(point.finishDate)
-            dateListStartString.add("Data rozpoczęcia: "+sdf.format(point.startDate).toString())
-            dateListFinishString.add("Data zakonczenia: "+sdf.format(point.finishDate).toString())
-
-
-            if(point.startDate <= currentDate.time && point.finishDate >= currentDate.time)
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(point.toLatLng())
-                        .title(point.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                )
-            else if(point.startDate > currentDate.time)
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(point.toLatLng())
-                        .title(point.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                )
-            else if(point.finishDate <= currentDate.time)
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(point.toLatLng())
-                        .title(point.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                )
-            else if(point.startDate == currentDate.time || point.finishDate == currentDate.time
-                || (point.startDate < currentDate.time && point.finishDate > currentDate.time))
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(point.toLatLng())
-                        .title(point.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                )
-        }
-
-        val builder = LatLngBounds.builder()
-        for (point in listPoints) {
-            builder.include(point.toLatLng())
-        }
-        val bounds = builder.build()
-        val padding = 100
-        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-        googleMap.moveCamera(cameraUpdate)
-
-        googleMap.setOnMarkerClickListener { marker ->
-            var i = titleList.indexOf(marker.title)
-
-            val title = marker.title
-            val description = descriptionList[i] + "\n" + dateListStartString[i] + "\n" + dateListFinishString[i]
-            AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(description)
-                .setPositiveButton("Wróć", null)
-                .show()
-
-            true
-        }
-
+        MenuActivity.OnMapReady(googleMap, this)
     }
 }

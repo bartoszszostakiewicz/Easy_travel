@@ -5,13 +5,13 @@ import java.util.*
 
 data class Trip(
     var id: String = "",
-    val title: String = "",
-    val description: String = "",
-    val tripPointsID: List<String> = listOf(),
+    var title: String = "",
+    var description: String = "",
+    var tripPointsID: List<String> = listOf(),
     val organizerID: String = "",
-    val guidesID: List<String> = listOf(),
-    val participantsID: List<String> = listOf(),
-    val startDate: Long = 0L,
+    var guidesID: List<String> = listOf(),
+    var participantsID: List<String> = listOf(),
+    var startDate: Long = 0L,
 ) : Mapable {
     override fun toMap(): Map<String, Any> {
         return mapOf(
