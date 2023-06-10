@@ -36,19 +36,6 @@ import java.util.Locale
 
 class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private var isMapFullScreen = false
-
-
-    private lateinit var application: MainApplication
-
-    private lateinit var tripViewModel: TripViewModel
-    private lateinit var tripPointViewModel: TripPointViewModel
-
-    private lateinit var tripID: String
-
-    //private val listPoints = mutableListOf<Point>()
-    private var pointsId : List<String> = listOf()
-
     companion object{
 
         private lateinit var tripViewModel: TripViewModel

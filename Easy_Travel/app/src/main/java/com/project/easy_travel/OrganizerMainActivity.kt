@@ -37,13 +37,7 @@ import kotlin.math.log
 
 class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var tripID: String
-    private lateinit var tripPointViewModel: TripPointViewModel
-    private lateinit var tripViewModel: TripViewModel
     lateinit var trip_id : String
-
-    private val listPoints = mutableListOf<Point>()
-    private var pointsId : List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
