@@ -55,6 +55,12 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:text="Janusz" />
+    <View
+        android:layout_below="@+id/chat_user_name"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
 
