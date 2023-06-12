@@ -22,11 +22,12 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="10dp">
 
             <ImageButton
             android:id="@+id/chat"
@@ -34,7 +35,7 @@
                 android:backgroundTint="@color/white"
             android:layout_width="100dp"
             android:layout_height="57dp"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
                 android:elevation="10dp"
                 android:src="@drawable/baseline_chat_24" />
 
@@ -46,7 +47,7 @@
             android:layout_height="57dp"
                 android:src="@drawable/baseline_directions_bus_24"
                 android:elevation="10dp"
-            android:layout_margin="16dp" />
+            android:layout_margin="10dp" />
 
             <ImageButton
             android:id="@+id/information"
@@ -56,7 +57,7 @@
             android:layout_height="57dp"
                 android:src="@drawable/baseline_info_24"
                 android:elevation="10dp"
-            android:layout_margin="16dp"  />
+            android:layout_margin="10dp"  />
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:paddingStart="8dp"
+    android:layout_marginLeft="5dp"
     android:paddingEnd="8dp">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="0dp"
         android:text="Point - a list"
         android:textSize="18sp"
         android:textColor="#0055AA"
@@ -24,7 +26,10 @@
         android:id="@+id/detailButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detail"
+        android:backgroundTint="#00D5FF"
+        android:textColor="@color/black"
+        android:text="->"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +38,23 @@
         android:id="@+id/startDateTitle"
         android:layout_width="305dp"
         android:layout_height="21dp"
+        android:layout_marginStart="25dp"
         android:text="Data rozpoczęcia"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/detailButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripTitle"
         app:layout_constraintVertical_bias="0.421" />
+
+    <View
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateTitle"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

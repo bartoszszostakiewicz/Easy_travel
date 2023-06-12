@@ -15,6 +15,7 @@ import com.project.easy_travel.Model.Point
 import com.project.easy_travel.Model.User
 import com.project.easy_travel.ViewModel.TripPointViewModel
 import java.text.SimpleDateFormat
+import android.text.method.ScrollingMovementMethod;
 import java.util.*
 
 class InformationActivity : AppCompatActivity() {
@@ -38,13 +39,12 @@ class InformationActivity : AppCompatActivity() {
         val trip_date = findViewById<TextView>(R.id.dateStart_txt)
         val trip_description = findViewById<TextView>(R.id.describeTrip_txt)
 
-        val tripPlanButton = findViewById<Button>(R.id.tripPlan_button)
         val backButton = findViewById<Button>(R.id.back_button)
 
         tripViewModel.data.observe(this, Observer { trip ->
             members.clear()
 
-            trip_name.text = "Nazwa wycieczki: ${trip.title}"
+            trip_name.text = "${trip.title}"
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
             val dateText = "Data rozpoczęcia: " + sdf.format(trip.startDate).toString()
             trip_date.text = dateText
@@ -78,10 +78,7 @@ class InformationActivity : AppCompatActivity() {
 
         })
 
-        tripPlanButton.setOnClickListener{
-            val intent = Intent(this, TripListPointActivity::class.java)
-            startActivity(intent)
-        }
+
 
         backButton.setOnClickListener{
             this.finish()

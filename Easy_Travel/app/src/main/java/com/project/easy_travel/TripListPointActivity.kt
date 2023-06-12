@@ -104,7 +104,7 @@ class TripPointAdapter (
                 dateText = "Data rozpoczęcia: Nie zaznaczono"
             } else {
                 if (curTripPoint.finishDate < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate < Date().time) {
-                    dateText = "Zwiedzanie tego punktu zostało zakończone"
+                    dateText = "Zwiedzanie zostało zakończone"
                 } else {
                     if (curTripPoint.startDate < Date().time) {
                         dateText = "Zwiedzanie tego punktu trwa"
