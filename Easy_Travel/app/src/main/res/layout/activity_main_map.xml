@@ -8,76 +8,70 @@
     android:background="@color/white"
     tools:context=".ViewModel.LoginActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/map_fragment"
         class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="346dp"
-        android:layout_height="240dp"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.492"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.45"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         map:mapId="17ff8d31f209ff59"
         tools:layout="@layout/activity_lista_wycieczek" />
 
-    <Button
-        android:id="@+id/chat"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="168dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="32dp"
-        android:text="Czat"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
 
-    <Button
-        android:id="@+id/information"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="168dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="216dp"
-        android:text="Informacje"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center">
 
-    <Button
-        android:id="@+id/help"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="168dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="216dp"
-        android:text="Pomoc"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+            <ImageButton
+            android:id="@+id/chat"
+                android:background="@drawable/buttonowy"
+                android:backgroundTint="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="57dp"
+            android:layout_margin="16dp"
+                android:elevation="10dp"
+                android:src="@drawable/baseline_chat_24" />
 
-    <Button
-        android:id="@+id/button3"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="168dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="524dp"
-        android:layout_marginEnd="200dp"
-        android:text="Button"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/map_fragment" />
+            <ImageButton
+            android:id="@+id/trip_button"
+                android:background="@drawable/buttonowy"
+                android:backgroundTint="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="57dp"
+                android:src="@drawable/baseline_directions_bus_24"
+                android:elevation="10dp"
+            android:layout_margin="16dp" />
 
-    <Button
-        android:id="@+id/trip_button"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_width="249dp"
-        android:layout_height="62dp"
-        android:text="Plan wycieczki"
-        map:layout_constraintBottom_toTopOf="@+id/map_fragment"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.498"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.768" />
+            <ImageButton
+            android:id="@+id/information"
+                android:background="@drawable/buttonowy"
+                android:backgroundTint="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="57dp"
+                android:src="@drawable/baseline_info_24"
+                android:elevation="10dp"
+            android:layout_margin="16dp"  />
 
+        </LinearLayout>
+
+
+
+
+        <ImageButton
+            android:id="@+id/help"
+            android:background="@drawable/buttonowy"
+            android:layout_gravity="top|right"
+            android:backgroundTint="#FF0000"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_local_hospital_24"
+            android:elevation="10dp"
+            android:layout_margin="16dp"
+         />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
