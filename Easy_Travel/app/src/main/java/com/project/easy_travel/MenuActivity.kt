@@ -1,6 +1,7 @@
 package com.project.easy_travel
 
 import android.content.Intent
+import android.widget.ImageButton
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -77,10 +78,10 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-            val tripBtn = view.findViewById<Button>(R.id.trip_button)
-            val helpBtn = view.findViewById<Button>(R.id.help)
-            val chatBtn = view.findViewById<Button>(R.id.chat)
-            val infoBtn = view.findViewById<Button>(R.id.information)
+            val tripBtn = view.findViewById<ImageButton>(R.id.trip_button)
+            val helpBtn = view.findViewById<ImageButton>(R.id.help)
+            val chatBtn = view.findViewById<ImageButton>(R.id.chat)
+            val infoBtn = view.findViewById<ImageButton>(R.id.information)
 
             tripBtn.setOnClickListener {
                 var newActivity: Intent = Intent(application, TripListPointActivity::class.java)
