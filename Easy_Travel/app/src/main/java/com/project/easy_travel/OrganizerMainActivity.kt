@@ -46,7 +46,7 @@ class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         setContentView(R.layout.organizer_main)
 
-        findViewById<Button>(R.id.button_edit_trip).setOnClickListener {
+        findViewById<ImageButton>(R.id.button_edit_trip).setOnClickListener {
             var intent = Intent(applicationContext, OrganizerEditActivity::class.java)
             intent.putExtra("trip_id", trip_id)
             startActivity(intent)
