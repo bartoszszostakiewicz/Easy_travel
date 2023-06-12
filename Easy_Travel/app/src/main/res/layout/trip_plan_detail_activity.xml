@@ -6,119 +6,171 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/map_fragment"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="346dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MAPA"
-        map:mapId="17ff8d31f209ff59" />
-
     <TextView
         android:id="@+id/pointTitle_txt"
-        android:layout_width="392dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="16dp"
+        android:lines="3"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:textColor="#0055AA"
+        android:textAlignment="center"
         android:text="Tytul punktu wycieczki"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MAPA"/>
+        app:layout_constraintTop_toBottomOf="@+id/map_fragment"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pointTitle_txt"/>
+
+    <fragment
+        android:id="@+id/map_fragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="346dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        map:mapId="17ff8d31f209ff59" />
 
     <TextView
+        android:id="@+id/OPIS"
+        android:layout_width="392dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Opis"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/map_fragment"
+        tools:layout_editor_absoluteX="9dp" />
+    <TextView
         android:id="@+id/describePoint_txt"
-        android:layout_width="390dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="Opis..."
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:scrollbars = "vertical"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OPIS" />
 
-    <TextView
-        android:id="@+id/startDate_txt"
-        android:layout_width="392dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="Data i godzina rozpoczęcia wycieczki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DR" />
-
-    <TextView
-        android:id="@+id/finishDate_txt"
-        android:layout_width="392dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="Data i godzina zakończenia wycieczki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DZ" />
-
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/describePoint_txt">
     <TextView
         android:id="@+id/DR"
-        android:layout_width="392dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="28dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Data rozpoczęcia"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/describePoint_txt"
+        android:textSize="20sp"
+        android:textColor="@color/black"
         tools:layout_editor_absoluteX="9dp" />
 
     <TextView
         android:id="@+id/DZ"
-        android:layout_width="392dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="28dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Data zakończenia"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/startDate_txt"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+
         tools:layout_editor_absoluteX="9dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     <TextView
-        android:id="@+id/OPIS"
-        android:layout_width="392dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Opis"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/map_fragment"
-        tools:layout_editor_absoluteX="9dp" />
+        android:id="@+id/startDate_txt"
+        android:layout_width="180dp"
+        android:layout_height="47dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Data i godzina rozpoczęcia wycieczki"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_margin="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
-        android:id="@+id/MAPA"
-        android:layout_width="392dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Mapa"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/pointTitle_txt"
-        tools:layout_editor_absoluteX="10dp" />
+        android:id="@+id/finishDate_txt"
+        android:layout_width="180dp"
+        android:layout_height="47dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_margin="6dp"
+        android:text="Data i godzina zakończenia wycieczki"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    </LinearLayout>
 
-    <Button
+
+
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/back_button"
-        android:layout_width="209dp"
-        android:layout_height="51dp"
-        android:text="Back"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00D5FF"
+        android:textColor="@color/black"
+        android:text="Powróć"
+        android:layout_marginBottom="20dp"
+        app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" ></com.google.android.material.button.MaterialButton>
 </androidx.constraintlayout.widget.ConstraintLayout>

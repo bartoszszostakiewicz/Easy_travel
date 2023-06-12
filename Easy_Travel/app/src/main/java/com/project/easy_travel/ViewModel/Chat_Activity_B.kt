@@ -2,6 +2,7 @@ package com.project.easy_travel.ViewModel
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -61,6 +62,12 @@ class Chat_Activity_B : AppCompatActivity() {
         adapter = UserAdapter(this,userList)
 
         userRecyclerView = findViewById(R.id.userRecycleView)
+
+        val backButton5 = findViewById<Button>(R.id.back_button5)
+        backButton5.setOnClickListener{
+            this.finish()
+        }
+
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
