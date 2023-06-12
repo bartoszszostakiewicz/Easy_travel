@@ -254,9 +254,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (password_txt.text.toString() == password2_txt.text.toString()) {
-                register(user_name, user_surname, email_txt.text.toString(), password_txt.text.toString(), email_txt, register_button, register_email)
-            }
+            register(user_name, user_surname, email_txt.text.toString(), password_txt.text.toString(), email_txt, register_button, register_email)
         }
 
         findViewById<Button>(R.id.prev_btn_reg).setOnClickListener{
@@ -270,7 +268,7 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) {
             if (it.isSuccessful) {
 
-                val newUser = User(name, surname, email)
+                val newUser = User(name=name, surname = surname, email = email)
                 userViewModel.save(newUser, replaceDotsWithEmail(email))
 
                 this.finish()

@@ -258,6 +258,37 @@ class CreateTrip : AppCompatActivity() {
                         return@setOnClickListener
                     }
 
+                    val date_start_time : Long = convertStringToTimestamp(date_start_tripPoint.text.toString())
+                    val date_finish_time : Long = convertStringToTimestamp(date_finish_tripPoint.text.toString())
+                    Log.d("date_start_time", date_start_time.toString())
+                    Log.d("date_finish_time", date_finish_time.toString())
+
+                    if (!dialog.findViewById<EditText>(R.id.date_picker_start_actions).text.toString().isEmpty()) {
+                        Log.d("date", "is here 1")
+                        if (dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString().isEmpty()) {
+                            Log.d("date", "is here 1.1")
+                            dialog.findViewById<EditText>(R.id.date_picker_finish_actions).error = "Wpisz datę zakończenia"
+                            return@setOnClickListener
+                        } else if (date_start_time > date_finish_time) {
+                            Log.d("date", "is here 1.2")
+                            dialog.findViewById<EditText>(R.id.date_picker_finish_actions).error = "Data zakończenia musi być późniejsza niż data rozpoczęcia"
+                            return@setOnClickListener
+                        }
+                    }
+
+                    if (!dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString().isEmpty()) {
+                        Log.d("date", "is here 2")
+                        if (dialog.findViewById<EditText>(R.id.date_picker_start_actions).text.toString().isEmpty()) {
+                            Log.d("date", "is here 2.1")
+                            dialog.findViewById<EditText>(R.id.date_picker_start_actions).error = "Wpisz datę rozpoczęcia"
+                            return@setOnClickListener
+                        } else if (date_start_time > date_finish_time) {
+                            Log.d("date", "is here 2.2")
+                            dialog.findViewById<EditText>(R.id.date_picker_start_actions).error = "Data rozpoczęcia musi być wcześniejsza niż data zakończenia"
+                            return@setOnClickListener
+                        }
+                    }
+
                     val name = dialog.findViewById<EditText>(R.id.tripPointName_edttxt).text.toString()
                     val description = dialog.findViewById<EditText>(R.id.tripPointDescribe_edttxt).text.toString()
 
@@ -440,6 +471,35 @@ class PointTripListActive(
                         tripTitle.error = "Wprowadź nazwę punktu"
                         tripTitle.requestFocus()
                         return@setOnClickListener
+                    }
+
+                    val date_start_time : Long = convertStringToTimestamp(date_start_tripPoint.text.toString())
+                    val date_finish_time : Long = convertStringToTimestamp(date_finish_tripPoint.text.toString())
+
+                    if (!dialog.findViewById<EditText>(R.id.date_picker_start_actions).text.toString().isEmpty()) {
+                        Log.d("date", "is here 1")
+                        if (dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString().isEmpty()) {
+                            Log.d("date", "is here 1.1")
+                            dialog.findViewById<EditText>(R.id.date_picker_finish_actions).error = "Wpisz datę zakończenia"
+                            return@setOnClickListener
+                        } else if (date_start_time > date_finish_time) {
+                            Log.d("date", "is here 1.2")
+                            dialog.findViewById<EditText>(R.id.date_picker_finish_actions).error = "Data zakończenia musi być późniejsza niż data rozpoczęcia"
+                            return@setOnClickListener
+                        }
+                    }
+
+                    if (!dialog.findViewById<EditText>(R.id.date_picker_finish_actions).text.toString().isEmpty()) {
+                        Log.d("date", "is here 2")
+                        if (dialog.findViewById<EditText>(R.id.date_picker_start_actions).text.toString().isEmpty()) {
+                            Log.d("date", "is here 2.1")
+                            dialog.findViewById<EditText>(R.id.date_picker_start_actions).error = "Wpisz datę rozpoczęcia"
+                            return@setOnClickListener
+                        } else if (date_start_time > date_finish_time) {
+                            Log.d("date", "is here 2.2")
+                            dialog.findViewById<EditText>(R.id.date_picker_start_actions).error = "Data rozpoczęcia musi być wcześniejsza niż data zakończenia"
+                            return@setOnClickListener
+                        }
                     }
 
                     //update current trip point
