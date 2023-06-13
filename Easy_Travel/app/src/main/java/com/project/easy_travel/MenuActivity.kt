@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +57,6 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
             tripViewModel.data.observe(activity, Observer {trip ->
-                Toast.makeText(application, "Trip: ${trip.title}", Toast.LENGTH_SHORT).show()
                 pointsId = trip.tripPointsID
                 tripID = trip.id
 
