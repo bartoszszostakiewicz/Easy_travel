@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -57,7 +58,7 @@ class TripActive (
         val curMember = memberData[position]
 
         holder.itemView.apply {
-            var detailButton = findViewById<Button>(R.id.detailButton)
+            var detailButton = findViewById<ImageButton>(R.id.detailButton)
             var startDateText = findViewById<TextView>(R.id.startDateTitle)
             var tripTitle = findViewById<TextView>(R.id.tripTitle)
             if (curTrip.startDate == 0L) {
