@@ -1,6 +1,7 @@
 package com.project.easy_travel
 
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import java.util.*
 
 class TripActive (
     private val tripData: MutableList<Trip>,
+    private val memberData: MutableList<String>,
     private val intent: Intent,
     private val intent2: Intent,
     private val xmlFile: Int,
@@ -52,6 +54,7 @@ class TripActive (
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val curTrip = tripData[position]
+        val curMember = memberData[position]
 
         holder.itemView.apply {
             var detailButton = findViewById<Button>(R.id.detailButton)
@@ -65,6 +68,17 @@ class TripActive (
                 startDateText.text = "Data rozpoczęcia: ${convertTimestampToDate(curTrip.startDate)}"
             }
 
+//            if (curMember == "organizer") {
+//                val comp = tripTitle.compoundDrawables
+//                val drEnd = comp[2]
+//                drEnd?.setTint(Color.parseColor("#FF0000"))
+//                tripTitle.setCompoundDrawables(comp[0], comp[1], drEnd, comp[3])
+//            } else if (curMember == "guide") {
+//                val comp = tripTitle.compoundDrawables
+//                val drEnd = comp[2]
+//                drEnd?.setTint(Color.parseColor("#0000FF"))
+//                tripTitle.setCompoundDrawables(comp[0], comp[1], drEnd, comp[3])
+//            }
 
             tripTitle.text = curTrip.title
             detailButton.setOnClickListener {

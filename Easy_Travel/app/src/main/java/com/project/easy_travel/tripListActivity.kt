@@ -31,6 +31,7 @@ class TripListActivity : AppCompatActivity() {
 
     // View elements
     private val tripItems: MutableList<Trip> = mutableListOf()
+    private val members: MutableList<String> = mutableListOf()
 
     // View models
     private lateinit var userViewModel: UserViewModel
@@ -59,7 +60,7 @@ class TripListActivity : AppCompatActivity() {
         // --- view elements setup ---
         var organizerIntent = Intent(applicationContext, OrganizerMainActivity::class.java)
         var menuIntent = Intent(applicationContext, MenuActivity::class.java)
-        tripActive = TripActive(tripItems, menuIntent, organizerIntent, R.layout.trip_list_element, tripViewModel)
+        tripActive = TripActive(tripItems, members, menuIntent, organizerIntent, R.layout.trip_list_element, tripViewModel)
         tripList.adapter = tripActive
         tripList.layoutManager = LinearLayoutManager(this)
 
@@ -74,14 +75,24 @@ class TripListActivity : AppCompatActivity() {
 
         tripViewModel.getAllItems().observe(this, Observer { trips ->
             val tripList = mutableListOf<Trip>()
+
+            members.clear()
             for (trip in trips) {
-                if (trip.guidesID.contains(authUserWithoutDot) || trip.participantsID.contains(authUserWithoutDot) || trip.organizerID == authUserWithoutDot) {
+                if (trip.guidesID.contains(authUserWithoutDot)) {
+                    members.add("guide")
+                    tripList.add(trip)
+                } else if (trip.participantsID.contains(authUserWithoutDot)) {
+                    members.add("participant")
+                    tripList.add(trip)
+                } else if (trip.organizerID == authUserWithoutDot) {
+                    members.add("organizer")
                     tripList.add(trip)
                 }
             }
             tripItems.clear()
             tripItems.addAll(tripList)
 
+            Log.d("members", members.toString())
             this.tripActive.notifyDataSetChanged()
         })
 

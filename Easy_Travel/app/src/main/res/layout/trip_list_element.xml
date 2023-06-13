@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Trip - a list"
+        android:drawableEnd="@drawable/baseline_person_24"
         android:textSize="18sp"
         android:textColor="#0055AA"
         app:layout_constraintEnd_toStartOf="@+id/detailButton"
