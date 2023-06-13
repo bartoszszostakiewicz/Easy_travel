@@ -124,62 +124,61 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
                 descriptionList.add(point.describe)
                 dateListStart.add(point.startDate)
                 dateListFinish.add(point.finishDate)
-                dateListStartString.add("Data rozpoczęcia: "+sdf.format(point.startDate).toString())
-                dateListFinishString.add("Data zakonczenia: "+sdf.format(point.finishDate).toString())
+                dateListStartString.add(
+                    "Data rozpoczęcia: " + sdf.format(point.startDate).toString()
+                )
+                dateListFinishString.add(
+                    "Data zakonczenia: " + sdf.format(point.finishDate).toString()
+                )
 
+                if (point.lat != 0.0 && point.lng != 0.0) {
+                    if (point.startDate <= currentDate.time && point.finishDate >= currentDate.time)
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(point.toLatLng())
+                                .title(point.name)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        )
+                    else if (point.startDate > currentDate.time)
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(point.toLatLng())
+                                .title(point.name)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                        )
+                    else if (point.finishDate <= currentDate.time)
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(point.toLatLng())
+                                .title(point.name)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                        )
 
-                if(point.startDate <= currentDate.time && point.finishDate >= currentDate.time)
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(point.toLatLng())
-                            .title(point.name)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    )
-                else if(point.startDate > currentDate.time)
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(point.toLatLng())
-                            .title(point.name)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                    )
-                else if(point.finishDate <= currentDate.time)
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(point.toLatLng())
-                            .title(point.name)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                    )
-                else if(point.startDate == currentDate.time || point.finishDate == currentDate.time
-                    || (point.startDate < currentDate.time && point.finishDate > currentDate.time))
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(point.toLatLng())
-                            .title(point.name)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    )
-            }
+                }
 
-            val builder = LatLngBounds.builder()
-            for (point in listPoints) {
-                builder.include(point.toLatLng())
-            }
-            val bounds = builder.build()
-            val padding = 100
-            val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-            googleMap.moveCamera(cameraUpdate)
+                val builder = LatLngBounds.builder()
+                for (point in listPoints) {
+                    builder.include(point.toLatLng())
+                }
+                val bounds = builder.build()
+                val padding = 100
+                val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                googleMap.moveCamera(cameraUpdate)
 
-            googleMap.setOnMarkerClickListener { marker ->
-                var i = titleList.indexOf(marker.title)
+                googleMap.setOnMarkerClickListener { marker ->
+                    var i = titleList.indexOf(marker.title)
 
-                val title = marker.title
-                val description = descriptionList[i] + "\n" + dateListStartString[i] + "\n" + dateListFinishString[i]
-                AlertDialog.Builder(activity)
-                    .setTitle(title)
-                    .setMessage(description)
-                    .setPositiveButton("Wróć", null)
-                    .show()
+                    val title = marker.title
+                    val description =
+                        descriptionList[i] + "\n" + dateListStartString[i] + "\n" + dateListFinishString[i]
+                    AlertDialog.Builder(activity)
+                        .setTitle(title)
+                        .setMessage(description)
+                        .setPositiveButton("Wróć", null)
+                        .show()
 
-                true
+                    true
+                }
             }
         }
     }

@@ -104,6 +104,9 @@ class ChatActivity : AppCompatActivity() {
         sendButton.setOnClickListener{
 
             val message = messageBox.text.toString()
+            if(message.isEmpty()){
+                return@setOnClickListener
+            }
             val messageObject = Message(message,senderEmail)
 
             mDbRef.child("chats").child(senderRoom!!).child("messages").push()

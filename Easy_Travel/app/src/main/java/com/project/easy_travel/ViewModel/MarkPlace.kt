@@ -63,10 +63,14 @@ class MarkPlace : Fragment() {
         view.findViewById<MaterialButton>(R.id.addPlaceButton).setOnClickListener {
 
             var placeNameEditText = view.findViewById<EditText>(R.id.placeNameEditText)
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            getLocationAndSaveToFirebase(placeNameEditText.text.toString(), tripPointViewModel)
+            if (placeNameEditText.text.isNotEmpty()) {
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+                getLocationAndSaveToFirebase(placeNameEditText.text.toString(), tripPointViewModel)
+            } else {
+                Toast.makeText(requireContext(), "Wpisz nazwę miejsca!", Toast.LENGTH_SHORT).show()
+            }
         }
-        
+
         return view
     }
 
