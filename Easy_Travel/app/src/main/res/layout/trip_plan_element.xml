@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:paddingStart="15dp"
+    android:paddingStart="5dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginLeft="5dp"
@@ -25,14 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/detailButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#00D5FF"
-        android:textColor="@color/black"
-        android:text="->"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
         android:elevation="10dp"
+        android:backgroundTint="#00D5FF"
+        android:src="@drawable/baseline_checklist_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
         android:id="@+id/startDateTitle"
         android:layout_width="305dp"
         android:layout_height="21dp"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="55dp"
         android:text="Data rozpoczęcia"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"

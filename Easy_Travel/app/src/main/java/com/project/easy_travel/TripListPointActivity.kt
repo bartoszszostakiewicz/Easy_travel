@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -95,7 +96,7 @@ class TripPointAdapter (
 
         holder.itemView.apply {
             var tripText = findViewById<TextView>(R.id.tripTitle)
-            var detail_button = findViewById<Button>(R.id.detailButton)
+            var detail_button = findViewById<ImageButton>(R.id.detailButton)
             var startDateText = findViewById<TextView>(R.id.startDateTitle)
 
             var dateText = ""

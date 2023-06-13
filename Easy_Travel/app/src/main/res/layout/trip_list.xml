@@ -15,8 +15,18 @@
         android:layout_marginEnd="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/baseline_logout_24"
-         />
+        android:src="@drawable/baseline_logout_24"/>
+    <ImageView
+        android:id="@+id/create_trip_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/baseline_settings_24" />
+
     <TextView
         android:id="@+id/hello_txt"
         android:layout_below="@+id/logOutButton"

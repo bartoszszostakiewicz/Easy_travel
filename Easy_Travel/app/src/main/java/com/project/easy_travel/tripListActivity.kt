@@ -57,6 +57,10 @@ class TripListActivity : AppCompatActivity() {
         val tripList = findViewById<RecyclerView>(R.id.tripList)
         val backBtn = findViewById<ImageView>(R.id.logOutButton)
 
+        findViewById<ImageView>(R.id.create_trip_button2).setOnClickListener{
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+        }
+
         // --- view elements setup ---
         var organizerIntent = Intent(applicationContext, OrganizerMainActivity::class.java)
         var menuIntent = Intent(applicationContext, MenuActivity::class.java)
