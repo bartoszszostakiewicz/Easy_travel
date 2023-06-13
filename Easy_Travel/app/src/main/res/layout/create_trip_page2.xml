@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -17,7 +16,7 @@
         android:padding="40dp"
         android:text="Tworzenie wycieczki"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        style="@style/TEXT"
         android:textSize="40sp"
         android:textStyle="bold" />
 
@@ -32,7 +31,7 @@
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
         android:textSize="15sp"
-        android:textColor="@color/black"
+        style="@style/TEXT"
         android:text="Punkty Wycieczki"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -42,9 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="0dp" />
 
 
