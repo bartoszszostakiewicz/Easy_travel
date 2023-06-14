@@ -35,11 +35,7 @@
 
             <Space
                 android:layout_width="match_parent"
-<<<<<<< HEAD
                 android:layout_height="119dp" />
-=======
-                android:layout_height="150dp" />
->>>>>>> 30dea21782adb8d8b612e3acda21344142850be0
 
             <Button
                 android:id="@+id/edit_trip_name"
@@ -82,11 +78,7 @@
 
             <Space
                 android:layout_width="match_parent"
-<<<<<<< HEAD
-                android:layout_height="124dp" />
-=======
                 android:layout_height="50dp" />
->>>>>>> 30dea21782adb8d8b612e3acda21344142850be0
 
             <Button
                 android:id="@+id/del_trip"

@@ -10,17 +10,6 @@
     <EditText
         android:id="@+id/placeNameEditText"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_marginTop="40dp"
-        android:background="#FFFFFF"
-        android:hint="Wpisz nazwę miejsca"
-        android:inputType="text"
-        android:outlineProvider="background"
-        android:outlineSpotShadowColor="@color/black"
-<<<<<<< HEAD
-        android:textColor="@color/black" />
-=======
-        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:textStyle="bold"
         android:layout_marginTop="140dp"
@@ -28,7 +17,6 @@
         android:layout_marginEnd="40dp"
         android:hint="Wpisz nazwę miejsca"
         android:inputType="text" />
->>>>>>> 30dea21782adb8d8b612e3acda21344142850be0
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addPlaceButton"
