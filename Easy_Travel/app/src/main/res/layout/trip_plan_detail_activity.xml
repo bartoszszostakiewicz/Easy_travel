@@ -128,7 +128,7 @@
 
     <TextView
         android:id="@+id/startDate_txt"
-        android:layout_width="170dp"
+        android:layout_width="165dp"
         android:layout_height="47dp"
         android:textAlignment="center"
         android:gravity="center"
@@ -144,7 +144,7 @@
 
     <TextView
         android:id="@+id/finishDate_txt"
-        android:layout_width="170dp"
+        android:layout_width="165dp"
         android:layout_height="47dp"
         android:textAlignment="center"
         android:gravity="center"
