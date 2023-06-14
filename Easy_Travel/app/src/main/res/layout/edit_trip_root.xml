@@ -16,9 +16,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/text_title"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_below="@+id/title_txt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:text="Edycja wycieczki. Jesteś zalogowany jako "
+                android:textSize="17sp" />
+
+
+
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="119dp" />
 
             <Button
                 android:id="@+id/edit_trip_name"
@@ -53,7 +70,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="124dp" />
 
             <Button
                 android:id="@+id/del_trip"

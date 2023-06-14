@@ -69,19 +69,16 @@ class TripActive (
                 startDateText.text = "Data rozpoczęcia: ${convertTimestampToDate(curTrip.startDate)}"
             }
 
-//            if (curMember == "organizer") {
-//                val comp = tripTitle.compoundDrawables
-//                val drEnd = comp[2]
-//                drEnd?.setTint(Color.parseColor("#FF0000"))
-//                tripTitle.setCompoundDrawables(comp[0], comp[1], drEnd, comp[3])
-//            } else if (curMember == "guide") {
-//                val comp = tripTitle.compoundDrawables
-//                val drEnd = comp[2]
-//                drEnd?.setTint(Color.parseColor("#0000FF"))
-//                tripTitle.setCompoundDrawables(comp[0], comp[1], drEnd, comp[3])
-//            }
-
             tripTitle.text = curTrip.title
+
+
+            if (curMember == "organizer") {
+                tripTitle.setTextColor(Color.parseColor("#FF4444"))
+            } else if (curMember == "guide") {
+                tripTitle.setTextColor(Color.parseColor("#44AA44"))
+            }
+            tripTitle.invalidate()
+
             detailButton.setOnClickListener {
                 tripViewModel.setData(curTrip)
                 var currentUserID = FirebaseAuth.getInstance().currentUser?.email.toString().replace(".", "_")

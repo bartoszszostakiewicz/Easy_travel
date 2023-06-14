@@ -9,14 +9,15 @@
 
     <EditText
         android:id="@+id/placeNameEditText"
-        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginTop="40dp"
+        android:background="#FFFFFF"
+        android:hint="Wpisz nazwę miejsca"
+        android:inputType="text"
         android:outlineProvider="background"
         android:outlineSpotShadowColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="259dp"
-        android:layout_marginTop="40dp"
-        android:hint="Wpisz nazwę miejsca"
-        android:inputType="text" />
+        android:textColor="@color/black" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addPlaceButton"

@@ -54,8 +54,6 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
             tripViewModel = application.tripViewModel //ViewModelProvider(this).get(TripViewModel::class.java)
             tripPointViewModel = application.tripPointViewModel
 
-
-
             tripViewModel.data.observe(activity, Observer {trip ->
                 pointsId = trip.tripPointsID
                 tripID = trip.id

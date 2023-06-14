@@ -75,8 +75,11 @@ class OrganizerEditActivity : AppCompatActivity() {
 
         tripViewModel.data.observe(this, Observer {trip ->
             if (trip.organizerID == userAuth) {
+                findViewById<TextView>(R.id.text_title).text = "Edycja wycieczki. Jesteś zalogowany jako organizator."
                 findViewById<Button>(R.id.del_trip).isEnabled = true
                 findViewById<Button>(R.id.del_trip).alpha = 1f
+            } else {
+                findViewById<TextView>(R.id.text_title).text = "Edycja wycieczki. Jesteś zalogowany jako przewodnik."
             }
         })
 

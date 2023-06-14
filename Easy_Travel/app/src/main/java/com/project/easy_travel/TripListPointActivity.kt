@@ -1,7 +1,10 @@
 package com.project.easy_travel
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -103,15 +106,20 @@ class TripPointAdapter (
 
             if (curTripPoint.startDate == 0L) {
                 dateText = "Data rozpoczęcia: Nie zaznaczono"
+                // color detail button to #FF0000
+
             } else {
                 if (curTripPoint.finishDate < Date().time && curTripPoint.finishDate != 0L && curTripPoint.startDate != 0L && curTripPoint.startDate < Date().time) {
                     dateText = "Zwiedzanie zostało zakończone"
+                    detail_button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6666")))
                 } else {
                     if (curTripPoint.startDate < Date().time) {
                         dateText = "Zwiedzanie tego punktu trwa"
+                        detail_button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#66FF66")))
                     } else {
                         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                         dateText = "Data rozpoczęcia: " + sdf.format(curTripPoint.startDate).toString()
+                        detail_button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF66")))
                     }
                 }
             }
