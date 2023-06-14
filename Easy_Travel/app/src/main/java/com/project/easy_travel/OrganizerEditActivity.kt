@@ -116,10 +116,22 @@ class OrganizerEditActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.del_trip).setOnClickListener{
-            deleteTrip()
-            intent = Intent(this, TripListActivity::class.java)
-            startActivity(intent)
-            this.finish()
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.dialog_confirm)
+
+            val yes_btn = dialog.findViewById<Button>(R.id.yes_btn)
+            val no_btn = dialog.findViewById<Button>(R.id.no_btn)
+
+            yes_btn.setOnClickListener {
+                deleteTrip()
+                intent = Intent(this, TripListActivity::class.java)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+            no_btn.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
         }
     }
 
