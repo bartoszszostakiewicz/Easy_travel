@@ -18,12 +18,14 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="150dp" />
 
             <Button
                 android:id="@+id/edit_trip_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:backgroundTint="#55FF7A"
                 android:text="zmien nazwe/opis"
                 android:textColor="@color/black" />
@@ -31,7 +33,9 @@
             <Button
                 android:id="@+id/edit_trip_events"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:backgroundTint="#55FF7A"
                 android:text="edytuj punkty wycieczki"
                 android:textColor="@color/black" />
@@ -39,7 +43,9 @@
             <Button
                 android:id="@+id/edit_trip_members"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:backgroundTint="#55FF7A"
                 android:text="zarzadzaj uczestnikami"
                 android:textColor="@color/black" />
@@ -47,18 +53,22 @@
             <Button
                 android:id="@+id/edit_trip_return"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:text="Powróć"
                 android:textColor="@color/black" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="50dp" />
 
             <Button
                 android:id="@+id/del_trip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:text="Usuń wycieczkę"
                 android:alpha="0"
                 android:enabled="false"

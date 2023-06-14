@@ -26,7 +26,7 @@
         android:layout_height="26dp"
 
         android:gravity="center"
-        style = "@style/TEXT"
+        android:textColor="#535353"
         android:text="Type"
         android:textSize="20sp"
         android:textStyle="bold"
