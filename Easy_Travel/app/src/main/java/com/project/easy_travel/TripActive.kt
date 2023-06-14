@@ -85,7 +85,7 @@ class TripActive (
             detailButton.setOnClickListener {
                 tripViewModel.setData(curTrip)
                 var currentUserID = FirebaseAuth.getInstance().currentUser?.email.toString().replace(".", "_")
-                if(currentUserID == curTrip.organizerID)
+                if(currentUserID == curTrip.organizerID || curTrip.guidesID.contains(currentUserID))
                 {
                     intent2.putExtra("trip_id", curTrip.id)
                     context.startActivity(intent2)

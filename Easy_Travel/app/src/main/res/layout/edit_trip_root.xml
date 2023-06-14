@@ -29,13 +29,6 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/edit_trip_return"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Powróć"
-                android:textColor="@color/black" />
-
-            <Button
                 android:id="@+id/edit_trip_events"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,9 +44,26 @@
                 android:text="zarzadzaj uczestnikami"
                 android:textColor="@color/black" />
 
+            <Button
+                android:id="@+id/edit_trip_return"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Powróć"
+                android:textColor="@color/black" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
+
+            <Button
+                android:id="@+id/del_trip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Usuń wycieczkę"
+                android:alpha="0"
+                android:enabled="false"
+                android:backgroundTint="#ED5555"
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 
