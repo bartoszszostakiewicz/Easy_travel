@@ -26,6 +26,7 @@ import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.coroutines.Dispatchers.Unconfined
+import com.google.firebase.auth.FirebaseAuth
 
 class OrganizerEditActivity : AppCompatActivity() {
 
@@ -70,7 +71,14 @@ class OrganizerEditActivity : AppCompatActivity() {
         Log.d(TAG, trip_id)
         //var loaded_data = tripViewModel.load(trip_id)
 
+        val userAuth = replaceDotsWithEmail(FirebaseAuth.getInstance().currentUser?.email.toString())
 
+        tripViewModel.data.observe(this, Observer {trip ->
+            if (trip.organizerID == userAuth) {
+                findViewById<Button>(R.id.del_trip).isEnabled = true
+                findViewById<Button>(R.id.del_trip).alpha = 1f
+            }
+        })
 
         //TODO: change read data to complete model when ready
         trip_fb_instance.get().addOnCompleteListener {
@@ -106,6 +114,29 @@ class OrganizerEditActivity : AppCompatActivity() {
         findViewById<Button>(R.id.edit_trip_return).setOnClickListener{
             this.finish()
         }
+
+        findViewById<Button>(R.id.del_trip).setOnClickListener{
+            deleteTrip()
+            intent = Intent(this, TripListActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
+    }
+
+    private fun deleteTrip(){
+        tripViewModel.data.observe(this, Observer {trip ->
+
+            // points in trip.points
+            for (point in trip.tripPointsID) {
+                tripPointViewModel.getById(point).observe(this, Observer {point ->
+                    if (point != null) {
+                        tripPointViewModel.delete(point.id)
+                    }
+                })
+            }
+
+            tripViewModel.delete(trip.id)
+        })
     }
 
     private fun editName(){
@@ -378,5 +409,9 @@ class OrganizerEditActivity : AppCompatActivity() {
             }
             editRoot()
         }
+    }
+
+    fun replaceDotsWithEmail(email: String): String {
+        return email.replace(".", "_")
     }
 }
