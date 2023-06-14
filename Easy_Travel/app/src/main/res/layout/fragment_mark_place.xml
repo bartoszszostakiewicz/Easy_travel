@@ -17,15 +17,28 @@
         android:inputType="text"
         android:outlineProvider="background"
         android:outlineSpotShadowColor="@color/black"
+<<<<<<< HEAD
         android:textColor="@color/black" />
+=======
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textStyle="bold"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="Wpisz nazwę miejsca"
+        android:inputType="text" />
+>>>>>>> 30dea21782adb8d8b612e3acda21344142850be0
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addPlaceButton"
-        android:layout_width="389dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="40dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="10dp"
         android:text="Dodaj miejsce" />
 
