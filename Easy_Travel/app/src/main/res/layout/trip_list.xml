@@ -8,20 +8,20 @@
 
     <ImageView
         android:id="@+id/logOutButton"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="350dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="20dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/baseline_logout_24"/>
     <ImageView
         android:id="@+id/create_trip_button2"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="350dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
