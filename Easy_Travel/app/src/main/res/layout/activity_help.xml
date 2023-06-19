@@ -36,7 +36,7 @@
 
         <com.google.android.material.button.MaterialButton
         android:id="@+id/organizer_chat_button"
-        android:layout_width="165dp"
+        android:layout_width="200dp"
             android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#00D5FF"
