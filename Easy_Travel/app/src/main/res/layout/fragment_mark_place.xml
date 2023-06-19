@@ -10,9 +10,11 @@
     <EditText
         android:id="@+id/placeNameEditText"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:textStyle="bold"
-        android:layout_marginTop="140dp"
+        android:paddingLeft="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginTop="160dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:hint="Wpisz nazwę miejsca"
