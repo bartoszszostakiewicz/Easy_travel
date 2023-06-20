@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -46,8 +48,16 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
         private var listPoints = mutableListOf<Point>()
         private var pointsId : List<String> = listOf()
 
+        lateinit var priv_change_toast :Toast
+
         fun LayoutSetup(activity: AppCompatActivity, view: View, application : MainApplication)
         {
+            priv_change_toast = Toast.makeText(
+            activity.applicationContext,
+            "Przywileje zmienione",
+            Toast.LENGTH_LONG
+            )
+
             listPoints = mutableListOf<Point>()
             pointsId = listOf()
 
@@ -187,7 +197,16 @@ class MenuActivity : AppCompatActivity(), OnMapReadyCallback {
         val application = applicationContext as MainApplication
         val main_map = findViewById<ConstraintLayout>(R.id.frameLayout)
 
+
         LayoutSetup(this, main_map, application)
+
+        tripViewModel.data.observe(this, Observer { trip ->
+            val currUsrID = FirebaseAuth.getInstance().currentUser?.email.toString().replace(".", "_")
+            if(!trip.participantsID.contains(currUsrID))
+            {
+                priv_change_toast.show()
+            }
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

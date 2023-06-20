@@ -54,6 +54,8 @@ class OrganizerEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         trip_id = intent.getStringExtra("trip_id").toString()
         application = applicationContext as MainApplication
 
@@ -86,6 +88,8 @@ class OrganizerEditActivity : AppCompatActivity() {
         //TODO: change read data to complete model when ready
         trip_fb_instance.get().addOnCompleteListener {
             trip_data = it.result.getValue(Trip::class.java)
+            trip_data!!.id = trip_id
+            tripViewModel.setData(trip_data!!)
             Log.d("read success", trip_data.toString())
         }.addOnFailureListener {
             Log.e("read error", it.toString())
@@ -139,6 +143,8 @@ class OrganizerEditActivity : AppCompatActivity() {
     }
 
     private fun deleteTrip(){
+
+
         tripViewModel.data.observe(this, Observer {trip ->
 
             // points in trip.points

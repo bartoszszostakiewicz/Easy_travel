@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.easy_travel.Model.InvitedUser
@@ -46,16 +47,28 @@ class OrganizerMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         setContentView(R.layout.organizer_main)
 
+        val application = applicationContext as MainApplication
+
+
+
+
+
         findViewById<ImageButton>(R.id.button_edit_trip).setOnClickListener {
             var intent = Intent(applicationContext, OrganizerEditActivity::class.java)
             intent.putExtra("trip_id", trip_id)
             startActivity(intent)
         }
 
-        val application = applicationContext as MainApplication
         var main_map = findViewById<ConstraintLayout>(R.id.include_main_map)
 
         MenuActivity.LayoutSetup(this, main_map, application)
+
+        val currUsrID = FirebaseAuth.getInstance().currentUser?.email.toString().replace(".", "_")
+        application.tripViewModel.data.observe(this) {
+            if (it.organizerID != currUsrID && !it.guidesID.contains(currUsrID)) {
+                MenuActivity.priv_change_toast.show()
+            }
+        }
     }
 
 
